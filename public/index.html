@@ -4,37 +4,148 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <title>Five Tribes Companion</title>
+    <style type="text/css">
+      body {
+        background: #000;
+        margin: 0;
+        box-sizing: border-box;
+      }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+      .splashscreen {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .splashscreen-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .splashscreen-image svg {
+        width: 50vw;
+        fill: #FFF;
+      }
+
+      .bar-animation {
+        width: 100%;
+        height: 8px;
+        background: #1A1A1A;
+      }
+
+      .indicator1, 
+      .indicator2, 
+      .indicator3, 
+      .indicator4 {
+        display: block;
+        width: 100%;
+        height: 8px;
+        transform: scaleX(0);
+      }
+
+      .indicator1 {
+        background: #4D4d4D;
+        animation: indicator1 3000ms linear infinite;
+      }
+      .indicator2 {
+        background: #808080;
+        animation: indicator2 3000ms linear infinite;
+      }
+      .indicator3 {
+        background: #fff;
+        animation: indicator3 3000ms linear infinite;
+      }
+      .indicator4 {
+        background: #1A1A1A;
+        animation: indicator4 3000ms linear infinite;
+      }
+
+      @keyframes indicator1 {
+        0% {
+          transform: scaleX(0);
+        }
+        75% {
+          transform: scaleX(1);
+        }
+        100% {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes indicator2 {
+        0% {
+          transform: scaleX(0);
+        }
+        25% {
+          transform: scaleX(0);
+        }
+        75% {
+          transform: scaleX(1);
+        }
+        100% {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes indicator3 {
+        0% {
+          transform: scaleX(0);
+        }
+        50% {
+          transform: scaleX(0);
+        }
+        75% {
+          transform: scaleX(1);
+        }
+        100% {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes indicator4 {
+        0% {
+          transform: scaleX(0);
+        }
+        75% {
+          transform: scaleX(0);
+        }
+        100% {
+          transform: scaleX(1); 
+        }
+      }
+    </style>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="root">
+      <div class="splashscreen">
+        <div class="splashscreen-image">
+          <svg x="0px" y="0px" width="372.8px" height="253px" viewBox="0 0 372.8 253">
+            <path class="st0" d="M18.7,208.1c-3.4,2.4-6.7,5-10,7.7c-9.6,7.8-11.8,28.3-4,37.2c108.4,0,216.9,0,325.3,0
+              c1.9-5.9,3.7-11.7,5.2-16.3c-4.6-4.3-8.4-7.7-11.9-11.3c-7.4-7.5-7.8-17.2-3.3-26.4c15.5-31.5,28.3-59.5,26.2-95.7
+              c-0.9-14.6-10.4-24.3-12.1-38.3c-0.8-6.5,0.5-15.9,7.2-19c5-2.3,10.6-2.7,15.6-4.9c4.8-2.1,8.9-5.5,12.3-9.4c3-3.4,3.9-5.9,3.3-7.7
+              c-1-3.2-6.2-4.9-11.3-7.4c-4.9-2.4-9.8-4.8-14.6-7.3c-16-8.2-32.4-11.9-50.4-7.3c-10.1,2.6-14.1,6.5-14.4,17
+              c-0.1,5.5-0.4,11-0.2,16.5c0.5,17-21.7,33.3-30,46.8c-5.4,8.6-24.4,16.4-34.1,13.8c-10.9-2.9-13.7-25.5-18.8-34.3
+              c-7-12-17.2-22.5-27.4-31.3c-22.5-19.4-40.2-19.6-65.7-4.4C87.1,37.3,72,52.7,59,69.5c-8.4,10.8-12.4,24.9-18.8,37.3
+              c-2.2,4.4-4.6,9.5-8.4,12c-15.1,9.9-21.7,23.8-19.7,41.1c0.7,6.3,4.7,13.2,9.1,18C31.2,188.7,30.8,199.5,18.7,208.1z"/>
+          </svg>
+        </div>
+        <div class="bar-animation">
+          <span class="indicator1" />
+          <span class="indicator2" />
+          <span class="indicator3" />
+          <span class="indicator4" />
+        </div>
+      </div>
+    </div>
   </body>
 </html>
