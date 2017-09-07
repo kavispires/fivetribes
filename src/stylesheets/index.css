@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css?family=Bitter:400,700");
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-size: 16px; }
+
+* {
+  box-sizing: border-box;
+  font-family: 'Bitter', serif; }
+
+.btn {
+  min-width: calc(20% - 16px);
+  border: 0;
+  border-radius: 3px;
+  margin: 8px;
+  font-size: 1em;
+  font-weight: bold; }
+
+.btn-primary {
+  background: #d4af37; }
+
+.btn-secondary {
+  background: #d4bf7b; }
+
+.btn-1 {
+  width: calc((100% / 1) - 16px); }
+
+.btn-2 {
+  width: calc((100% / 2) - 16px); }
+
+.btn-3 {
+  width: calc((100% / 3) - 16px); }
+
+.btn-4 {
+  width: calc((100% / 4) - 16px); }
+
+.btn-5 {
+  width: calc((100% / 5) - 16px); }
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column; }
+
+.screen-header {
+  height: 8vh;
+  overflow: hidden;
+  background: #000; }
+  .screen-header img {
+    max-height: 100%; }
+
+.screen-footer {
+  height: 8vh;
+  border-top: 1px solid #b3b5b4;
+  background: #c7c8ca;
+  display: flex;
+  justify-content: center; }
+
+.screen-footer-bar {
+  width: 100%;
+  height: 4px;
+  background: #000; }
+
+.screen-main {
+  flex: 1;
+  overflow: scroll;
+  background: linear-gradient(#fff, #e3e4e5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; }
+
+.content h1 {
+  font-size: 1.2em;
+  text-align: center;
+  margin: 8px 0; }
+
+.content-box {
+  background: #e3e4e5;
+  border: 1px solid #c7c8ca;
+  border-radius: 4px;
+  margin: 0 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column; }
+  .content-box img {
+    max-width: 50%;
+    display: block;
+    margin: 0 auto; }
+
+.content-nav {
+  margin-top: 8px;
+  text-align: center; }

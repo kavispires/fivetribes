@@ -1,0 +1,30 @@
+@import './variables.scss';
+
+.content {
+	h1 {
+		font-size: 1.2em;
+		text-align: center;
+		margin: $unit 0;
+	}
+}
+
+.content-box {
+	background: $lightGrey;
+	border: 1px solid $grey;
+	border-radius: $halfUnit;
+	margin: 0 $doubleUnit;
+	padding: $doubleUnit;
+	display: flex;
+	flex-direction: column;
+
+	img {
+		max-width: 50%;
+		display: block;
+		margin: 0 auto;
+	}
+}
+
+.content-nav {
+	margin-top: $unit;
+	text-align: center;
+}
