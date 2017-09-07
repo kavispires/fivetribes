@@ -1,12 +1,22 @@
 import React from 'react';
 
-const Footer = () => {
+const Footer = ({props}) => {
+
+	// Shows nav bar when nav array has any buttons
+	const footerClass = props.nav.length > 0 ? 'screen-footer' : 'screen-footer-bar';
+
+	const buttonClasses = `btn btn-primary btn-${props.nav.length}`;
+
   return (
-    <footer className="screen-footer">
-      <input type="button" name="" className="btn btn-primary" value="Back" />
-      <input type="button" name="" className="btn btn-primary" value="Next" />
-      <input type="button" name="" className="btn btn-primary" value="Done" />
-    </footer>
+  	<footer className={footerClass}>
+  	{
+  		props.nav.map((item, i) => {
+  			return (
+  				<input key={item} type="button" name="" className={buttonClasses} value={item} />
+  			);
+  		})
+  	}
+  	</footer>
   );
 };
 

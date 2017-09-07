@@ -45,7 +45,8 @@ body {
 	background: $grey;
 	// box-shadow: 0 5px 20px $primary;
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
+	outline: 1px solid green;
 }
 
 .screen-footer-bar {

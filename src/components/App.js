@@ -17,11 +17,7 @@ class App extends Component {
             ? <Hint hint={scorer.hint} />
             : null
         }
-        {
-          app.mode
-            ? <Footer />
-            : <footer className="screen-footer-bar" />
-        }
+        <Footer props={app} />
       </div>
     );
   }

@@ -6,10 +6,17 @@ import {
 	selectMode
 } from '../reducers/app';
 
+import {
+	setExpansions,
+	setNumPlayers,
+} from '../reducers/scorer';
+
 const mapStateToProps = (state) => ({ app: state.app, scorer: state.scorer });
 
 const mapDispatchToProps = {
-	selectMode
+	selectMode,
+	setExpansions,
+	setNumPlayers,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

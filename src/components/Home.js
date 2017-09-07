@@ -13,7 +13,7 @@ const Home = ({props}) => {
                 ? <input className="btn btn-3 btn-secondary" type="button" name="continue-scorer" value="Continue" onClick={props.selectMode} />
                 : null
             }
-            <input className="btn btn-3 btn-primary" type="button" name="new-scorer" value="New"  onClick={props.selectMode} />
+            <input className="btn btn-3 btn-primary" type="button" name="new-scorer" value="New" onClick={props.selectMode} />
           </nav>
         </div>
       </section>
@@ -27,7 +27,7 @@ const Home = ({props}) => {
                 ? <input className="btn btn-3 btn-secondary" type="button" name="continue-solitaire" value="Continue" onClick={props.selectMode} />
                 : null
             }
-            <input className="btn btn-3 btn-primary" type="button" name="new-solitaire" value="New"  onClick={props.selectMode} />
+            <input className="btn btn-3 btn-primary" type="button" name="new-solitaire" value="New" onClick={props.selectMode} />
           </nav>
         </div>
       </section>

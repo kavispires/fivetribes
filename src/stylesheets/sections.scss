@@ -28,3 +28,65 @@
 	margin-top: $unit;
 	text-align: center;
 }
+
+.content-list {
+	@extend .content-box;
+	flex-direction: row;
+	justify-content: space-evenly;
+	list-style: none;
+	
+	.content-item {
+		text-align: center;
+		padding: $halfUnit;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 100%;
+
+		input[type="radio"], 
+		input[type="checkbox"] {
+			display: none;
+		}
+
+		input[type="radio"] + label, 
+		input[type="checkbox"] + label {
+			display: block;
+			cursor: pointer;
+
+			img {
+				max-width: 100%;
+			}
+			
+			.label-text {
+				display: block;
+				border-radius: 3px;
+				font-size: 1em;
+				font-weight: bold;
+				margin-top: $unit;
+				padding: $halfUnit $unit;
+				background: $lightGold;
+			}
+
+			.label-checkmark {
+				display: none;
+				width: 16px;
+				height: 16px;
+				background: url('/images/options/checkmark.png') left top no-repeat;
+			}
+		}
+
+		input[type="radio"]:checked + label, 
+		input[type="checkbox"]:checked + label {
+			.label-text {
+				background: $gold;
+			}
+
+			.label-checkmark {
+				display: inline-block;
+				position: absolute;
+		    margin: -8px -4px 0 0;
+				background: url('/images/options/checkmark.png') left top norepeat;
+			}
+		}
+	}
+}

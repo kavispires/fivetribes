@@ -17,10 +17,14 @@
 	background: $lightGold;
 }
 
-@for $i from 1 through 5 {
+@for $i from 2 through 5 {
     $width: calc((100% / #{$i}) - #{$doubleUnit});
 
     .btn-#{$i} {
         width: $width;
     }
+}
+
+.btn-1 {
+	width: calc(50% - #{$doubleUnit});
 }
