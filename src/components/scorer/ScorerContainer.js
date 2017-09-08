@@ -42,7 +42,7 @@ const ScorerContainer = ({props}) => {
 			activeComponent = <Options props={props} />;
 			break;
 
-		case 'previousItems':
+		case 'preciousItems':
 			activeComponent = <PreciousItems props={props} />;
 			break;
 

@@ -4,10 +4,10 @@ import RowHeader from './RowHeader';
 import RowNumber from './RowNumber';
 
 import {
-  CATEGORIES_MERCH,
+  CATEGORIES_ITEMS,
 } from '../../constants';
 
-const Oasis = ({props}) => {
+const PreciousItems = ({props}) => {
   const {scorer} = props;
 
 	return (
@@ -15,8 +15,13 @@ const Oasis = ({props}) => {
       <ul className="scorer-table">
         <RowHeader total={scorer.total} />
         {
-          CATEGORIES_MERCH.map((category) => (
-            <RowNumber key={category} type={category} scorer={scorer} />
+          CATEGORIES_ITEMS.map((category) => (
+            <RowNumber
+              key={category}
+              type={category}
+              screen={scorer.screen}
+              cells={scorer.preciousItemsPoints[category]}
+              action={props.updateCell} />
           ))
         }
       </ul>
@@ -24,4 +29,4 @@ const Oasis = ({props}) => {
   );
 };
 
-export default Oasis;
+export default PreciousItems;

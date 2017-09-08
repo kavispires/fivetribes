@@ -32,6 +32,10 @@
 		border: 0;
 		border-radius: $halfUnit;
 		text-align: center;
+
+		&::placeholder {
+			color: $primary;
+		}
 	}
 
 	span {

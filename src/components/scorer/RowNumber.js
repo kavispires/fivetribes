@@ -2,7 +2,7 @@ import React from 'react';
 
 import { COLORS } from '../../constants';
 
-const RowNumber = ({type, cells, action}) => {
+const RowNumber = ({type, screen, cells, action}) => {
   return (
     <li className="row" >
       <div className="cell-cat">
@@ -11,7 +11,7 @@ const RowNumber = ({type, cells, action}) => {
       {
         cells.map((value, i) => (
           <div key={`${type}-${COLORS[i]}`} className={`cell-${cells.length}`}>
-            <input type="number" name={`${type}-${i}`} placeholder={value} onChange={ action } />
+            <input type="number" name={`${screen}-${type}-${i}`} placeholder={value} onChange={ action } />
           </div>
         ))
       }

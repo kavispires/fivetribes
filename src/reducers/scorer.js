@@ -132,14 +132,32 @@ export default function reducer(prevState = initialState, action) {
 
 export const calculateScore = () => (dispatch, getState) => {
   const playerPoints = Object.assign({}, getState().scorer.playerPoints);
-  const total = [...getState().scorer.total];
+  const total = new Array(getState().scorer.total.length).fill(0);
+  // const artisansExpansion = getState().scorer.artisansExpansion;
+  const whimsExpansion = getState().scorer.whimsExpansion;
 
   CATEGORIES.forEach(category => {
-    // TO-DO Compute Right number of points
-    playerPoints[category].forEach((pts, i) => { total[i] += pts; });
-    // TO-DO Compute Viziers Bonus
-    // TO-DO Compute Artisans Bonus if expansion
+    playerPoints[category].forEach((pts, i) => {
+      // 2 points per artisan and elder
+      if (category === 'artisans' || category === 'elders') {
+        total[i] += pts * 2;
+      }
+      // if not using whims expansion, 3 points per oasis
+      else if (!whimsExpansion && category === 'oasisTotal') {
+        total[i] += pts * 3;
+      }
+      // if not using whims expansion, 5 points per village
+      else if (!whimsExpansion && category === 'villagesTotal') {
+        total[i] += pts * 5;
+      }
+      else {
+        total[i] += pts;
+      }
+    });
   });
+
+  // TO-DO Compute Viziers Bonus
+  // TO-DO Compute Artisans Bonus if expansion
 
   dispatch(setTotal(total));
 };
@@ -147,16 +165,17 @@ export const calculateScore = () => (dispatch, getState) => {
 export const calculateMerch = () => (dispatch, getState) => {
   const playerPoints = Object.assign({}, getState().scorer.playerPoints);
   const merchPoints = Object.assign({}, getState().scorer.merchPoints);
-  const merchCopy = [...playerPoints.merch];
+
+  const newMerchArray = new Array(playerPoints.merch.length).fill(0);
 
   const POINTS_PER_SET = [0, 1, 3, 7, 13, 21, 30, 40, 50, 60];
 
-  // Iterate through merchPoins and create array per player
+  // Iterate through merchPoints and create array per player
   const merchArrays = {};
 
   for (let key in merchPoints) {
     if (merchPoints.hasOwnProperty(key)) {
-      for (let i = 0; i < merchCopy.length; i++) {
+      for (let i = 0; i < newMerchArray.length; i++) {
         if (merchArrays[i] === undefined) {
           merchArrays[i] = [];
         }
@@ -175,14 +194,41 @@ export const calculateMerch = () => (dispatch, getState) => {
         // Remove zeroes
         merchArrays[key] = merchArrays[key].filter((a) => a > 0);
         // Count length and award points according to POINST_PER_SET
-        merchCopy[key] += POINTS_PER_SET[merchArrays[key].length];
+        newMerchArray[key] += POINTS_PER_SET[merchArrays[key].length];
         // Decrease one on each element
         merchArrays[key] = merchArrays[key].map((a) => --a);
       }
     }
   }
 
-  playerPoints.merch = merchCopy;
+  playerPoints.merch = newMerchArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+};
+
+export const calculatePreciousItems = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const preciousItemsPoints = Object.assign({}, getState().scorer.preciousItemsPoints);
+
+  const newPreciousItemsArray = new Array(playerPoints.preciousItems.length).fill(0);
+
+  for (let key in preciousItemsPoints) {
+    if (preciousItemsPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < preciousItemsPoints[key].length; i++) {
+        if (key === 'jewelry') {
+          newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 5;
+        }
+        else if (key === 'treasure') {
+          newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 7;
+        }
+        else if (key === 'crown') {
+          newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 9;
+        }
+      }
+    }
+  }
+
+  playerPoints.preciousItems = newPreciousItemsArray;
 
   dispatch(setPlayerPoints(playerPoints));
 };
@@ -322,35 +368,39 @@ export const setScorer = () => (dispatch, getState) => {
   dispatch(setTotal(total));
 };
 
-export const updateMerchPoints = (evt) => (dispatch, getState) => {
-  const [category, player] = evt.target.name.split('-');
+export const updateCell = (evt) => (dispatch, getState) => {
+  const [screen, category, player] = evt.target.name.split('-');
   const value = evt.target.value;
 
-  const merchPointsCopy = Object.assign({}, getState().scorer.merchPoints);
+  console.log('SCREEN: ', screen);
 
-  if (merchPointsCopy[category] === undefined) console.warn('Category doesnt exist');
+  let pointsObject;
+  if (screen === 'scorer') {
+    pointsObject = Object.assign({}, getState().scorer.playerPoints);
+  } else if (screen === 'merch') {
+    pointsObject = Object.assign({}, getState().scorer.merchPoints);
+  } else if (screen === 'preciousItems') {
+    pointsObject = Object.assign({}, getState().scorer.preciousItemsPoints);
+  }
 
-  merchPointsCopy[category][+player] = +value;
+  if (pointsObject[category] === undefined) console.warn('Category doesnt exist');
 
-  dispatch(setMerchPoints(merchPointsCopy));
-};
+  // Add points
+  pointsObject[category][+player] = +value;
 
-export const updatePlayerPoints = (evt) => (dispatch, getState) => {
-  const [category, player] = evt.target.name.split('-');
-  const value = evt.target.value;
-
-  const playerPointsCopy = Object.assign({}, getState().scorer.playerPoints);
-
-  if (playerPointsCopy[category] === undefined) console.warn('Category doesnt exist');
-
-  playerPointsCopy[category][+player] = +value;
-
-  dispatch(setPlayerPoints(playerPointsCopy));
+  // Dispatch
+  if (screen === 'scorer') {
+    dispatch(setPlayerPoints(pointsObject));
+  } else if (screen === 'merch') {
+    dispatch(setMerchPoints(pointsObject));
+  } else if (screen === 'preciousItems') {
+    dispatch(setPreciousItemsPoints(pointsObject));
+  }
 };
 
 export const updateScreen = (newScreen) => (dispatch) => {
 
-  if (newScreen === 'merch') {
+  if (['merch', 'djinns', 'oasis', 'preciousItems', 'villages'].indexOf(newScreen) !== -1) {
     dispatch(setControls('clear-ok'));
   }
 
@@ -371,20 +421,30 @@ export const controller = (evt) => (dispatch, getState) => {
   }
   else if (EVENT_NAME === 'score') {
     dispatch(calculateScore());
-    dispatch(setScreen('results'));
-    dispatch(setControls('done'));
+    // dispatch(setScreen('results'));
+    // dispatch(setControls('done'));
   }
   else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'merch') {
     dispatch(calculateMerch());
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
   }
-  else if (EVENT_NAME === 'clear') {
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'preciousItems') {
+    dispatch(calculatePreciousItems());
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
+  }
+  else if (EVENT_NAME === 'clear') {
+    dispatch(setScreen('scorer'));
 
     if (CURRENT_SCREEN === 'merch') {
       dispatch(newMerchPoints());
+      dispatch(setScreen('merch'));
+    }
+
+    if (CURRENT_SCREEN === 'preciousItems') {
+      dispatch(newPreciousItemsPoints());
+      dispatch(setScreen('preciousItems'));
     }
   }
 

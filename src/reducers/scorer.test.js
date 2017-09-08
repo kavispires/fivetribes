@@ -9,7 +9,7 @@ import reducer,
     setMerchPoints,
     setNumPlayers,
     setScorer,
-    updateMerchPoints
+    updateCell
   }
 from '../../src/reducers/scorer';
 
@@ -120,7 +120,7 @@ describe('Scorer', () => {
     });
   });
 
-  describe('updateMerchPoints', () => {
+  describe('updateCell for merch', () => {
 
     beforeEach(() => {
       const evt = {target: { value: '5' }};
@@ -129,24 +129,24 @@ describe('Scorer', () => {
     });
 
     it('updates points to the right player', () => {
-      let evt = {target: { name: 'fish-0', value: '1' }};
-      testStore.dispatch(updateMerchPoints(evt));
+      let evt = {target: { name: 'merch-fish-0', value: '1' }};
+      testStore.dispatch(updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.fish).toEqual([1, 0, 0, 0, 0]);
 
-      evt = {target: { name: 'wheat-1', value: '1' }};
-      testStore.dispatch(updateMerchPoints(evt));
+      evt = {target: { name: 'merch-wheat-1', value: '1' }};
+      testStore.dispatch(updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.wheat).toEqual([0, 1, 0, 0, 0]);
 
-      evt = {target: { name: 'gold-2', value: '1' }};
-      testStore.dispatch(updateMerchPoints(evt));
+      evt = {target: { name: 'merch-gold-2', value: '1' }};
+      testStore.dispatch(updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.gold).toEqual([0, 0, 1, 0, 0]);
 
-      evt = {target: { name: 'gems-3', value: '1' }};
-      testStore.dispatch(updateMerchPoints(evt));
+      evt = {target: { name: 'merch-gems-3', value: '1' }};
+      testStore.dispatch(updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.gems).toEqual([0, 0, 0, 1, 0]);
 
-      evt = {target: { name: 'fabric-4', value: '1' }};
-      testStore.dispatch(updateMerchPoints(evt));
+      evt = {target: { name: 'merch-fabric-4', value: '1' }};
+      testStore.dispatch(updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.fabric).toEqual([0, 0, 0, 0, 1]);
     });
   });

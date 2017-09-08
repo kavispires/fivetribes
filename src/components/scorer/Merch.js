@@ -9,7 +9,7 @@ import {
 
 const Merch = ({props}) => {
   const {scorer} = props;
-  
+
 	return (
     <main className="screen-main screen-scorer-merch">
       <ul className="scorer-table">
@@ -18,9 +18,10 @@ const Merch = ({props}) => {
           CATEGORIES_MERCH.map((category) => (
             <RowNumber
               key={category}
+              screen={scorer.screen}
               type={category}
               cells={scorer.merchPoints[category]}
-              action={props.updateMerchPoints} />
+              action={props.updateCell} />
           ))
         }
       </ul>

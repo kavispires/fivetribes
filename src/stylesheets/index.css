@@ -189,6 +189,8 @@ body {
     border: 0;
     border-radius: 4px;
     text-align: center; }
+    .cell input::placeholder, .cell-cat input::placeholder, .cell-1 input::placeholder, .cell-2 input::placeholder, .cell-3 input::placeholder, .cell-4 input::placeholder, .cell-5 input::placeholder {
+      color: #000; }
   .cell span, .cell-cat span, .cell-1 span, .cell-2 span, .cell-3 span, .cell-4 span, .cell-5 span {
     display: block;
     border-radius: 4px; }

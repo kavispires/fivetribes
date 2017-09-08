@@ -39,8 +39,9 @@ const Scorer = ({props}) => {
                 <RowNumber
                   key={category}
                   type={category}
+                  screen={scorer.screen}
                   cells={scorer.playerPoints[category]}
-                  action={props.updatePlayerPoints} />
+                  action={props.updateCell} />
               );
             }
 
