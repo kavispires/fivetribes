@@ -9,8 +9,10 @@ import {
 import {
 	controller,
 	setExpansions,
+	updateMerchPoints,
 	setNumPlayers,
-	updatePlayerPoints
+	updatePlayerPoints,
+	updateScreen,
 } from '../reducers/scorer';
 
 const mapStateToProps = (state) => ({ app: state.app, scorer: state.scorer });
@@ -19,8 +21,10 @@ const mapDispatchToProps = {
 	controller,
 	selectMode,
 	setExpansions,
+	updateMerchPoints,
 	setNumPlayers,
-	updatePlayerPoints
+	updatePlayerPoints,
+	updateScreen,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -11,32 +11,40 @@ import {
 
 const Scorer = ({props}) => {
   const {scorer} = props;
-  console.log(scorer);
-  console.log(props);
+  // console.log(scorer);
+  // console.log(props);
 
 	return (
     <main className="screen-main screen-scorer-table">
       <ul className="scorer-table">
         <RowHeader total={scorer.total} />
         {
-          CATEGORIES.map((category, i) => {
-            if (['djinnsTotal', 'merch'].indexOf(category) !== -1) {
-              return <RowButton key={category} type={category} scorer={scorer} />;
+          CATEGORIES.map((category) => {
+            if ((['djinnsTotal', 'merch'].indexOf(category) !== -1)
+              || (scorer.artisansExpansion && category === 'preciousItems')
+              || (scorer.whimsExpansion && (category === 'oasisTotal' || category === 'villagesTotal'))
+              || (category === 'tilesTotal' && (scorer.whimsExpansion || scorer.artisansExpansion))) {
+              return (
+                <RowButton
+                  key={category}
+                  type={category}
+                  scorer={scorer}
+                  cells={scorer.playerPoints[category]}
+                  action={props.updateScreen} />
+              );
             }
-            if (scorer.artisansExpansion && category === 'artisans') {
-              return <RowNumber key={category} type={category} scorer={scorer} updatePlayerPoints={props.updatePlayerPoints} />;
-            }
-            if (scorer.artisansExpansion && category === 'preciousItems') {
-              return <RowButton key={category} type={category} scorer={scorer} />;
-            }
-            if (scorer.whimsExpansion && (category === 'oasisTotal' || category === 'villagesTotal')) {
-              return <RowButton key={category} type={category} scorer={scorer} />;
-            }
-            if (scorer.whimsExpansion && category === 'tiles') {
-              return <RowButton key={category} type={category} scorer={scorer} />;
+            if ((scorer.artisansExpansion && category === 'artisans')
+              || (['coins', 'viziers', 'elders', 'tilesTotal', 'oasisTotal', 'villagesTotal'].indexOf(category) !== -1)) {
+              return (
+                <RowNumber
+                  key={category}
+                  type={category}
+                  cells={scorer.playerPoints[category]}
+                  action={props.updatePlayerPoints} />
+              );
             }
 
-            return <RowNumber key={category} type={category} scorer={scorer} updatePlayerPoints={props.updatePlayerPoints} />;
+            return '';
           })
         }
         <RowTotal total={scorer.total} />
