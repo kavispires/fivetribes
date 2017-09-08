@@ -7,7 +7,7 @@ import {
   CATEGORIES_VILLAGES
 } from '../constants';
 
-/* ------------------   ACTIONS   ------------------ */
+/* ------------------   ACTION TYPES  ------------------ */
 
 const CLEAR_SCORER = 'CLEAR_SCORER';
 const SET_ARTISANS_EXPANSION = 'SET_ARTISANS_EXPANSION';
@@ -41,7 +41,7 @@ export const setVillagesPoints = payload => dispatch => dispatch({ type: SET_VIL
 
 /* -----------------   REDUCERS   ------------------ */
 
-const initialState = {
+export const initialState = {
   artisansExpansion: false,
   controls: '',
   djinnsPoints: {},
@@ -198,7 +198,7 @@ export const newDjinnsPoints = () => (dispatch, getState) => {
     djinnsPoints[CATEGORIES_DJINNS[i]] = [...placeholder];
   }
 
-  dispatch(setMerchPoints(djinnsPoints));
+  dispatch(setDjinnsPoints(djinnsPoints));
 
   //TO-DO: Specific djinn cards (Jaafar, Geb, etc)
 };
