@@ -1,25 +1,44 @@
 import React from 'react';
 
-import { CONTROL_CLASSES } from '../../constants';
-
-const Controls = ({props}) => {
-  const {controls} = props.scorer;
-
-  const parentClasses = controls.length > 2 ? 'align-right' : '';
-
+export const ControlsStart = ({controller}) => {
   return (
-  	<section className={`screen-controls ${parentClasses}`} onClick={props.controller}>
-  	{
-  		controls.map((item, i) => {
-        const buttonClasses = CONTROL_CLASSES[item.label] || 'btn';
-
-  			return (
-  				<input key={item.label} type="button" name={item.action} className={buttonClasses} value={item.label} />
-  			);
-  		})
-  	}
-  	</section>
+    <section className="screen-controls" onClick={controller}>
+      <input type="button" name="start" className="btn btn-1 btn-primary" value="Start" />
+    </section>
   );
 };
 
-export default Controls;
+export const ControlsScore = ({controller}) => {
+  return (
+    <section className="screen-controls" onClick={controller}>
+      <input type="button" name="back-home" className="btn" value="Back" />
+      <input type="button" name="clear-all" className="btn" value="Clear" />
+      <input type="button" name="score" className="btn btn-primary" value="Score" />
+    </section>
+  );
+};
+
+export const ControlsConfirm = ({controller}) => {
+  return (
+    <section className="screen-controls" onClick={controller}>
+      <input type="button" name="clear" className="btn" value="Clear" />
+      <input type="button" name="confirm" className="btn btn-primary" value="OK" />
+    </section>
+  );
+};
+
+export const ControlsDone = ({controller}) => {
+  return (
+    <section className="screen-controls" onClick={controller}>
+      <input type="button" name="confirm" className="btn btn-primary" value="Done" />
+    </section>
+  );
+};
+
+export const ControlsOk = ({controller}) => {
+  return (
+    <section className="screen-controls" onClick={controller}>
+      <input type="button" name="confirm" className="btn btn-primary" value="OK" />
+    </section>
+  );
+};

@@ -7,7 +7,7 @@ const RowButton = ({total}) => {
   return (
     <li className="row total">
       <div className="cell-cat">
-        <img src="/images/categories/category-total.svg" alt="Total" />
+        <img src="/images/scorer/total.svg" alt="Total" />
       </div>
       {
         total.map((item, i) => (

@@ -2,16 +2,9 @@ export const COLORS = ['Blue', 'Pink', 'Black', 'Orange', 'Brown'];
 
 export const NUMPLAYERS = [1, 2, 3, 4, 5];
 
-export const CONTROL_CLASSES = {
-	Back: 'btn btn-5 btn-secondary',
-	Clear: 'btn btn-5',
-	Score: 'btn btn-1 btn-primary',
-	Start: 'btn btn-1 btn-primary',
-};
-
 export const EXPANSIONS = ['Artisans', 'Thieves', 'Whims'];
 
-export const CATEGORIES = ['coins', 'viziers', 'artisans', 'elders', 'djinnsTotal', 'tiles', 'oasisTotal', 'villagesTotal', 'preciousItems', 'merch'];
+export const CATEGORIES = ['coins', 'viziers', 'artisans', 'elders', 'djinnsTotal', 'tilesTotal', 'oasisTotal', 'villagesTotal', 'preciousItems', 'merch'];
 
 export const CATEGORIES_DJINNS = ['djinns', 'thieves'];
 
