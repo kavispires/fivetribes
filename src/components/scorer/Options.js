@@ -5,7 +5,7 @@ import {
   EXPANSIONS
 } from '../../constants';
 
-const Scorer = ({props}) => {
+const Options = ({props}) => {
 	return (
     <main className="screen-main screen-scorer-options">
     	<section className="content mode-scorer">
@@ -45,4 +45,4 @@ const Scorer = ({props}) => {
   );
 };
 
-export default Scorer;
+export default Options;

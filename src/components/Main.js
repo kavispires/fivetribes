@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Home from './Home';
-import Scorer from './scorer/Scorer';
+import ScorerContainer from './scorer/ScorerContainer';
 import Solitaire from './solitaire/Solitaire';
 
 const Main = ({props}) => {
@@ -12,7 +12,7 @@ const Main = ({props}) => {
 
 	switch (mode) {
 		case 'scorer':
-			component = <Scorer props={props} />;
+			component = <ScorerContainer props={props} />;
 			break;
 
 		case 'solitaire':

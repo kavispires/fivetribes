@@ -1,6 +1,5 @@
 /* ------------------   ACTIONS   ------------------ */
 
-const SET_NAV = 'SET_NAV';
 const SET_MODE = 'SET_MODE';
 const SET_NEW_SESSION = 'SET_NEW_SESSION';
 const TOGGLE_SCORER = 'TOGGLE_SCORER';
@@ -8,7 +7,6 @@ const TOGGLE_SOLITAIRE = 'TOGGLE_SOLITAIRE';
 
 /* --------------   ACTION CREATORS   -------------- */
 
-export const setNav = payload => dispatch => dispatch({ type: SET_NAV, payload });
 export const setMode = payload => dispatch => dispatch({ type: SET_MODE, payload });
 export const setNewSession = payload => dispatch => dispatch({ type: SET_NEW_SESSION, payload });
 export const toggleScorer = payload => dispatch => dispatch({ type: TOGGLE_SCORER, payload });
@@ -17,7 +15,6 @@ export const toggleSolitaire = payload => dispatch => dispatch({ type: TOGGLE_SO
 /* -----------------   REDUCERS   ------------------ */
 
 const initialState = {
-  nav: [],
   mode: '',
   newSession: true,
   scorerSession: false,
@@ -32,10 +29,6 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_MODE:
       newState.mode = action.payload;
-      break;
-
-    case SET_NAV:
-      newState.nav = action.payload;
       break;
 
     case SET_NEW_SESSION:
@@ -76,8 +69,4 @@ export const selectMode = (event) => (dispatch) => {
   } else {
     dispatch(setNewSession(false));
   }
-};
-
-export const updateNav = () => (dispatch) => {
-
 };
