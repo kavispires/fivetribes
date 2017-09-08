@@ -1,0 +1,143 @@
+@import './variables.scss';
+
+.scorer-table {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	img {
+		display: block;
+		max-width: 100%;
+		height: 2em;
+		margin: 0 auto;
+	}
+}
+
+.row {
+	display: flex;
+	width: 100%;
+}
+
+.cell {
+	padding: $halfUnit;
+
+	input {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		border-radius: $halfUnit;
+		text-align: center;
+	}
+
+	span {
+		display: block;
+		border-radius: $halfUnit;
+	}
+
+	// Colors
+	&:nth-child(2) {
+		background: $sBlueLight;
+		
+		input {
+			background: $sBlueMedium;
+
+			.total & {
+				background: $sBlue;
+			}
+		}
+
+		span {
+			.header & {
+				background: $sBlue;
+			}
+		}
+	}
+	&:nth-child(3) {
+		background: $sPinkLight;
+		
+		input {
+			background: $sPinkMedium;
+		
+			.total & {
+				background: $sPink;
+			}
+		}
+
+		span {
+			.header & {
+				background: $sPink;
+			}
+		}
+	}
+	&:nth-child(4) {
+		background: $sBlackLight;
+		
+		input {
+			background: $sBlackMedium;
+
+			.total & {
+				background: $sBlack;
+			}
+		}
+
+		span {
+			.header & {
+				background: $sBlack;
+			}
+		}
+	}
+	&:nth-child(5) {
+		background: $sOrangeLight;
+		
+		input {
+			background: $sOrangeMedium;
+		
+			.total & {
+				background: $sOrange;
+			}
+		}
+
+		span {
+			.header & {
+				background: $sOrange;
+			}
+		}
+	}
+	&:nth-child(6) {
+		background: $sBrownLight;
+		
+		input {
+			background: $sBrownMedium;
+		
+			.total & {
+				background: $sBrown;
+			}
+		}
+
+		span {
+			.header & {
+				background: $sBrown;
+			}
+		}
+	}
+}
+
+.cell-cat {
+	@extend .cell;
+	min-width: 16.66%;
+	width: 16.66%;
+}
+
+@for $i from 1 through 5 {
+	$width: calc(83.33% / #{$i});
+
+  .cell-#{$i} {
+  	@extend .cell;
+    width: $width;
+  }
+}
