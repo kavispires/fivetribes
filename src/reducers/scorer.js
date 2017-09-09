@@ -631,5 +631,7 @@ export const controller = (evt) => (dispatch, getState) => {
 
     dispatch(setScreen(CURRENT_SCREEN));
   }
-
+  else if (EVENT_NAME === 'clear-all' && CURRENT_SCREEN === 'scorer') {
+    dispatch(setScorer());
+  }
 };

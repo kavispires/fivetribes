@@ -3,14 +3,16 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
-import reducer,
-  {
-    calculateMerch,
-    setMerchPoints,
-    setNumPlayers,
-    setScorer,
-    updateCell
-  }
+import reducer, * as action
+  // {
+  //   calculateDjinnsAndThieves,
+  //   calculateMerch,
+  //   setDjinnsPoints,
+  //   setMerchPoints,
+  //   setNumPlayers,
+  //   setScorer,
+  //   updateCell
+  // }
 from '../../src/reducers/scorer';
 
 import * as CONSTANTS from '../constants';
@@ -58,7 +60,7 @@ describe('Scorer', () => {
 
     beforeEach(() => {
       const evt = {target: { value: '1' }};
-      testStore.dispatch(setNumPlayers(evt));
+      testStore.dispatch(action.setNumPlayers(evt));
     });
 
     it('changes the number of players', () => {
@@ -75,8 +77,8 @@ describe('Scorer', () => {
 
     beforeEach(() => {
       const evt = {target: { value: '3' }};
-      testStore.dispatch(setNumPlayers(evt));
-      testStore.dispatch(setScorer());
+      testStore.dispatch(action.setNumPlayers(evt));
+      testStore.dispatch(action.setScorer());
     });
 
     it('updates playerPoints with all its categories', () => {
@@ -122,43 +124,62 @@ describe('Scorer', () => {
     });
   });
 
-  describe('updateCell for merch', () => {
+  describe('updateCell for input[number]', () => {
 
     beforeEach(() => {
       const evt = {target: { value: '5' }};
-      testStore.dispatch(setNumPlayers(evt));
-      testStore.dispatch(setScorer());
+      testStore.dispatch(action.setNumPlayers(evt));
+      testStore.dispatch(action.setScorer());
     });
 
     it('updates points to the right player', () => {
       let evt = {target: { name: 'merch-fish-0', value: '1' }};
-      testStore.dispatch(updateCell(evt));
+      testStore.dispatch(action.updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.fish).toEqual([1, 0, 0, 0, 0]);
 
       evt = {target: { name: 'merch-wheat-1', value: '1' }};
-      testStore.dispatch(updateCell(evt));
+      testStore.dispatch(action.updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.wheat).toEqual([0, 1, 0, 0, 0]);
 
       evt = {target: { name: 'merch-gold-2', value: '1' }};
-      testStore.dispatch(updateCell(evt));
+      testStore.dispatch(action.updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.gold).toEqual([0, 0, 1, 0, 0]);
 
       evt = {target: { name: 'merch-gems-3', value: '1' }};
-      testStore.dispatch(updateCell(evt));
+      testStore.dispatch(action.updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.gems).toEqual([0, 0, 0, 1, 0]);
 
       evt = {target: { name: 'merch-fabric-4', value: '1' }};
-      testStore.dispatch(updateCell(evt));
+      testStore.dispatch(action.updateCell(evt));
       expect(testStore.getState().scorer.merchPoints.fabric).toEqual([0, 0, 0, 0, 1]);
     });
+  });
+
+  describe('calculateDjinnsAndThieves', () => {
+
+    beforeEach(() => {
+      const evt = {target: { value: '1' }};
+      testStore.dispatch(action.setNumPlayers(evt));
+      testStore.dispatch(action.setScorer());
+    });
+
+    it('awards the right ammount of points', () => {
+    const points = { djinns: [6], thieves: [6] };
+    testStore.dispatch(action.setDjinnsPoints(points));
+
+    testStore.dispatch(action.calculateDjinnsAndThieves());
+    expect(testStore.getState().scorer.playerPoints.djinnsTotal[0]).toEqual(12);
+
+    });
+
   });
 
   describe('calculateMerch', () => {
 
     beforeEach(() => {
       const evt = {target: { value: '1' }};
-      testStore.dispatch(setNumPlayers(evt));
-      testStore.dispatch(setScorer());
+      testStore.dispatch(action.setNumPlayers(evt));
+      testStore.dispatch(action.setScorer());
     });
 
     describe('awards the right amount of points', () => {
@@ -176,137 +197,125 @@ describe('Scorer', () => {
         return result;
       };
 
-      // let merchCards;
-      // beforeEach(() => {
-      //   merchCards = {
-      //     fish: [0],
-      //     wheat: [0],
-      //     pottery: [0],
-      //     spices: [0],
-      //     papyrus: [0],
-      //     fabric: [0],
-      //     ivory: [0],
-      //     gems: [0],
-      //     gold: [0]
-      //   };
-      // });
-
       it('for a single good', () => {
         const merchCards = cardCombination([1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(1);
       });
 
       it('for two of the same good', () => {
         const merchCards = cardCombination([2]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(2);
       });
 
       it('for 2 different goods', () => {
         const merchCards = cardCombination([1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(3);
       });
 
       it('for 3 different goods', () => {
         const merchCards = cardCombination([1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(7);
       });
 
       it('for 4 different goods', () => {
         const merchCards = cardCombination([1, 1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(13);
       });
 
       it('for 5 different goods', () => {
         const merchCards = cardCombination([1, 1, 1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(21);
       });
 
       it('for 6 different goods', () => {
         const merchCards = cardCombination([1, 1, 1, 1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(30);
       });
 
       it('for 7 different goods', () => {
         const merchCards = cardCombination([1, 1, 1, 1, 1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(40);
       });
 
       it('for 8 different goods', () => {
         const merchCards = cardCombination([1, 1, 1, 1, 1, 1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(50);
       });
 
       it('for 9 different goods', () => {
         const merchCards = cardCombination([1, 1, 1, 1, 1, 1, 1, 1, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(60);
       });
 
       it('for 2 goods for each kind', () => {
         const merchCards = cardCombination([2, 2, 2, 2, 2, 2, 2, 2, 2]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(120);
       });
 
       it('for random cards A', () => {
         const merchCards = cardCombination([2, 0, 2, 1, 0, 1, 1, 2]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(37);
       });
 
       it('for random cards B', () => {
         const merchCards = cardCombination([0, 3, 0, 2, 1, 0, 3, 3, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(50);
       });
 
       it('for random cards C', () => {
         const merchCards = cardCombination([2, 1, 1, 2, 1]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(24);
       });
 
       it('for random cards D', () => {
         const merchCards = cardCombination([0, 0, 1, 3, 0, 0, 3]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(13);
       });
 
       it('for all 6 fish cards', () => {
         const merchCards = cardCombination([0, 0, 0, 6]);
-        testStore.dispatch(setMerchPoints(merchCards));
-        testStore.dispatch(calculateMerch());
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
         expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(6);
       });
 
-
-
-
-
+      it('even when called twice', () => {
+        const merchCards = cardCombination([1]);
+        testStore.dispatch(action.setMerchPoints(merchCards));
+        testStore.dispatch(action.calculateMerch());
+        testStore.dispatch(action.calculateMerch());
+        expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(1);
+      });
 
     });
 
