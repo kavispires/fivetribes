@@ -459,4 +459,161 @@ describe('Scorer', () => {
 
   });
 
+  describe('Calculate Final Score', () => {
+
+    let playerPoints;
+
+    beforeEach(() => {
+      const evt = {target: { value: '5' }};
+      testStore.dispatch(action.setNumPlayers(evt));
+      testStore.dispatch(action.setScorer());
+      playerPoints = Object.assign({}, testStore.getState().scorer.playerPoints);
+    });
+
+    describe('calculateScore', () => {
+
+      it('adds coins points correctly', () => {
+        playerPoints.coins = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 2, 3, 4, 5]);
+      });
+
+      it('adds viziers points correctly', () => {
+        playerPoints.viziers = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 12, 23, 34, 45]);
+      });
+
+      xit('adds viziers points correctly when two or more players have the same amount of meeples', () => {
+        playerPoints.viziers = [1, 1, 2, 2, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 1, 12, 12, 25]);
+      });
+
+      xit('adds viziers points correctly when one player has the djinn Jaafar', () => {
+        playerPoints.viziers = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        // Add Jaafar (index = 2)
+        testStore.dispatch(action.setDjinns([-1, -1, 2, -1, -1]));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 12, 26, 34, 45]);
+      });
+
+      xit('adds viziers points correctly with lower player count', () => {
+        // Changing player count
+        const evt = {target: { value: '3' }};
+        testStore.dispatch(action.setNumPlayers(evt));
+        testStore.dispatch(action.setScorer());
+        playerPoints = Object.assign({}, testStore.getState().scorer.playerPoints);
+
+        playerPoints.viziers = [4, 2, 3];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([24, 2, 13]);
+      });
+
+      xit('adds viziers points correctly without bonus when playing solitaire', () => {
+        // Changing player count
+        const evt = {target: { value: '1' }};
+        testStore.dispatch(action.setNumPlayers(evt));
+        testStore.dispatch(action.setScorer());
+        playerPoints = Object.assign({}, testStore.getState().scorer.playerPoints);
+
+        playerPoints.viziers = [3];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([3]);
+      });
+
+      xit('adds artisans points correctly', () => {
+        playerPoints.artisans = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([2, 4, 6, 8, 15]);
+      });
+
+      xit('adds artisans points correctly when one player has the djinn Ptah', () => {
+        playerPoints.artisans = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        // Add Ptah (index = 3)
+        testStore.dispatch(action.setDjinns([-1, -1, -1, 2, -1]));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([2, 4, 12, 8, 15]);
+      });
+
+      it('adds elders points correctly', () => {
+        playerPoints.elders = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([2, 4, 6, 8, 10]);
+      });
+
+      xit('adds elders points correctly when one player has the djinn Shamhat', () => {
+        playerPoints.elders = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        // Add Shamhat (index = 4)
+        testStore.dispatch(action.setDjinns([-1, -1, -1, -1, 2]));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([2, 4, 12, 8, 10]);
+      });
+
+      it('adds djinns and thieves points correctly', () => {
+        playerPoints.djinnsTotal = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 2, 3, 4, 5]);
+      });
+
+      it('adds oasis points correctly', () => {
+        playerPoints.oasisTotal = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([3, 6, 9, 12, 15]);
+      });
+
+      xit('adds oasis points correctly when one player has the djinn Haurvatat', () => {
+
+        playerPoints.oasisTotal = [1, 2, 3, 4, 5];
+        // Add Haurvatat (index = 1)
+        testStore.dispatch(action.setDjinns([-1, 2, -1, -1, -1]));
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([3, 6, 15, 12, 15]);
+      });
+
+      it('adds palaces points correctly', () => {
+        playerPoints.villagesTotal = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([5, 10, 15, 20, 25]);
+      });
+
+      it('adds tiles, tents and cities points correctly', () => {
+        playerPoints.tilesTotal = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 2, 3, 4, 5]);
+      });
+
+      it('adds precious items correctly', () => {
+        playerPoints.preciousItems = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 2, 3, 4, 5]);
+      });
+
+      it('adds merch points correctly', () => {
+        playerPoints.merch = [1, 2, 3, 4, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([1, 2, 3, 4, 5]);
+      });
+
+    });
+
+  });
+
 });
