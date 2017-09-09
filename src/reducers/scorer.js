@@ -190,6 +190,49 @@ export const calculateDjinnsAndThieves = () => (dispatch, getState) => {
   dispatch(setPlayerPoints(playerPoints));
 };
 
+export const calculateOasisAndVillages = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const oasisPoints = Object.assign({}, getState().scorer.oasisPoints);
+  const newOasisTotalArray = new Array(playerPoints.oasisTotal.length).fill(0);
+
+  for (let key in oasisPoints) {
+    if (oasisPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < oasisPoints[key].length; i++) {
+        // 6 points per tree next to a great lake
+        if (key === 'oasisLake') {
+          newOasisTotalArray[i] += oasisPoints[key][i] * 6;
+        }
+        else {
+          newOasisTotalArray[i] += oasisPoints[key][i] * 3;
+        }
+      }
+    }
+  }
+
+  playerPoints.oasisTotal = newOasisTotalArray;
+
+  const villagesPoints = Object.assign({}, getState().scorer.villagesPoints);
+  const newVillagesTotalArray = new Array(playerPoints.villagesTotal.length).fill(0);
+
+  for (let key in villagesPoints) {
+    if (villagesPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < villagesPoints[key].length; i++) {
+        // 6 points per tree next to a great lake
+        if (key === 'oasisLake') {
+          newVillagesTotalArray[i] += villagesPoints[key][i] * 10;
+        }
+        else {
+          newVillagesTotalArray[i] += villagesPoints[key][i] * 5;
+        }
+      }
+    }
+  }
+
+  playerPoints.villagesTotal = newVillagesTotalArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+};
+
 export const calculateMerch = () => (dispatch, getState) => {
   const playerPoints = Object.assign({}, getState().scorer.playerPoints);
   const merchPoints = Object.assign({}, getState().scorer.merchPoints);
@@ -454,7 +497,7 @@ export const updateRadioDjinn = (evt) => (dispatch, getState) => {
 };
 
 export const updateScreen = (newScreen) => (dispatch) => {
-  if (['merch', 'djinnsTotal', 'oasis', 'preciousItems', 'villages'].indexOf(newScreen) !== -1) {
+  if (['merch', 'djinnsTotal', 'oasis', 'preciousItems', 'villages', 'oasisTotal', 'villagesTotal'].indexOf(newScreen) !== -1) {
     dispatch(setControls('clear-ok'));
   }
 
@@ -493,8 +536,8 @@ export const controller = (evt) => (dispatch, getState) => {
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
   }
-  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'djinnsTotal') {
-    dispatch(calculateDjinnsAndThieves());
+  else if (EVENT_NAME === 'confirm' && (CURRENT_SCREEN === 'oasisTotal' || CURRENT_SCREEN === 'villagesTotal')) {
+    dispatch(calculateOasisAndVillages());
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
   }
@@ -514,6 +557,11 @@ export const controller = (evt) => (dispatch, getState) => {
     if (CURRENT_SCREEN === 'djinnsTotal') {
       dispatch(newDjinnsPoints());
       dispatch(setScreen('djinnsTotal'));
+    }
+
+    if (CURRENT_SCREEN === 'oasisTotal' || CURRENT_SCREEN === 'villagesTotal') {
+      dispatch(newDjinnsPoints());
+      dispatch(setScreen('oasisTotal'));
     }
   }
 

@@ -16,9 +16,14 @@ const OasisVillages = ({props}) => {
         <RowHeader total={scorer.total} />
         {
           CATEGORIES_OASIS_AND_VILLAGES.map((category) => {
-            let screen = 'villagesTotal';
+            let screen;
+            let cells;
             if (category === 'oasis' || category === 'oasisLake') {
               screen = 'oasisTotal';
+              cells = scorer.oasisPoints[category];
+            } else {
+              screen = 'villagesTotal';
+              cells = scorer.villagesPoints[category];
             }
 
             return (
@@ -26,7 +31,7 @@ const OasisVillages = ({props}) => {
                 key={category}
                 type={category}
                 screen={screen}
-                cells={scorer.total}
+                cells={cells}
                 action={props.updateCell} />
             );
           })
