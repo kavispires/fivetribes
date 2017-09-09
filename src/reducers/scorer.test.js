@@ -227,14 +227,6 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.playerPoints.villagesTotal[0]).toEqual(40);
       });
 
-
-      // testStore.dispatch(action.setOasisPoints(pointsO));
-      // testStore.dispatch(action.setVillagesPoints(pointsV));
-
-      // testStore.dispatch(action.calculateDjinnsAndThieves());
-
-
-
     });
 
     describe('calculateMerch', () => {
@@ -374,6 +366,42 @@ describe('Scorer', () => {
           expect(testStore.getState().scorer.playerPoints.merch[0]).toEqual(1);
         });
 
+      });
+
+    });
+
+    describe('calculatePreciousItems', () => {
+
+      it('awards the right amount of points for jewelry', () => {
+        const points = { jewelry: [3], treasure: [0], crown: [0] };
+
+        testStore.dispatch(action.setPreciousItemsPoints(points));
+        testStore.dispatch(action.calculatePreciousItems());
+        expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(15);
+      });
+
+      it('awards the right amount of points for treasure chests', () => {
+        const points = { jewelry: [0], treasure: [2], crown: [0] };
+
+        testStore.dispatch(action.setPreciousItemsPoints(points));
+        testStore.dispatch(action.calculatePreciousItems());
+        expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(14);
+      });
+
+      it('awards the right amount of points for crowns', () => {
+        const points = { jewelry: [0], treasure: [0], crown: [2] };
+
+        testStore.dispatch(action.setPreciousItemsPoints(points));
+        testStore.dispatch(action.calculatePreciousItems());
+        expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(18);
+      });
+
+      it('awards the right amount of points for all precious items', () => {
+        const points = { jewelry: [4], treasure: [3], crown: [2] };
+
+        testStore.dispatch(action.setPreciousItemsPoints(points));
+        testStore.dispatch(action.calculatePreciousItems());
+        expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(59);
       });
 
     });
