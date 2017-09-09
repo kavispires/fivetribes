@@ -16,9 +16,11 @@ export const CATEGORIES_MERCH = ['fish', 'wheat', 'pottery', 'spices', 'papyrus'
 
 export const CATEGORIES_OSASIS = ['oasis', 'oasisLake'];
 
-export const CATEGORIES_VILLAGES = ['villages', 'villagesLake'];
-
 export const CATEGORIES_OASIS_AND_VILLAGES = ['oasis', 'villages', 'oasisLake', 'villagesLake'];
+
+export const CATEGORIES_TILES = ['tiles', 'tent', 'cities'];
+
+export const CATEGORIES_VILLAGES = ['villages', 'villagesLake'];
 
 export const HINTS = {
 	coins: 'Input the total value of coins.',

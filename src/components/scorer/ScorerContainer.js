@@ -8,6 +8,7 @@ import Options from './Options';
 import PreciousItems from './PreciousItems';
 import Results from './Results';
 import Scorer from './Scorer';
+import Tiles from './Tiles';
 
 import {
 	ControlsDone,
@@ -44,6 +45,10 @@ const ScorerContainer = ({props}) => {
 
 		case 'preciousItems':
 			activeComponent = <PreciousItems props={props} />;
+			break;
+
+		case 'tilesTotal':
+			activeComponent = <Tiles props={props} />;
 			break;
 
 		case 'results':

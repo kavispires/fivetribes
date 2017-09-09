@@ -45,6 +45,7 @@ describe('Scorer', () => {
         preciousItemsPoints: {},
         screen: 'options',
         thievesExpansion: false,
+        tilesPoints: {},
         total: [],
         villagesPoints: {},
         whimsExpansion: false,

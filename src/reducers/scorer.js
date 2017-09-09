@@ -5,6 +5,7 @@ import {
   CATEGORIES_ITEMS,
   CATEGORIES_MERCH,
   CATEGORIES_OSASIS,
+  CATEGORIES_TILES,
   CATEGORIES_VILLAGES
 } from '../constants';
 
@@ -23,6 +24,7 @@ const SET_PLAYERS_POINTS = 'SET_PLAYERS_POINTS';
 const SET_PRECIOUS_ITEMS_POINTS = 'SET_PRECIOUS_ITEMS_POINTS';
 const SET_SCREEN = 'SET_SCREEN';
 const SET_THIEVES_EXPANSION = 'SET_THIEVES_EXPANSION';
+const SET_TILES_POINTS = 'SET_TILES_POINTS';
 const SET_TOTAL = 'SET_TOTAL';
 const SET_VILLAGES_POINTS = 'SET_VILLAGES_POINTS';
 const SET_WHIMS_EXPANSION = 'SET_WHIMS_EXPANSION';
@@ -39,6 +41,7 @@ export const setOasisPoints = payload => dispatch => dispatch({ type: SET_OASIS_
 export const setPlayerPoints = payload => dispatch => dispatch({ type: SET_PLAYERS_POINTS, payload });
 export const setPreciousItemsPoints = payload => dispatch => dispatch({ type: SET_PRECIOUS_ITEMS_POINTS, payload });
 export const setScreen = payload => dispatch => dispatch({ type: SET_SCREEN, payload });
+export const setTilesPoints = payload => dispatch => dispatch({ type: SET_TILES_POINTS, payload });
 export const setTotal = payload => dispatch => dispatch({ type: SET_TOTAL, payload });
 export const setVillagesPoints = payload => dispatch => dispatch({ type: SET_VILLAGES_POINTS, payload });
 
@@ -57,6 +60,7 @@ export const initialState = {
   preciousItemsPoints: {},
   screen: 'options',
   thievesExpansion: false,
+  tilesPoints: {},
   total: [],
   villagesPoints: {},
   whimsExpansion: false,
@@ -114,6 +118,10 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_THIEVES_EXPANSION:
       newState.thievesExpansion = action.payload;
+      break;
+
+    case SET_TILES_POINTS:
+      newState.tilesPoints = action.payload;
       break;
 
     case SET_TOTAL:
@@ -218,7 +226,7 @@ export const calculateOasisAndVillages = () => (dispatch, getState) => {
     if (villagesPoints.hasOwnProperty(key)) {
       for (let i = 0; i < villagesPoints[key].length; i++) {
         // 6 points per tree next to a great lake
-        if (key === 'oasisLake') {
+        if (key === 'villagesLake') {
           newVillagesTotalArray[i] += villagesPoints[key][i] * 10;
         }
         else {
@@ -304,6 +312,35 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
   dispatch(setPlayerPoints(playerPoints));
 };
 
+export const calculateTiles = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const tilesPoints = Object.assign({}, getState().scorer.tilesPoints);
+  const newTilesTotalArray = new Array(playerPoints.tilesTotal.length).fill(0);
+
+  const fabulousCitiesPoints = [0, 5, 20, 45, 80, 125];
+
+  for (let key in tilesPoints) {
+    if (tilesPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < tilesPoints[key].length; i++) {
+        // if fabulous city, calculate diffferently
+        if (key === 'cities') {
+          if (tilesPoints[key][i] > 5) {
+            console.warn('For Fabulous Cities input the number of tiles, not the total points');
+          }
+          newTilesTotalArray[i] += fabulousCitiesPoints[tilesPoints[key][i]];
+        }
+        else {
+          newTilesTotalArray[i] += tilesPoints[key][i];
+        }
+      }
+    }
+  }
+
+  playerPoints.tilesTotal = newTilesTotalArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+};
+
 export const newDjinnsPoints = () => (dispatch, getState) => {
   // Creates an array of zeroes in the size of the number of players
   const numPlayers = getState().scorer.numPlayers;
@@ -360,6 +397,20 @@ export const newPreciousItemsPoints = () => (dispatch, getState) => {
   }
 
   dispatch(setPreciousItemsPoints(preciousItemsPoints));
+};
+
+export const newTilesPoints = () => (dispatch, getState) => {
+  // Creates an array of zeroes in the size of the number of players
+  const numPlayers = getState().scorer.numPlayers;
+  const placeholder = new Array(numPlayers).fill(0);
+
+  const tilesPoints = {};
+
+  for (let i = 0; i < CATEGORIES_TILES.length; i++) {
+    tilesPoints[CATEGORIES_TILES[i]] = [...placeholder];
+  }
+
+  dispatch(setTilesPoints(tilesPoints));
 };
 
 export const newVillagePoints = () => (dispatch, getState) => {
@@ -434,6 +485,9 @@ export const setScorer = () => (dispatch, getState) => {
   // Add Villages Modal
   dispatch(newVillagePoints());
 
+  // Add Tiles Modal
+  dispatch(newTilesPoints());
+
   // Add Total
   const total = [...placeholder];
   dispatch(setTotal(total));
@@ -456,11 +510,13 @@ export const updateCell = (evt) => (dispatch, getState) => {
     pointsObject = Object.assign({}, getState().scorer.djinnsPoints);
   } else if (screen === 'oasisTotal') {
     pointsObject = Object.assign({}, getState().scorer.oasisPoints);
+  } else if (screen === 'tilesTotal') {
+    pointsObject = Object.assign({}, getState().scorer.tilesPoints);
   } else if (screen === 'villagesTotal') {
     pointsObject = Object.assign({}, getState().scorer.villagesPoints);
   }
 
-  if (pointsObject[category] === undefined) console.warn('Category doesnt exist');
+  if (pointsObject[category] === undefined) console.warn('Category does not exist');
 
   // Add points
   pointsObject[category][+player] = +value;
@@ -476,6 +532,8 @@ export const updateCell = (evt) => (dispatch, getState) => {
     dispatch(setDjinnsPoints(pointsObject));
   } else if (screen === 'oasisTotal') {
     dispatch(setOasisPoints(pointsObject));
+  } else if (screen === 'tilesTotal') {
+    dispatch(setTilesPoints(pointsObject));
   } else if (screen === 'villagesTotal') {
     dispatch(setVillagesPoints(pointsObject));
   }
@@ -497,7 +555,7 @@ export const updateRadioDjinn = (evt) => (dispatch, getState) => {
 };
 
 export const updateScreen = (newScreen) => (dispatch) => {
-  if (['merch', 'djinnsTotal', 'oasis', 'preciousItems', 'villages', 'oasisTotal', 'villagesTotal'].indexOf(newScreen) !== -1) {
+  if (['merch', 'djinnsTotal', 'oasis', 'preciousItems', 'villages', 'oasisTotal', 'villagesTotal', 'tilesTotal'].indexOf(newScreen) !== -1) {
     dispatch(setControls('clear-ok'));
   }
 
@@ -541,28 +599,37 @@ export const controller = (evt) => (dispatch, getState) => {
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
   }
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'tilesTotal') {
+    dispatch(calculateTiles());
+    dispatch(setScreen('scorer'));
+    dispatch(setControls('back-clear-score'));
+  }
   else if (EVENT_NAME === 'clear') {
+    // Hack: Switches to score than back to the previous one
     dispatch(setScreen('scorer'));
 
     if (CURRENT_SCREEN === 'merch') {
       dispatch(newMerchPoints());
-      dispatch(setScreen('merch'));
     }
 
     if (CURRENT_SCREEN === 'preciousItems') {
       dispatch(newPreciousItemsPoints());
-      dispatch(setScreen('preciousItems'));
     }
 
     if (CURRENT_SCREEN === 'djinnsTotal') {
       dispatch(newDjinnsPoints());
-      dispatch(setScreen('djinnsTotal'));
     }
 
     if (CURRENT_SCREEN === 'oasisTotal' || CURRENT_SCREEN === 'villagesTotal') {
-      dispatch(newDjinnsPoints());
-      dispatch(setScreen('oasisTotal'));
+      dispatch(newVillagePoints());
+      dispatch(newOasisPoints());
     }
+
+    if (CURRENT_SCREEN === 'tilesTotal') {
+      dispatch(newTilesPoints());
+    }
+
+    dispatch(setScreen(CURRENT_SCREEN));
   }
 
 };
