@@ -406,6 +406,64 @@ describe('Scorer', () => {
 
     });
 
+    describe('calculateTiles', () => {
+
+      it('adds the right amount of points for tiles', () => {
+      const points = { tiles: [21], tent: [0], cities: [0] };
+
+      testStore.dispatch(action.setTilesPoints(points));
+      testStore.dispatch(action.calculateTiles());
+      expect(testStore.getState().scorer.playerPoints.tilesTotal[0]).toEqual(21);
+
+      });
+
+      it('adds the right amount of points for the tent', () => {
+      const points = { tiles: [0], tent: [12], cities: [0] };
+
+      testStore.dispatch(action.setTilesPoints(points));
+      testStore.dispatch(action.calculateTiles());
+      expect(testStore.getState().scorer.playerPoints.tilesTotal[0]).toEqual(12);
+
+      });
+
+      it('awards the right amount of points for 1 fabulous city', () => {
+      const points = { tiles: [0], tent: [0], cities: [1] };
+
+      testStore.dispatch(action.setTilesPoints(points));
+      testStore.dispatch(action.calculateTiles());
+      expect(testStore.getState().scorer.playerPoints.tilesTotal[0]).toEqual(5);
+
+      });
+
+      it('awards the right amount of points for 3 fabulous city', () => {
+      const points = { tiles: [0], tent: [0], cities: [3] };
+
+      testStore.dispatch(action.setTilesPoints(points));
+      testStore.dispatch(action.calculateTiles());
+      expect(testStore.getState().scorer.playerPoints.tilesTotal[0]).toEqual(45);
+
+      });
+
+      it('awards the right amount of points for 5 fabulous city', () => {
+      const points = { tiles: [0], tent: [0], cities: [5] };
+
+      testStore.dispatch(action.setTilesPoints(points));
+      testStore.dispatch(action.calculateTiles());
+      expect(testStore.getState().scorer.playerPoints.tilesTotal[0]).toEqual(125);
+
+      });
+
+      it('awards the right amount of points for all three subcategories', () => {
+      const points = { tiles: [12], tent: [8], cities: [2] };
+
+      testStore.dispatch(action.setTilesPoints(points));
+      testStore.dispatch(action.calculateTiles());
+      expect(testStore.getState().scorer.playerPoints.tilesTotal[0]).toEqual(40);
+
+      });
+
+    });
+
   });
 
 });
