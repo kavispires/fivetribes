@@ -35,6 +35,7 @@ describe('Scorer', () => {
       expect(reducer(undefined, {})).toEqual({
         artisansExpansion: false,
         controls: '',
+        djinns: [-1, -1, -1, -1, -1],
         djinnsPoints: {},
         hint: '',
         merchPoints: {},
@@ -85,8 +86,8 @@ describe('Scorer', () => {
     });
 
     it('updates djinnsPoints with all its categories', () => {
-      for (let i = 0; i < CONSTANTS.CATEGORIES_DJINNS.length; i++) {
-        const cat = CONSTANTS.CATEGORIES_DJINNS[i];
+      for (let i = 0; i < CONSTANTS.CATEGORIES_DJINNS_AND_THIEVES.length; i++) {
+        const cat = CONSTANTS.CATEGORIES_DJINNS_AND_THIEVES[i];
         expect(testStore.getState().scorer.djinnsPoints[cat]).toEqual([0, 0, 0]);
       }
     });

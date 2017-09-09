@@ -1,6 +1,7 @@
 import {
   CATEGORIES,
   CATEGORIES_DJINNS,
+  CATEGORIES_DJINNS_AND_THIEVES,
   CATEGORIES_ITEMS,
   CATEGORIES_MERCH,
   CATEGORIES_OSASIS,
@@ -12,6 +13,7 @@ import {
 const CLEAR_SCORER = 'CLEAR_SCORER';
 const SET_ARTISANS_EXPANSION = 'SET_ARTISANS_EXPANSION';
 const SET_CONTROLS = 'SET_CONTROLS';
+const SET_DJINNS = 'SET_DJINNS';
 const SET_DJINNS_POINTS = 'SET_DJINNS_POINTS';
 const SET_HINT = 'SET_HINT';
 const SET_MERCH_POINTS = 'SET_MERCH_POINTS';
@@ -29,6 +31,7 @@ const SET_WHIMS_EXPANSION = 'SET_WHIMS_EXPANSION';
 
 export const clearScorer = payload => dispatch => dispatch({ type: CLEAR_SCORER, payload });
 export const setControls = payload => dispatch => dispatch({ type: SET_CONTROLS, payload });
+export const setDjinns = payload => dispatch => dispatch({ type: SET_DJINNS, payload });
 export const setDjinnsPoints = payload => dispatch => dispatch({ type: SET_DJINNS_POINTS, payload });
 export const setHint = payload => dispatch => dispatch({ type: SET_HINT, payload });
 export const setMerchPoints = payload => dispatch => dispatch({ type: SET_MERCH_POINTS, payload });
@@ -44,6 +47,7 @@ export const setVillagesPoints = payload => dispatch => dispatch({ type: SET_VIL
 export const initialState = {
   artisansExpansion: false,
   controls: '',
+  djinns: [-1, -1, -1, -1, -1],
   djinnsPoints: {},
 	hint: '',
   merchPoints: {},
@@ -70,6 +74,10 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_CONTROLS:
       newState.controls = action.payload;
+      break;
+
+     case SET_DJINNS:
+      newState.djinns = action.payload;
       break;
 
     case SET_DJINNS_POINTS:
@@ -158,8 +166,28 @@ export const calculateScore = () => (dispatch, getState) => {
 
   // TO-DO Compute Viziers Bonus
   // TO-DO Compute Artisans Bonus if expansion
+  // TO-DO Special Djinns points
 
   dispatch(setTotal(total));
+};
+
+export const calculateDjinnsAndThieves = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const djinnsPoints = Object.assign({}, getState().scorer.djinnsPoints);
+
+  const newDjinnsTotalArray = new Array(playerPoints.djinnsTotal.length).fill(0);
+
+  for (let key in djinnsPoints) {
+    if (djinnsPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < djinnsPoints[key].length; i++) {
+        newDjinnsTotalArray[i] += djinnsPoints[key][i];
+      }
+    }
+  }
+
+  playerPoints.djinnsTotal = newDjinnsTotalArray;
+
+  dispatch(setPlayerPoints(playerPoints));
 };
 
 export const calculateMerch = () => (dispatch, getState) => {
@@ -188,7 +216,7 @@ export const calculateMerch = () => (dispatch, getState) => {
   for (let key in merchArrays) {
     if (merchArrays.hasOwnProperty(key)) {
       // Reverse sort
-      merchArrays[key] = merchArrays[key].sort((a,b) => b > a);
+      merchArrays[key] = merchArrays[key].sort((a, b) => b > a);
 
       while (merchArrays[key].length > 0) {
         // Remove zeroes
@@ -240,13 +268,13 @@ export const newDjinnsPoints = () => (dispatch, getState) => {
 
   const djinnsPoints = {};
 
-  for (let i = 0; i < CATEGORIES_DJINNS.length; i++) {
-    djinnsPoints[CATEGORIES_DJINNS[i]] = [...placeholder];
+  for (let i = 0; i < CATEGORIES_DJINNS_AND_THIEVES.length; i++) {
+    djinnsPoints[CATEGORIES_DJINNS_AND_THIEVES[i]] = [...placeholder];
   }
 
   dispatch(setDjinnsPoints(djinnsPoints));
 
-  //TO-DO: Specific djinn cards (Jaafar, Geb, etc)
+  dispatch(setDjinns([-1, -1, -1, -1, -1]));
 };
 
 export const newMerchPoints = () => (dispatch, getState) => {
@@ -381,6 +409,8 @@ export const updateCell = (evt) => (dispatch, getState) => {
     pointsObject = Object.assign({}, getState().scorer.merchPoints);
   } else if (screen === 'preciousItems') {
     pointsObject = Object.assign({}, getState().scorer.preciousItemsPoints);
+  } else if (screen === 'djinnsTotal') {
+    pointsObject = Object.assign({}, getState().scorer.djinnsPoints);
   }
 
   if (pointsObject[category] === undefined) console.warn('Category doesnt exist');
@@ -395,12 +425,28 @@ export const updateCell = (evt) => (dispatch, getState) => {
     dispatch(setMerchPoints(pointsObject));
   } else if (screen === 'preciousItems') {
     dispatch(setPreciousItemsPoints(pointsObject));
+  } else if (screen === 'djinnsTotal') {
+    dispatch(setDjinnsPoints(pointsObject));
   }
 };
 
-export const updateScreen = (newScreen) => (dispatch) => {
+export const updateRadioDjinn = (evt) => (dispatch, getState) => {
+  const djinn = evt.target.name.split('-')[1];
+  const playerId = evt.target.id.split('-')[1];
 
-  if (['merch', 'djinns', 'oasis', 'preciousItems', 'villages'].indexOf(newScreen) !== -1) {
+  const index = CATEGORIES_DJINNS.indexOf(djinn);
+
+  if (index < 0) return;
+
+  const djinnsArray = [...getState().scorer.djinns];
+
+  djinnsArray[index] = +playerId;
+
+  dispatch(setDjinns(djinnsArray));
+};
+
+export const updateScreen = (newScreen) => (dispatch) => {
+  if (['merch', 'djinnsTotal', 'oasis', 'preciousItems', 'villages'].indexOf(newScreen) !== -1) {
     dispatch(setControls('clear-ok'));
   }
 
@@ -434,6 +480,16 @@ export const controller = (evt) => (dispatch, getState) => {
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
   }
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'djinnsTotal') {
+    dispatch(calculateDjinnsAndThieves());
+    dispatch(setScreen('scorer'));
+    dispatch(setControls('back-clear-score'));
+  }
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'djinnsTotal') {
+    dispatch(calculateDjinnsAndThieves());
+    dispatch(setScreen('scorer'));
+    dispatch(setControls('back-clear-score'));
+  }
   else if (EVENT_NAME === 'clear') {
     dispatch(setScreen('scorer'));
 
@@ -445,6 +501,11 @@ export const controller = (evt) => (dispatch, getState) => {
     if (CURRENT_SCREEN === 'preciousItems') {
       dispatch(newPreciousItemsPoints());
       dispatch(setScreen('preciousItems'));
+    }
+
+    if (CURRENT_SCREEN === 'djinnsTotal') {
+      dispatch(newDjinnsPoints());
+      dispatch(setScreen('djinnsTotal'));
     }
   }
 

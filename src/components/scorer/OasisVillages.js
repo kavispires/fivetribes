@@ -7,7 +7,7 @@ import {
   CATEGORIES_MERCH,
 } from '../../constants';
 
-const Oasis = ({props}) => {
+const OasisVillages = ({props}) => {
   const {scorer} = props;
 
 	return (
@@ -24,4 +24,4 @@ const Oasis = ({props}) => {
   );
 };
 
-export default Oasis;
+export default OasisVillages;

@@ -11,6 +11,7 @@ import {
 	setExpansions,
 	setNumPlayers,
 	updateCell,
+	updateRadioDjinn,
 	updateScreen,
 } from '../reducers/scorer';
 
@@ -22,6 +23,7 @@ const mapDispatchToProps = {
 	setExpansions,
 	setNumPlayers,
 	updateCell,
+	updateRadioDjinn,
 	updateScreen,
 };
 

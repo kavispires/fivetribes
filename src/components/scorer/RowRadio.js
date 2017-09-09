@@ -2,7 +2,7 @@ import React from 'react';
 
 import { COLORS } from '../../constants';
 
-const RowNumber = ({type, screen, cells, action}) => {
+const RowRadio = ({type, screen, cells, action}) => {
   return (
     <li className="row" >
       <div className="cell-cat">
@@ -11,7 +11,7 @@ const RowNumber = ({type, screen, cells, action}) => {
       {
         cells.map((value, i) => (
           <div key={`${type}-${COLORS[i]}`} className={`cell cell-${cells.length}`}>
-            <input type="number" name={`${screen}-${type}-${i}`} placeholder={value} onChange={ action } />
+            <input type="radio" name={`${screen}-${type}`} id={`${type}-${i}`} onChange={ action } />
           </div>
         ))
       }
@@ -19,4 +19,4 @@ const RowNumber = ({type, screen, cells, action}) => {
   );
 };
 
-export default RowNumber;
+export default RowRadio;

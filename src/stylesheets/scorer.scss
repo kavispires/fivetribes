@@ -43,6 +43,30 @@
 		border-radius: $halfUnit;
 	}
 
+	input[type="radio"] {
+	  -webkit-appearance: none;
+	  background: rgba(255,255,255,0.5) !important;
+	  margin: 0;
+	  border: 1px solid $grey;
+	  outline: none;
+	}
+
+	input[type='radio']:hover {
+	  box-shadow:0 0 5px 0px $gold inset;
+	}
+
+	input[type='radio']:before {
+	  content: '';
+	  display: block;
+	  width: 100%;
+	  height: 100%;
+	  margin: auto;    
+	  border-radius: $halfUnit;    
+	}
+	input[type="radio"]:checked:before {
+	  background: url('/images/scorer/lamp.png') no-repeat center/50%; 
+	}
+
 	// Colors
 	&:nth-child(2) {
 		background: $sBlueLight;
@@ -132,16 +156,15 @@
 }
 
 .cell-cat {
-	@extend .cell;
 	min-width: 16.66%;
 	width: 16.66%;
+	padding: $halfUnit;
 }
 
 @for $i from 1 through 5 {
 	$width: calc(83.33% / #{$i});
 
   .cell-#{$i} {
-  	@extend .cell;
     width: $width;
   }
 }

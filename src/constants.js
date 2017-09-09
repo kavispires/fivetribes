@@ -6,7 +6,9 @@ export const EXPANSIONS = ['Artisans', 'Thieves', 'Whims'];
 
 export const CATEGORIES = ['coins', 'viziers', 'artisans', 'elders', 'djinnsTotal', 'tilesTotal', 'oasisTotal', 'villagesTotal', 'preciousItems', 'merch'];
 
-export const CATEGORIES_DJINNS = ['djinns', 'thieves'];
+export const CATEGORIES_DJINNS = ['geb', 'haurvatat', 'jaafar', 'ptah', 'shamhat'];
+
+export const CATEGORIES_DJINNS_AND_THIEVES = ['djinns', 'thieves'];
 
 export const CATEGORIES_ITEMS = ['jewelry', 'treasure', 'crown'];
 
