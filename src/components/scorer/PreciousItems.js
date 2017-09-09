@@ -11,7 +11,7 @@ const PreciousItems = ({props}) => {
   const {scorer} = props;
 
 	return (
-    <main className="screen-main screen-scorer-merch">
+    <main className="screen-main screen-scorer-precious-items">
       <ul className="scorer-table">
         <RowHeader total={scorer.total} />
         {

@@ -411,6 +411,10 @@ export const updateCell = (evt) => (dispatch, getState) => {
     pointsObject = Object.assign({}, getState().scorer.preciousItemsPoints);
   } else if (screen === 'djinnsTotal') {
     pointsObject = Object.assign({}, getState().scorer.djinnsPoints);
+  } else if (screen === 'oasisTotal') {
+    pointsObject = Object.assign({}, getState().scorer.oasisPoints);
+  } else if (screen === 'villagesTotal') {
+    pointsObject = Object.assign({}, getState().scorer.villagesPoints);
   }
 
   if (pointsObject[category] === undefined) console.warn('Category doesnt exist');
@@ -427,6 +431,10 @@ export const updateCell = (evt) => (dispatch, getState) => {
     dispatch(setPreciousItemsPoints(pointsObject));
   } else if (screen === 'djinnsTotal') {
     dispatch(setDjinnsPoints(pointsObject));
+  } else if (screen === 'oasisTotal') {
+    dispatch(setOasisPoints(pointsObject));
+  } else if (screen === 'villagesTotal') {
+    dispatch(setVillagesPoints(pointsObject));
   }
 };
 

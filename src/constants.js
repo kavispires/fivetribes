@@ -18,6 +18,8 @@ export const CATEGORIES_OSASIS = ['oasis', 'oasisLake'];
 
 export const CATEGORIES_VILLAGES = ['villages', 'villagesLake'];
 
+export const CATEGORIES_OASIS_AND_VILLAGES = ['oasis', 'villages', 'oasisLake', 'villagesLake'];
+
 export const HINTS = {
 	coins: 'Input the total value of coins.',
 	viziers: 'Input the number of Viziers (yellow meeples).',
