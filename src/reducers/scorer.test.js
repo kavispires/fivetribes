@@ -3,21 +3,9 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 
-import reducer, * as action
-  // {
-  //   calculateDjinnsAndThieves,
-  //   calculateMerch,
-  //   setDjinnsPoints,
-  //   setMerchPoints,
-  //   setNumPlayers,
-  //   setScorer,
-  //   updateCell
-  // }
-from '../../src/reducers/scorer';
+import reducer, * as action from '../../src/reducers/scorer';
 
 import * as CONSTANTS from '../constants';
-
-// console.log("" + mockStore);
 
 describe('Scorer', () => {
 
@@ -45,6 +33,7 @@ describe('Scorer', () => {
         numPlayers: 0,
         playerPoints: {},
         preciousItemsPoints: {},
+        preciousItemsQuantity: [],
         screen: 'options',
         thievesExpansion: false,
         tilesPoints: {},

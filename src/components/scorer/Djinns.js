@@ -18,8 +18,8 @@ const PreciousItems = ({props}) => {
         <RowHeader total={scorer.total} />
         {
           CATEGORIES_DJINNS.map((category) => {
-            // Do not show ptah row if artisans expansion is not in play
-            if (!scorer.artisansExpansion && category === 'ptah') {
+            // Do not show ptah or geb row if artisans expansion is not in play
+            if (!scorer.artisansExpansion && (category === 'ptah' || category === 'geb')) {
               return '';
             }
             return (<RowRadio

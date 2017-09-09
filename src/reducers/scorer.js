@@ -22,6 +22,7 @@ const SET_NUM_PLAYERS = 'SET_NUM_PLAYERS';
 const SET_OASIS_POINTS = 'SET_OASIS_POINTS';
 const SET_PLAYERS_POINTS = 'SET_PLAYERS_POINTS';
 const SET_PRECIOUS_ITEMS_POINTS = 'SET_PRECIOUS_ITEMS_POINTS';
+const SET_PRECIOUS_ITEMS_QUANTITY = 'SET_PRECIOUS_ITEMS_QUANTITY';
 const SET_SCREEN = 'SET_SCREEN';
 const SET_THIEVES_EXPANSION = 'SET_THIEVES_EXPANSION';
 const SET_TILES_POINTS = 'SET_TILES_POINTS';
@@ -40,6 +41,7 @@ export const setMerchPoints = payload => dispatch => dispatch({ type: SET_MERCH_
 export const setOasisPoints = payload => dispatch => dispatch({ type: SET_OASIS_POINTS, payload });
 export const setPlayerPoints = payload => dispatch => dispatch({ type: SET_PLAYERS_POINTS, payload });
 export const setPreciousItemsPoints = payload => dispatch => dispatch({ type: SET_PRECIOUS_ITEMS_POINTS, payload });
+export const setPreciousItemsQuantity = payload => dispatch => dispatch({ type: SET_PRECIOUS_ITEMS_QUANTITY, payload,});
 export const setScreen = payload => dispatch => dispatch({ type: SET_SCREEN, payload });
 export const setTilesPoints = payload => dispatch => dispatch({ type: SET_TILES_POINTS, payload });
 export const setTotal = payload => dispatch => dispatch({ type: SET_TOTAL, payload });
@@ -58,6 +60,7 @@ export const initialState = {
   numPlayers: 0,
   playerPoints: {},
   preciousItemsPoints: {},
+  preciousItemsQuantity: [],
   screen: 'options',
   thievesExpansion: false,
   tilesPoints: {},
@@ -110,6 +113,10 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_PRECIOUS_ITEMS_POINTS:
       newState.preciousItemsPoints = action.payload;
+      break;
+
+    case SET_PRECIOUS_ITEMS_QUANTITY:
+      newState.preciousItemsQuantity = action.payload;
       break;
 
     case SET_SCREEN:
@@ -290,6 +297,7 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
   const preciousItemsPoints = Object.assign({}, getState().scorer.preciousItemsPoints);
 
   const newPreciousItemsArray = new Array(playerPoints.preciousItems.length).fill(0);
+  const newPreciousItemsQuantityArray = new Array(playerPoints.preciousItems.length).fill(0);
 
   for (let key in preciousItemsPoints) {
     if (preciousItemsPoints.hasOwnProperty(key)) {
@@ -303,6 +311,7 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
         else if (key === 'crown') {
           newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 9;
         }
+        newPreciousItemsQuantityArray[i]++;
       }
     }
   }
@@ -310,6 +319,7 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
   playerPoints.preciousItems = newPreciousItemsArray;
 
   dispatch(setPlayerPoints(playerPoints));
+  dispatch(setPreciousItemsQuantity(newPreciousItemsQuantityArray));
 };
 
 export const calculateTiles = () => (dispatch, getState) => {
@@ -322,7 +332,7 @@ export const calculateTiles = () => (dispatch, getState) => {
   for (let key in tilesPoints) {
     if (tilesPoints.hasOwnProperty(key)) {
       for (let i = 0; i < tilesPoints[key].length; i++) {
-        // if fabulous city, calculate diffferently
+        // if fabulous city, calculate differently
         if (key === 'cities') {
           if (tilesPoints[key][i] > 5) {
             console.warn('For Fabulous Cities input the number of tiles, not the total points');
@@ -496,8 +506,6 @@ export const setScorer = () => (dispatch, getState) => {
 export const updateCell = (evt) => (dispatch, getState) => {
   const [screen, category, player] = evt.target.name.split('-');
   const value = evt.target.value;
-
-  console.log('SCREEN: ', screen);
 
   let pointsObject;
   if (screen === 'scorer') {
