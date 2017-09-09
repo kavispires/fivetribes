@@ -225,7 +225,7 @@ export const calculateOasisAndVillages = () => (dispatch, getState) => {
   for (let key in villagesPoints) {
     if (villagesPoints.hasOwnProperty(key)) {
       for (let i = 0; i < villagesPoints[key].length; i++) {
-        // 6 points per tree next to a great lake
+        // 10 points per tree next to a great lake
         if (key === 'villagesLake') {
           newVillagesTotalArray[i] += villagesPoints[key][i] * 10;
         }
