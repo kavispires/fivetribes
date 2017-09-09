@@ -79,11 +79,15 @@ body {
   border-top: 1px solid #b3b5b4;
   background: #c7c8ca;
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-evenly;
   z-index: 30; }
-  .screen-controls.align-right {
-    justify-content: flex-start; }
+
+.screen-controls-justify {
+  justify-content: space-between; }
+
+.screen-controls-subgroup {
+  display: flex;
+  justify-content: space-between; }
 
 .content h1 {
   font-size: 1.2em;
