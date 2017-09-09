@@ -367,6 +367,7 @@ describe('Scorer', () => {
         testStore.dispatch(action.setPreciousItemsPoints(points));
         testStore.dispatch(action.calculatePreciousItems());
         expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(15);
+        expect(testStore.getState().scorer.preciousItemsQuantity[0]).toEqual(3);
       });
 
       it('awards the right amount of points for treasure chests', () => {
@@ -375,6 +376,7 @@ describe('Scorer', () => {
         testStore.dispatch(action.setPreciousItemsPoints(points));
         testStore.dispatch(action.calculatePreciousItems());
         expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(14);
+        expect(testStore.getState().scorer.preciousItemsQuantity[0]).toEqual(2);
       });
 
       it('awards the right amount of points for crowns', () => {
@@ -383,6 +385,7 @@ describe('Scorer', () => {
         testStore.dispatch(action.setPreciousItemsPoints(points));
         testStore.dispatch(action.calculatePreciousItems());
         expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(18);
+        expect(testStore.getState().scorer.preciousItemsQuantity[0]).toEqual(2);
       });
 
       it('awards the right amount of points for all precious items', () => {
@@ -391,6 +394,7 @@ describe('Scorer', () => {
         testStore.dispatch(action.setPreciousItemsPoints(points));
         testStore.dispatch(action.calculatePreciousItems());
         expect(testStore.getState().scorer.playerPoints.preciousItems[0]).toEqual(59);
+        expect(testStore.getState().scorer.preciousItemsQuantity[0]).toEqual(9);
       });
 
     });

@@ -297,7 +297,7 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
   const preciousItemsPoints = Object.assign({}, getState().scorer.preciousItemsPoints);
 
   const newPreciousItemsArray = new Array(playerPoints.preciousItems.length).fill(0);
-  const newPreciousItemsQuantityArray = new Array(playerPoints.preciousItems.length).fill(0);
+  const itemsQuantity = new Array(playerPoints.preciousItems.length).fill(0);
 
   for (let key in preciousItemsPoints) {
     if (preciousItemsPoints.hasOwnProperty(key)) {
@@ -311,7 +311,7 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
         else if (key === 'crown') {
           newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 9;
         }
-        newPreciousItemsQuantityArray[i]++;
+        itemsQuantity[i] += preciousItemsPoints[key][i];
       }
     }
   }
@@ -319,7 +319,7 @@ export const calculatePreciousItems = () => (dispatch, getState) => {
   playerPoints.preciousItems = newPreciousItemsArray;
 
   dispatch(setPlayerPoints(playerPoints));
-  dispatch(setPreciousItemsQuantity(newPreciousItemsQuantityArray));
+  dispatch(setPreciousItemsQuantity(itemsQuantity));
 };
 
 export const calculateTiles = () => (dispatch, getState) => {
@@ -407,6 +407,8 @@ export const newPreciousItemsPoints = () => (dispatch, getState) => {
   }
 
   dispatch(setPreciousItemsPoints(preciousItemsPoints));
+
+  dispatch(setPreciousItemsQuantity([...placeholder]));
 };
 
 export const newTilesPoints = () => (dispatch, getState) => {
