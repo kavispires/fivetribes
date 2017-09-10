@@ -486,14 +486,14 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.total).toEqual([1, 12, 23, 34, 45]);
       });
 
-      xit('adds viziers points correctly when two or more players have the same amount of meeples', () => {
+      it('adds viziers points correctly when two or more players have the same amount of meeples', () => {
         playerPoints.viziers = [1, 1, 2, 2, 5];
         testStore.dispatch(action.setPlayerPoints(playerPoints));
         testStore.dispatch(action.calculateScore());
-        expect(testStore.getState().scorer.total).toEqual([1, 1, 12, 12, 25]);
+        expect(testStore.getState().scorer.total).toEqual([1, 1, 22, 22, 45]);
       });
 
-      xit('adds viziers points correctly when one player has the djinn Jaafar', () => {
+      it('adds viziers points correctly when one player has the djinn Jaafar', () => {
         playerPoints.viziers = [1, 2, 3, 4, 5];
         testStore.dispatch(action.setPlayerPoints(playerPoints));
         // Add Jaafar (index = 2)
@@ -502,7 +502,7 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.total).toEqual([1, 12, 26, 34, 45]);
       });
 
-      xit('adds viziers points correctly with lower player count', () => {
+      it('adds viziers points correctly with lower player count', () => {
         // Changing player count
         const evt = {target: { value: '3' }};
         testStore.dispatch(action.setNumPlayers(evt));
@@ -515,7 +515,7 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.total).toEqual([24, 2, 13]);
       });
 
-      xit('adds viziers points correctly without bonus when playing solitaire', () => {
+      it('adds viziers points correctly without bonus when playing solitaire', () => {
         // Changing player count
         const evt = {target: { value: '1' }};
         testStore.dispatch(action.setNumPlayers(evt));
@@ -528,14 +528,21 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.total).toEqual([3]);
       });
 
-      xit('adds artisans points correctly', () => {
+      it('adds artisans points correctly', () => {
         playerPoints.artisans = [1, 2, 3, 4, 5];
         testStore.dispatch(action.setPlayerPoints(playerPoints));
         testStore.dispatch(action.calculateScore());
         expect(testStore.getState().scorer.total).toEqual([2, 4, 6, 8, 15]);
       });
 
-      xit('adds artisans points correctly when one player has the djinn Ptah', () => {
+      it('adds artisans points correctly, without the bonus if two players are tied for most artisan meeples', () => {
+        playerPoints.artisans = [1, 2, 3, 5, 5];
+        testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([2, 4, 6, 10, 10]);
+      });
+
+      it('adds artisans points correctly when one player has the djinn Ptah', () => {
         playerPoints.artisans = [1, 2, 3, 4, 5];
         testStore.dispatch(action.setPlayerPoints(playerPoints));
         // Add Ptah (index = 3)
@@ -551,7 +558,7 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.total).toEqual([2, 4, 6, 8, 10]);
       });
 
-      xit('adds elders points correctly when one player has the djinn Shamhat', () => {
+      it('adds elders points correctly when one player has the djinn Shamhat', () => {
         playerPoints.elders = [1, 2, 3, 4, 5];
         testStore.dispatch(action.setPlayerPoints(playerPoints));
         // Add Shamhat (index = 4)
@@ -574,7 +581,7 @@ describe('Scorer', () => {
         expect(testStore.getState().scorer.total).toEqual([3, 6, 9, 12, 15]);
       });
 
-      xit('adds oasis points correctly when one player has the djinn Haurvatat', () => {
+      it('adds oasis points correctly when one player has the djinn Haurvatat', () => {
 
         playerPoints.oasisTotal = [1, 2, 3, 4, 5];
         // Add Haurvatat (index = 1)
@@ -582,6 +589,20 @@ describe('Scorer', () => {
         testStore.dispatch(action.setPlayerPoints(playerPoints));
         testStore.dispatch(action.calculateScore());
         expect(testStore.getState().scorer.total).toEqual([3, 6, 15, 12, 15]);
+      });
+
+      it('adds oasis points correctly when one player has the djinn Haurvatat with the Whims of the Sultan expansion', () => {
+        // Add expansion
+        testStore.dispatch(action.setExpansions({ target: { value: 'Whims' }}));
+        // Add oasis points
+        const points = { oasis: [0, 2, 3, 3, 2], oasisLake: [1, 0, 0, 1, 3] };
+        testStore.dispatch(action.setOasisPoints(points));
+        testStore.dispatch(action.calculateOasisAndVillages());
+        // Add Haurvatat (index = 1)
+        testStore.dispatch(action.setDjinns([-1, 2, -1, -1, -1]));
+        // testStore.dispatch(action.setPlayerPoints(playerPoints));
+        testStore.dispatch(action.calculateScore());
+        expect(testStore.getState().scorer.total).toEqual([6, 6, 15, 15, 24]);
       });
 
       it('adds palaces points correctly', () => {

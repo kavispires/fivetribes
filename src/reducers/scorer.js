@@ -155,33 +155,82 @@ export default function reducer(prevState = initialState, action) {
 
 export const calculateScore = () => (dispatch, getState) => {
   const playerPoints = Object.assign({}, getState().scorer.playerPoints);
-  const total = new Array(getState().scorer.total.length).fill(0);
-  // const artisansExpansion = getState().scorer.artisansExpansion;
+  const djinns = [...getState().scorer.djinns];
   const whimsExpansion = getState().scorer.whimsExpansion;
+  const oasisPoints = Object.assign({}, getState().scorer.oasisPoints);
+  const total = new Array(getState().scorer.total.length).fill(0);
+  const maxArtisans = Math.max.apply(null, playerPoints.artisans);
 
   CATEGORIES.forEach(category => {
-    playerPoints[category].forEach((pts, i) => {
+    playerPoints[category].forEach((value, i) => {
+
       // 2 points per artisan and elder
       if (category === 'artisans' || category === 'elders') {
-        total[i] += pts * 2;
+        total[i] += value * 2;
       }
       // if not using whims expansion, 3 points per oasis
       else if (!whimsExpansion && category === 'oasisTotal') {
-        total[i] += pts * 3;
+        total[i] += value * 3;
+
+        // Special Djinn Haurvatat: palm trees are worth 2 extra victory points
+        if (djinns[1] === i) {
+          total[i] += value * 2;
+        }
       }
       // if not using whims expansion, 5 points per village
       else if (!whimsExpansion && category === 'villagesTotal') {
-        total[i] += pts * 5;
+        total[i] += value * 5;
       }
       else {
-        total[i] += pts;
+        if (category === 'oasisTotal') console.log('HERE', value);
+        total[i] += value;
+      }
+
+      // Compute Viziers Bonus: Award +10 points per player you strictly have more viziers than.
+      if (category === 'viziers') {
+        playerPoints.viziers.forEach((meeples) => {
+          if (value > meeples) {
+            total[i] += 10;
+          }
+        });
+
+        // Special Djinn: Jaafar - viziers are worth extra 1 point
+        if (djinns[2] === i) {
+          total[i] += value;
+        }
+      }
+
+      // Special Djinn: Ptah - artisans are worth extra 2 points
+      if (category === 'artisans' && djinns[3] === i) {
+        total[i] += value * 2;
+      }
+
+      // Special Djinn: Shamhat - elders are worth extra 2 points
+      if (category === 'elders' && djinns[4] === i) {
+        total[i] += value * 2;
+      }
+
+      // Special Djinn Haurvatat with Whims Expansion
+      if (category === 'oasisTotal' && whimsExpansion && djinns[1] === i) {
+        const oasisQuantity = oasisPoints.oasis[i] + oasisPoints.oasisLake[i];
+        total[i] += oasisQuantity * 2;
       }
     });
-  });
 
-  // TO-DO Compute Viziers Bonus
-  // TO-DO Compute Artisans Bonus if expansion
-  // TO-DO Special Djinns points
+    // Compute Artisans Bonus: Award 10 points to the player with strictly more artisans than the others
+    if (category === 'artisans') {
+      const hasMax = [];
+      playerPoints.artisans.forEach((meeples, i) => {
+        if (meeples === maxArtisans) {
+          hasMax.push(i);
+        }
+      });
+      if (hasMax.length === 1) {
+        total[hasMax[0]] += maxArtisans;
+      }
+    }
+
+  });
 
   dispatch(setTotal(total));
 };
