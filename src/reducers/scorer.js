@@ -1,9 +1,11 @@
 import {
   CATEGORIES,
   CATEGORIES_DJINNS,
+  CATEGORIES_DJINNS_AND_THIEVES,
   CATEGORIES_ITEMS,
   CATEGORIES_MERCH,
   CATEGORIES_OSASIS,
+  CATEGORIES_TILES,
   CATEGORIES_VILLAGES
 } from '../constants';
 
@@ -12,6 +14,7 @@ import {
 const CLEAR_SCORER = 'CLEAR_SCORER';
 const SET_ARTISANS_EXPANSION = 'SET_ARTISANS_EXPANSION';
 const SET_CONTROLS = 'SET_CONTROLS';
+const SET_DJINNS = 'SET_DJINNS';
 const SET_DJINNS_POINTS = 'SET_DJINNS_POINTS';
 const SET_HINT = 'SET_HINT';
 const SET_MERCH_POINTS = 'SET_MERCH_POINTS';
@@ -19,8 +22,10 @@ const SET_NUM_PLAYERS = 'SET_NUM_PLAYERS';
 const SET_OASIS_POINTS = 'SET_OASIS_POINTS';
 const SET_PLAYERS_POINTS = 'SET_PLAYERS_POINTS';
 const SET_PRECIOUS_ITEMS_POINTS = 'SET_PRECIOUS_ITEMS_POINTS';
+const SET_PRECIOUS_ITEMS_QUANTITY = 'SET_PRECIOUS_ITEMS_QUANTITY';
 const SET_SCREEN = 'SET_SCREEN';
 const SET_THIEVES_EXPANSION = 'SET_THIEVES_EXPANSION';
+const SET_TILES_POINTS = 'SET_TILES_POINTS';
 const SET_TOTAL = 'SET_TOTAL';
 const SET_VILLAGES_POINTS = 'SET_VILLAGES_POINTS';
 const SET_WHIMS_EXPANSION = 'SET_WHIMS_EXPANSION';
@@ -29,13 +34,16 @@ const SET_WHIMS_EXPANSION = 'SET_WHIMS_EXPANSION';
 
 export const clearScorer = payload => dispatch => dispatch({ type: CLEAR_SCORER, payload });
 export const setControls = payload => dispatch => dispatch({ type: SET_CONTROLS, payload });
+export const setDjinns = payload => dispatch => dispatch({ type: SET_DJINNS, payload });
 export const setDjinnsPoints = payload => dispatch => dispatch({ type: SET_DJINNS_POINTS, payload });
 export const setHint = payload => dispatch => dispatch({ type: SET_HINT, payload });
 export const setMerchPoints = payload => dispatch => dispatch({ type: SET_MERCH_POINTS, payload });
 export const setOasisPoints = payload => dispatch => dispatch({ type: SET_OASIS_POINTS, payload });
 export const setPlayerPoints = payload => dispatch => dispatch({ type: SET_PLAYERS_POINTS, payload });
 export const setPreciousItemsPoints = payload => dispatch => dispatch({ type: SET_PRECIOUS_ITEMS_POINTS, payload });
+export const setPreciousItemsQuantity = payload => dispatch => dispatch({ type: SET_PRECIOUS_ITEMS_QUANTITY, payload,});
 export const setScreen = payload => dispatch => dispatch({ type: SET_SCREEN, payload });
+export const setTilesPoints = payload => dispatch => dispatch({ type: SET_TILES_POINTS, payload });
 export const setTotal = payload => dispatch => dispatch({ type: SET_TOTAL, payload });
 export const setVillagesPoints = payload => dispatch => dispatch({ type: SET_VILLAGES_POINTS, payload });
 
@@ -44,6 +52,7 @@ export const setVillagesPoints = payload => dispatch => dispatch({ type: SET_VIL
 export const initialState = {
   artisansExpansion: false,
   controls: '',
+  djinns: [-1, -1, -1, -1, -1],
   djinnsPoints: {},
 	hint: '',
   merchPoints: {},
@@ -51,8 +60,10 @@ export const initialState = {
   numPlayers: 0,
   playerPoints: {},
   preciousItemsPoints: {},
+  preciousItemsQuantity: [],
   screen: 'options',
   thievesExpansion: false,
+  tilesPoints: {},
   total: [],
   villagesPoints: {},
   whimsExpansion: false,
@@ -70,6 +81,10 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_CONTROLS:
       newState.controls = action.payload;
+      break;
+
+     case SET_DJINNS:
+      newState.djinns = action.payload;
       break;
 
     case SET_DJINNS_POINTS:
@@ -100,12 +115,20 @@ export default function reducer(prevState = initialState, action) {
       newState.preciousItemsPoints = action.payload;
       break;
 
+    case SET_PRECIOUS_ITEMS_QUANTITY:
+      newState.preciousItemsQuantity = action.payload;
+      break;
+
     case SET_SCREEN:
       newState.screen = action.payload;
       break;
 
     case SET_THIEVES_EXPANSION:
       newState.thievesExpansion = action.payload;
+      break;
+
+    case SET_TILES_POINTS:
+      newState.tilesPoints = action.payload;
       break;
 
     case SET_TOTAL:
@@ -132,31 +155,162 @@ export default function reducer(prevState = initialState, action) {
 
 export const calculateScore = () => (dispatch, getState) => {
   const playerPoints = Object.assign({}, getState().scorer.playerPoints);
-  const total = [...getState().scorer.total];
+  const djinns = [...getState().scorer.djinns];
+  const whimsExpansion = getState().scorer.whimsExpansion;
+  const oasisPoints = Object.assign({}, getState().scorer.oasisPoints);
+  const total = new Array(getState().scorer.total.length).fill(0);
+  const maxArtisans = Math.max.apply(null, playerPoints.artisans);
 
   CATEGORIES.forEach(category => {
-    // TO-DO Compute Right number of points
-    playerPoints[category].forEach((pts, i) => { total[i] += pts; });
-    // TO-DO Compute Viziers Bonus
-    // TO-DO Compute Artisans Bonus if expansion
+    playerPoints[category].forEach((value, i) => {
+
+      // 2 points per artisan and elder
+      if (category === 'artisans' || category === 'elders') {
+        total[i] += value * 2;
+      }
+      // if not using whims expansion, 3 points per oasis
+      else if (!whimsExpansion && category === 'oasisTotal') {
+        total[i] += value * 3;
+
+        // Special Djinn Haurvatat: palm trees are worth 2 extra victory points
+        if (djinns[1] === i) {
+          total[i] += value * 2;
+        }
+      }
+      // if not using whims expansion, 5 points per village
+      else if (!whimsExpansion && category === 'villagesTotal') {
+        total[i] += value * 5;
+      }
+      else {
+        if (category === 'oasisTotal') console.log('HERE', value);
+        total[i] += value;
+      }
+
+      // Compute Viziers Bonus: Award +10 points per player you strictly have more viziers than.
+      if (category === 'viziers') {
+        playerPoints.viziers.forEach((meeples) => {
+          if (value > meeples) {
+            total[i] += 10;
+          }
+        });
+
+        // Special Djinn: Jaafar - viziers are worth extra 1 point
+        if (djinns[2] === i) {
+          total[i] += value;
+        }
+      }
+
+      // Special Djinn: Ptah - artisans are worth extra 2 points
+      if (category === 'artisans' && djinns[3] === i) {
+        total[i] += value * 2;
+      }
+
+      // Special Djinn: Shamhat - elders are worth extra 2 points
+      if (category === 'elders' && djinns[4] === i) {
+        total[i] += value * 2;
+      }
+
+      // Special Djinn Haurvatat with Whims Expansion
+      if (category === 'oasisTotal' && whimsExpansion && djinns[1] === i) {
+        const oasisQuantity = oasisPoints.oasis[i] + oasisPoints.oasisLake[i];
+        total[i] += oasisQuantity * 2;
+      }
+    });
+
+    // Compute Artisans Bonus: Award 10 points to the player with strictly more artisans than the others
+    if (category === 'artisans') {
+      const hasMax = [];
+      playerPoints.artisans.forEach((meeples, i) => {
+        if (meeples === maxArtisans) {
+          hasMax.push(i);
+        }
+      });
+      if (hasMax.length === 1) {
+        total[hasMax[0]] += maxArtisans;
+      }
+    }
+
   });
 
   dispatch(setTotal(total));
 };
 
+export const calculateDjinnsAndThieves = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const djinnsPoints = Object.assign({}, getState().scorer.djinnsPoints);
+
+  const newDjinnsTotalArray = new Array(playerPoints.djinnsTotal.length).fill(0);
+
+  for (let key in djinnsPoints) {
+    if (djinnsPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < djinnsPoints[key].length; i++) {
+        newDjinnsTotalArray[i] += djinnsPoints[key][i];
+      }
+    }
+  }
+
+  playerPoints.djinnsTotal = newDjinnsTotalArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+};
+
+export const calculateOasisAndVillages = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const oasisPoints = Object.assign({}, getState().scorer.oasisPoints);
+  const newOasisTotalArray = new Array(playerPoints.oasisTotal.length).fill(0);
+
+  for (let key in oasisPoints) {
+    if (oasisPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < oasisPoints[key].length; i++) {
+        // 6 points per tree next to a great lake
+        if (key === 'oasisLake') {
+          newOasisTotalArray[i] += oasisPoints[key][i] * 6;
+        }
+        else {
+          newOasisTotalArray[i] += oasisPoints[key][i] * 3;
+        }
+      }
+    }
+  }
+
+  playerPoints.oasisTotal = newOasisTotalArray;
+
+  const villagesPoints = Object.assign({}, getState().scorer.villagesPoints);
+  const newVillagesTotalArray = new Array(playerPoints.villagesTotal.length).fill(0);
+
+  for (let key in villagesPoints) {
+    if (villagesPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < villagesPoints[key].length; i++) {
+        // 10 points per tree next to a great lake
+        if (key === 'villagesLake') {
+          newVillagesTotalArray[i] += villagesPoints[key][i] * 10;
+        }
+        else {
+          newVillagesTotalArray[i] += villagesPoints[key][i] * 5;
+        }
+      }
+    }
+  }
+
+  playerPoints.villagesTotal = newVillagesTotalArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+};
+
 export const calculateMerch = () => (dispatch, getState) => {
   const playerPoints = Object.assign({}, getState().scorer.playerPoints);
   const merchPoints = Object.assign({}, getState().scorer.merchPoints);
-  const merchCopy = [...playerPoints.merch];
+
+  const newMerchArray = new Array(playerPoints.merch.length).fill(0);
 
   const POINTS_PER_SET = [0, 1, 3, 7, 13, 21, 30, 40, 50, 60];
 
-  // Iterate through merchPoins and create array per player
+  // Iterate through merchPoints and create array per player
   const merchArrays = {};
 
   for (let key in merchPoints) {
     if (merchPoints.hasOwnProperty(key)) {
-      for (let i = 0; i < merchCopy.length; i++) {
+      for (let i = 0; i < newMerchArray.length; i++) {
         if (merchArrays[i] === undefined) {
           merchArrays[i] = [];
         }
@@ -169,20 +323,79 @@ export const calculateMerch = () => (dispatch, getState) => {
   for (let key in merchArrays) {
     if (merchArrays.hasOwnProperty(key)) {
       // Reverse sort
-      merchArrays[key] = merchArrays[key].sort((a,b) => b > a);
+      merchArrays[key] = merchArrays[key].sort((a, b) => b > a);
 
       while (merchArrays[key].length > 0) {
         // Remove zeroes
         merchArrays[key] = merchArrays[key].filter((a) => a > 0);
         // Count length and award points according to POINST_PER_SET
-        merchCopy[key] += POINTS_PER_SET[merchArrays[key].length];
+        newMerchArray[key] += POINTS_PER_SET[merchArrays[key].length];
         // Decrease one on each element
         merchArrays[key] = merchArrays[key].map((a) => --a);
       }
     }
   }
 
-  playerPoints.merch = merchCopy;
+  playerPoints.merch = newMerchArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+};
+
+export const calculatePreciousItems = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const preciousItemsPoints = Object.assign({}, getState().scorer.preciousItemsPoints);
+
+  const newPreciousItemsArray = new Array(playerPoints.preciousItems.length).fill(0);
+  const itemsQuantity = new Array(playerPoints.preciousItems.length).fill(0);
+
+  for (let key in preciousItemsPoints) {
+    if (preciousItemsPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < preciousItemsPoints[key].length; i++) {
+        if (key === 'jewelry') {
+          newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 5;
+        }
+        else if (key === 'treasure') {
+          newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 7;
+        }
+        else if (key === 'crown') {
+          newPreciousItemsArray[i] += preciousItemsPoints[key][i] * 9;
+        }
+        itemsQuantity[i] += preciousItemsPoints[key][i];
+      }
+    }
+  }
+
+  playerPoints.preciousItems = newPreciousItemsArray;
+
+  dispatch(setPlayerPoints(playerPoints));
+  dispatch(setPreciousItemsQuantity(itemsQuantity));
+};
+
+export const calculateTiles = () => (dispatch, getState) => {
+  const playerPoints = Object.assign({}, getState().scorer.playerPoints);
+  const tilesPoints = Object.assign({}, getState().scorer.tilesPoints);
+  const newTilesTotalArray = new Array(playerPoints.tilesTotal.length).fill(0);
+
+  const fabulousCitiesPoints = [0, 5, 20, 45, 80, 125];
+
+  for (let key in tilesPoints) {
+    if (tilesPoints.hasOwnProperty(key)) {
+      for (let i = 0; i < tilesPoints[key].length; i++) {
+        // if fabulous city, calculate differently
+        if (key === 'cities') {
+          if (tilesPoints[key][i] > 5) {
+            console.warn('For Fabulous Cities input the number of tiles, not the total points');
+          }
+          newTilesTotalArray[i] += fabulousCitiesPoints[tilesPoints[key][i]];
+        }
+        else {
+          newTilesTotalArray[i] += tilesPoints[key][i];
+        }
+      }
+    }
+  }
+
+  playerPoints.tilesTotal = newTilesTotalArray;
 
   dispatch(setPlayerPoints(playerPoints));
 };
@@ -194,13 +407,13 @@ export const newDjinnsPoints = () => (dispatch, getState) => {
 
   const djinnsPoints = {};
 
-  for (let i = 0; i < CATEGORIES_DJINNS.length; i++) {
-    djinnsPoints[CATEGORIES_DJINNS[i]] = [...placeholder];
+  for (let i = 0; i < CATEGORIES_DJINNS_AND_THIEVES.length; i++) {
+    djinnsPoints[CATEGORIES_DJINNS_AND_THIEVES[i]] = [...placeholder];
   }
 
   dispatch(setDjinnsPoints(djinnsPoints));
 
-  //TO-DO: Specific djinn cards (Jaafar, Geb, etc)
+  dispatch(setDjinns([-1, -1, -1, -1, -1]));
 };
 
 export const newMerchPoints = () => (dispatch, getState) => {
@@ -243,6 +456,22 @@ export const newPreciousItemsPoints = () => (dispatch, getState) => {
   }
 
   dispatch(setPreciousItemsPoints(preciousItemsPoints));
+
+  dispatch(setPreciousItemsQuantity([...placeholder]));
+};
+
+export const newTilesPoints = () => (dispatch, getState) => {
+  // Creates an array of zeroes in the size of the number of players
+  const numPlayers = getState().scorer.numPlayers;
+  const placeholder = new Array(numPlayers).fill(0);
+
+  const tilesPoints = {};
+
+  for (let i = 0; i < CATEGORIES_TILES.length; i++) {
+    tilesPoints[CATEGORIES_TILES[i]] = [...placeholder];
+  }
+
+  dispatch(setTilesPoints(tilesPoints));
 };
 
 export const newVillagePoints = () => (dispatch, getState) => {
@@ -317,40 +546,75 @@ export const setScorer = () => (dispatch, getState) => {
   // Add Villages Modal
   dispatch(newVillagePoints());
 
+  // Add Tiles Modal
+  dispatch(newTilesPoints());
+
   // Add Total
   const total = [...placeholder];
   dispatch(setTotal(total));
 };
 
-export const updateMerchPoints = (evt) => (dispatch, getState) => {
-  const [category, player] = evt.target.name.split('-');
+export const updateCell = (evt) => (dispatch, getState) => {
+  const [screen, category, player] = evt.target.name.split('-');
   const value = evt.target.value;
 
-  const merchPointsCopy = Object.assign({}, getState().scorer.merchPoints);
+  let pointsObject;
+  if (screen === 'scorer') {
+    pointsObject = Object.assign({}, getState().scorer.playerPoints);
+  } else if (screen === 'merch') {
+    pointsObject = Object.assign({}, getState().scorer.merchPoints);
+  } else if (screen === 'preciousItems') {
+    pointsObject = Object.assign({}, getState().scorer.preciousItemsPoints);
+  } else if (screen === 'djinnsTotal') {
+    pointsObject = Object.assign({}, getState().scorer.djinnsPoints);
+  } else if (screen === 'oasisTotal') {
+    pointsObject = Object.assign({}, getState().scorer.oasisPoints);
+  } else if (screen === 'tilesTotal') {
+    pointsObject = Object.assign({}, getState().scorer.tilesPoints);
+  } else if (screen === 'villagesTotal') {
+    pointsObject = Object.assign({}, getState().scorer.villagesPoints);
+  }
 
-  if (merchPointsCopy[category] === undefined) console.warn('Category doesnt exist');
+  if (pointsObject[category] === undefined) console.warn('Category does not exist');
 
-  merchPointsCopy[category][+player] = +value;
+  // Add points
+  pointsObject[category][+player] = +value;
 
-  dispatch(setMerchPoints(merchPointsCopy));
+  // Dispatch
+  if (screen === 'scorer') {
+    dispatch(setPlayerPoints(pointsObject));
+  } else if (screen === 'merch') {
+    dispatch(setMerchPoints(pointsObject));
+  } else if (screen === 'preciousItems') {
+    dispatch(setPreciousItemsPoints(pointsObject));
+  } else if (screen === 'djinnsTotal') {
+    dispatch(setDjinnsPoints(pointsObject));
+  } else if (screen === 'oasisTotal') {
+    dispatch(setOasisPoints(pointsObject));
+  } else if (screen === 'tilesTotal') {
+    dispatch(setTilesPoints(pointsObject));
+  } else if (screen === 'villagesTotal') {
+    dispatch(setVillagesPoints(pointsObject));
+  }
 };
 
-export const updatePlayerPoints = (evt) => (dispatch, getState) => {
-  const [category, player] = evt.target.name.split('-');
-  const value = evt.target.value;
+export const updateRadioDjinn = (evt) => (dispatch, getState) => {
+  const djinn = evt.target.name.split('-')[1];
+  const playerId = evt.target.id.split('-')[1];
 
-  const playerPointsCopy = Object.assign({}, getState().scorer.playerPoints);
+  const index = CATEGORIES_DJINNS.indexOf(djinn);
 
-  if (playerPointsCopy[category] === undefined) console.warn('Category doesnt exist');
+  if (index < 0) return;
 
-  playerPointsCopy[category][+player] = +value;
+  const djinnsArray = [...getState().scorer.djinns];
 
-  dispatch(setPlayerPoints(playerPointsCopy));
+  djinnsArray[index] = +playerId;
+
+  dispatch(setDjinns(djinnsArray));
 };
 
 export const updateScreen = (newScreen) => (dispatch) => {
-
-  if (newScreen === 'merch') {
+  if (['merch', 'djinnsTotal', 'oasis', 'preciousItems', 'villages', 'oasisTotal', 'villagesTotal', 'tilesTotal'].indexOf(newScreen) !== -1) {
     dispatch(setControls('clear-ok'));
   }
 
@@ -371,21 +635,62 @@ export const controller = (evt) => (dispatch, getState) => {
   }
   else if (EVENT_NAME === 'score') {
     dispatch(calculateScore());
-    dispatch(setScreen('results'));
-    dispatch(setControls('done'));
+    // dispatch(setScreen('results'));
+    // dispatch(setControls('done'));
   }
   else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'merch') {
     dispatch(calculateMerch());
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
   }
-  else if (EVENT_NAME === 'clear') {
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'preciousItems') {
+    dispatch(calculatePreciousItems());
     dispatch(setScreen('scorer'));
     dispatch(setControls('back-clear-score'));
+  }
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'djinnsTotal') {
+    dispatch(calculateDjinnsAndThieves());
+    dispatch(setScreen('scorer'));
+    dispatch(setControls('back-clear-score'));
+  }
+  else if (EVENT_NAME === 'confirm' && (CURRENT_SCREEN === 'oasisTotal' || CURRENT_SCREEN === 'villagesTotal')) {
+    dispatch(calculateOasisAndVillages());
+    dispatch(setScreen('scorer'));
+    dispatch(setControls('back-clear-score'));
+  }
+  else if (EVENT_NAME === 'confirm' && CURRENT_SCREEN === 'tilesTotal') {
+    dispatch(calculateTiles());
+    dispatch(setScreen('scorer'));
+    dispatch(setControls('back-clear-score'));
+  }
+  else if (EVENT_NAME === 'clear') {
+    // Hack: Switches to score than back to the previous one
+    dispatch(setScreen('scorer'));
 
     if (CURRENT_SCREEN === 'merch') {
       dispatch(newMerchPoints());
     }
-  }
 
+    if (CURRENT_SCREEN === 'preciousItems') {
+      dispatch(newPreciousItemsPoints());
+    }
+
+    if (CURRENT_SCREEN === 'djinnsTotal') {
+      dispatch(newDjinnsPoints());
+    }
+
+    if (CURRENT_SCREEN === 'oasisTotal' || CURRENT_SCREEN === 'villagesTotal') {
+      dispatch(newVillagePoints());
+      dispatch(newOasisPoints());
+    }
+
+    if (CURRENT_SCREEN === 'tilesTotal') {
+      dispatch(newTilesPoints());
+    }
+
+    dispatch(setScreen(CURRENT_SCREEN));
+  }
+  else if (EVENT_NAME === 'clear-all' && CURRENT_SCREEN === 'scorer') {
+    dispatch(setScorer());
+  }
 };

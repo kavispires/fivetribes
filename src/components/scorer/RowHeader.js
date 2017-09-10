@@ -9,7 +9,7 @@ const RowHeader = ({total}) => {
       <div className="cell-cat" />
       {
         total.map((item, i) => (
-          <div key={`header-${COLORS[i]}`} className={`cell-${total.length}`}>
+          <div key={`header-${COLORS[i]}`} className={`cell cell-${total.length}`}>
             <span><img src="/images/pawn.svg" alt={`${COLORS[i]} Player`} /></span>
           </div>
         ))

@@ -9,9 +9,9 @@ import {
 import {
 	controller,
 	setExpansions,
-	updateMerchPoints,
 	setNumPlayers,
-	updatePlayerPoints,
+	updateCell,
+	updateRadioDjinn,
 	updateScreen,
 } from '../reducers/scorer';
 
@@ -21,9 +21,9 @@ const mapDispatchToProps = {
 	controller,
 	selectMode,
 	setExpansions,
-	updateMerchPoints,
 	setNumPlayers,
-	updatePlayerPoints,
+	updateCell,
+	updateRadioDjinn,
 	updateScreen,
 };
 

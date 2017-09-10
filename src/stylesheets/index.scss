@@ -68,13 +68,18 @@ body {
 	background: $grey;
 	// box-shadow: 0 4px 20px $darkGrey;
 	display: flex;
-	flex-direction: row-reverse;
 	justify-content: space-evenly;
 	z-index: 30;
 
-	&.align-right {
-		justify-content: flex-start;
-	}
+}
+
+.screen-controls-justify {
+	justify-content: space-between;
+}
+
+.screen-controls-subgroup {
+	display: flex;
+	justify-content: space-between;
 }
 
 // SECTIONS

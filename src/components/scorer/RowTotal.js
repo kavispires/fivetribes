@@ -11,7 +11,7 @@ const RowButton = ({total}) => {
       </div>
       {
         total.map((item, i) => (
-          <div key={`total-${COLORS[i]}`} className={`cell-${total.length}`}>
+          <div key={`total-${COLORS[i]}`} className={`cell cell-${total.length}`}>
             <input type="number" name={`total-${i}`} value={item} readOnly />
           </div>
         ))

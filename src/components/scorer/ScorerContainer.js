@@ -3,12 +3,12 @@ import React from 'react';
 import Djinns from './Djinns';
 import Hint from './Hint';
 import Merch from './Merch';
-import Oasis from './Oasis';
+import OasisVillages from './OasisVillages';
 import Options from './Options';
 import PreciousItems from './PreciousItems';
 import Results from './Results';
 import Scorer from './Scorer';
-import Villages from './Villages';
+import Tiles from './Tiles';
 
 import {
 	ControlsDone,
@@ -26,7 +26,7 @@ const ScorerContainer = ({props}) => {
 	let activeComponent;
 
 	switch (scorer.screen) {
-		case 'djinns':
+		case 'djinnsTotal':
 			activeComponent = <Djinns props={props} />;
 			break;
 
@@ -34,24 +34,25 @@ const ScorerContainer = ({props}) => {
 			activeComponent = <Merch props={props} />;
 			break;
 
-		case 'oasis':
-			activeComponent = <Oasis props={props} />;
+		case 'oasisTotal':
+		case 'villagesTotal':
+			activeComponent = <OasisVillages props={props} />;
 			break;
 
 		case 'options':
 			activeComponent = <Options props={props} />;
 			break;
 
-		case 'previousItems':
+		case 'preciousItems':
 			activeComponent = <PreciousItems props={props} />;
+			break;
+
+		case 'tilesTotal':
+			activeComponent = <Tiles props={props} />;
 			break;
 
 		case 'results':
 			activeComponent = <Results props={props} />;
-			break;
-
-		case 'villages':
-			activeComponent = <Villages props={props} />;
 			break;
 
 		default:

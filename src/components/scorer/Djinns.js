@@ -1,48 +1,55 @@
 import React from 'react';
 
-import RowButton from './RowButton';
 import RowHeader from './RowHeader';
 import RowNumber from './RowNumber';
-import RowTotal from './RowTotal';
+import RowRadio from './RowRadio';
 
 import {
-  CATEGORIES,
+  CATEGORIES_DJINNS,
+  CATEGORIES_DJINNS_AND_THIEVES
 } from '../../constants';
 
-const Scorer = ({props}) => {
+const PreciousItems = ({props}) => {
   const {scorer} = props;
-  console.log(scorer);
-  console.log(props);
 
-	return (
-    <main className="screen-main screen-scorer-table">
+  return (
+    <main className="screen-main screen-scorer-djinns">
       <ul className="scorer-table">
         <RowHeader total={scorer.total} />
         {
-          CATEGORIES.map((category, i) => {
-            if (['djinnsTotal', 'merch'].indexOf(category) !== -1) {
-              return <RowButton key={category} type={category} scorer={scorer} />;
+          CATEGORIES_DJINNS.map((category) => {
+            // Do not show ptah or geb row if artisans expansion is not in play
+            if (!scorer.artisansExpansion && (category === 'ptah' || category === 'geb')) {
+              return '';
             }
-            if (scorer.artisansExpansion && category === 'artisans') {
-              return <RowNumber key={category} type={category} scorer={scorer} updatePlayerPoints={props.updatePlayerPoints} />;
-            }
-            if (scorer.artisansExpansion && category === 'preciousItems') {
-              return <RowButton key={category} type={category} scorer={scorer} />;
-            }
-            if (scorer.whimsExpansion && (category === 'oasisTotal' || category === 'villagesTotal')) {
-              return <RowButton key={category} type={category} scorer={scorer} />;
-            }
-            if (scorer.whimsExpansion && category === 'tiles') {
-              return <RowButton key={category} type={category} scorer={scorer} />;
-            }
-
-            return <RowNumber key={category} type={category} scorer={scorer} updatePlayerPoints={props.updatePlayerPoints} />;
+            return (<RowRadio
+              key={category}
+              type={category}
+              screen={scorer.screen}
+              cells={scorer.total} //CHANGE
+              action={props.updateRadioDjinn} />
+            );
           })
         }
-        <RowTotal total={scorer.total} />
+        {
+          CATEGORIES_DJINNS_AND_THIEVES.map((category) => {
+            // Do not show thieves row if thieves expansion is not in play
+            if (!scorer.thievesExpansion && category === 'thieves') {
+              return '';
+            }
+            return (<RowNumber
+              key={category}
+              type={category}
+              screen={scorer.screen}
+              cells={scorer.djinnsPoints[category]}
+              action={props.updateCell} />
+            );
+          })
+        }
+
       </ul>
     </main>
   );
 };
 
-export default Scorer;
+export default PreciousItems;

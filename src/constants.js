@@ -6,13 +6,19 @@ export const EXPANSIONS = ['Artisans', 'Thieves', 'Whims'];
 
 export const CATEGORIES = ['coins', 'viziers', 'artisans', 'elders', 'djinnsTotal', 'tilesTotal', 'oasisTotal', 'villagesTotal', 'preciousItems', 'merch'];
 
-export const CATEGORIES_DJINNS = ['djinns', 'thieves'];
+export const CATEGORIES_DJINNS = ['geb', 'haurvatat', 'jaafar', 'ptah', 'shamhat'];
+
+export const CATEGORIES_DJINNS_AND_THIEVES = ['djinns', 'thieves'];
 
 export const CATEGORIES_ITEMS = ['jewelry', 'treasure', 'crown'];
 
 export const CATEGORIES_MERCH = ['fish', 'wheat', 'pottery', 'spices', 'papyrus', 'fabric', 'ivory', 'gems', 'gold'];
 
 export const CATEGORIES_OSASIS = ['oasis', 'oasisLake'];
+
+export const CATEGORIES_OASIS_AND_VILLAGES = ['oasis', 'villages', 'oasisLake', 'villagesLake'];
+
+export const CATEGORIES_TILES = ['tiles', 'tent', 'cities'];
 
 export const CATEGORIES_VILLAGES = ['villages', 'villagesLake'];
 

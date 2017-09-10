@@ -20,7 +20,7 @@ const RowButton = ({type, scorer, cells, action}) => {
       </div>
       {
         cells.map((value, i) => (
-          <div key={`${type}-${COLORS[i]}`} className={`cell-${cells.length}`}>
+          <div key={`${type}-${COLORS[i]}`} className={`cell cell-${cells.length}`}>
             <input type="button" name={`${type}-${i}`} value={value} onClick={() => action(type)} />
           </div>
         ))
