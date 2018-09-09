@@ -13,7 +13,7 @@ const RowHeader = ({ total }) => {
         >
           <span>
             <img
-              src={`${process.env.PUBLIC_URL}/images/scorer/pawn.svg`}
+              src={`${process.env.PUBLIC_URL}/images/pawn.svg`}
               alt={`${COLORS[i]} Player`}
             />
           </span>
