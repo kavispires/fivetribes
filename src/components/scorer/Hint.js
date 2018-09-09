@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const Hint = ({hint}) => {
-	return (
+const Hint = ({ hint }) => {
+  return (
     <section className="hint">
-	    <p>{hint}</p>
-	  </section>
+      <p>{hint}</p>
+    </section>
   );
 };
 

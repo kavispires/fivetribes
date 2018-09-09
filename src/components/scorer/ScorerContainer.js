@@ -1,101 +1,94 @@
-import React from 'react';
+import React from "react";
 
-import Djinns from './Djinns';
-import Hint from './Hint';
-import Merch from './Merch';
-import OasisVillages from './OasisVillages';
-import Options from './Options';
-import PreciousItems from './PreciousItems';
-import Results from './Results';
-import Scorer from './Scorer';
-import Tiles from './Tiles';
+import Djinns from "./Djinns";
+import Hint from "./Hint";
+import Merch from "./Merch";
+import OasisVillages from "./OasisVillages";
+import Options from "./Options";
+import PreciousItems from "./PreciousItems";
+import Results from "./Results";
+import Scorer from "./Scorer";
+import Tiles from "./Tiles";
 
 import {
-	ControlsDone,
-	ControlsConfirm,
-	ControlsOk,
-	ControlsScore,
-	ControlsStart,
-} from './Controls';
+  ControlsDone,
+  ControlsConfirm,
+  ControlsOk,
+  ControlsScore,
+  ControlsStart
+} from "./Controls";
 
-const ScorerContainer = ({props}) => {
+const ScorerContainer = ({ props }) => {
+  const { scorer } = props;
 
-	const {scorer} = props;
+  // Define Active Component
+  let activeComponent;
 
-	// Define Active Component
-	let activeComponent;
+  switch (scorer.screen) {
+    case "djinnsTotal":
+      activeComponent = <Djinns props={props} />;
+      break;
 
-	switch (scorer.screen) {
-		case 'djinnsTotal':
-			activeComponent = <Djinns props={props} />;
-			break;
+    case "merch":
+      activeComponent = <Merch props={props} />;
+      break;
 
-		case 'merch':
-			activeComponent = <Merch props={props} />;
-			break;
+    case "oasisTotal":
+    case "villagesTotal":
+      activeComponent = <OasisVillages props={props} />;
+      break;
 
-		case 'oasisTotal':
-		case 'villagesTotal':
-			activeComponent = <OasisVillages props={props} />;
-			break;
+    case "options":
+      activeComponent = <Options props={props} />;
+      break;
 
-		case 'options':
-			activeComponent = <Options props={props} />;
-			break;
+    case "preciousItems":
+      activeComponent = <PreciousItems props={props} />;
+      break;
 
-		case 'preciousItems':
-			activeComponent = <PreciousItems props={props} />;
-			break;
+    case "tilesTotal":
+      activeComponent = <Tiles props={props} />;
+      break;
 
-		case 'tilesTotal':
-			activeComponent = <Tiles props={props} />;
-			break;
+    case "results":
+      activeComponent = <Results props={props} />;
+      break;
 
-		case 'results':
-			activeComponent = <Results props={props} />;
-			break;
+    default:
+      activeComponent = <Scorer props={props} />;
+  }
 
-		default:
-			activeComponent = <Scorer props={props} />;
-	}
+  // Define Controls
 
-	// Define Controls
+  let activeControls;
 
-	let activeControls;
+  switch (scorer.controls) {
+    case "start":
+      activeControls = <ControlsStart controller={props.controller} />;
+      break;
 
-	switch (scorer.controls) {
-		case 'start':
-			activeControls = <ControlsStart controller={props.controller} />;
-			break;
+    case "back-clear-score":
+      activeControls = <ControlsScore controller={props.controller} />;
+      break;
 
-		case 'back-clear-score':
-			activeControls = <ControlsScore controller={props.controller} />;
-			break;
+    case "clear-ok":
+      activeControls = <ControlsConfirm controller={props.controller} />;
+      break;
 
-		case 'clear-ok':
-			activeControls = <ControlsConfirm controller={props.controller} />;
-			break;
+    case "done":
+      activeControls = <ControlsDone controller={props.controller} />;
+      break;
 
-		case 'done':
-			activeControls = <ControlsDone controller={props.controller} />;
-			break;
+    default:
+      activeControls = <ControlsOk props={props} />;
+  }
 
-		default:
-			activeControls = <ControlsOk props={props} />;
-	}
-
-	return (
-		<div className="screen-container">
-	    {
-	    	activeComponent
-	    }
-	    {
-	    	scorer.hint ? <Hint hint={scorer.hint} /> : null
-	    }
-	    {
-	    	scorer.controls ? activeControls : null
-	    }
-	  </div>
+  return (
+    <div className="screen-container">
+      {activeComponent}
+      {scorer.hint ? <Hint hint={scorer.hint} /> : null}
+      {scorer.controls ? activeControls : null}
+    </div>
   );
 };
 

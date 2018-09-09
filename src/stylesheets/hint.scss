@@ -1,13 +1,13 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 .hint {
-	font-size: 0.6em;
+  font-size: 0.6em;
   text-align: center;
   background: $white;
   box-shadow: 0 4px 20px $darkGrey;
   z-index: 10;
 
   p {
-  	margin: 4px;
+    margin: 4px;
   }
 }

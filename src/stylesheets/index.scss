@@ -1,23 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Bitter:400,700');
-@import './variables.scss';
+@import url("https://fonts.googleapis.com/css?family=Bitter:400,700");
+@import "./variables.scss";
 
 // BROWSER RESET AND DEFAULT
 
 body {
-	margin: 0;
-	padding: 0;
-	background: $white;
-	font-size: $doubleUnit;
+  margin: 0;
+  padding: 0;
+  background: $white;
+  font-size: $doubleUnit;
 }
 
 * {
-	box-sizing: border-box;
-	font-family: 'Bitter', serif;
+  box-sizing: border-box;
+  font-family: "Bitter", serif;
 }
 
 // BUTTONS
 
-@import './buttons.scss';
+@import "./buttons.scss";
 
 // SCREENS
 
@@ -30,62 +30,61 @@ body {
 }
 
 .screen-header {
-	height: 8vh;
-	overflow: hidden;
-	background: $primary;
+  height: 8vh;
+  overflow: hidden;
+  background: $primary;
 
-	img {
-		max-height: 100%;
-	}
+  img {
+    max-height: 100%;
+  }
 }
 
 .screen-footer {
-	width: 100%;
-	height: $halfUnit;
-	background: $primary;
+  width: 100%;
+  height: $halfUnit;
+  background: $primary;
 }
 
 .screen-container {
-	flex: 1;
-	overflow: scroll;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+  flex: 1;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .screen-main {
-	flex: 1;
-	overflow: scroll;
-	background: linear-gradient($white, $lightGrey);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+  flex: 1;
+  overflow: scroll;
+  background: linear-gradient($white, $lightGrey);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .screen-controls {
-	height: 8vh;
-	border-top: 1px solid $darkGrey;
-	background: $grey;
-	// box-shadow: 0 4px 20px $darkGrey;
-	display: flex;
-	justify-content: space-evenly;
-	z-index: 30;
-
+  height: 8vh;
+  border-top: 1px solid $darkGrey;
+  background: $grey;
+  // box-shadow: 0 4px 20px $darkGrey;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: 30;
 }
 
 .screen-controls-justify {
-	justify-content: space-between;
+  justify-content: space-between;
 }
 
 .screen-controls-subgroup {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 // SECTIONS
 
-@import './sections.scss';
+@import "./sections.scss";
 
-@import './hint.scss';
+@import "./hint.scss";
 
-@import './scorer.scss';
+@import "./scorer.scss";

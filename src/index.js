@@ -1,15 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import registerServiceWorker from './registerServiceWorker';
-import store from './store';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import registerServiceWorker from "./registerServiceWorker";
+import store from "./store";
 
-import AppContainer from './containers/AppContainer';
+import AppContainer from "./containers/AppContainer";
 
-import './stylesheets/index.css';
+import "./stylesheets/index.css";
 
 ReactDOM.render(
-	<Provider store={store}>
-		<AppContainer />
-	</Provider>, document.getElementById('root'));
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
