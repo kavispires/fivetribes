@@ -48,7 +48,7 @@ const Options = ({ props }) => {
                 <img
                   src={`${
                     process.env.PUBLIC_URL
-                  }/images/options/options-${name}.svg`}
+                  }/images/options/options-${name.toLowerCase()}.svg`}
                   alt={`Expansion ${name}`}
                 />
                 <span className="label-text">

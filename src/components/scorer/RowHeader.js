@@ -12,7 +12,10 @@ const RowHeader = ({ total }) => {
           className={`cell cell-${total.length}`}
         >
           <span>
-            <img src="/images/pawn.svg" alt={`${COLORS[i]} Player`} />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/scorer/pawn.svg`}
+              alt={`${COLORS[i]} Player`}
+            />
           </span>
         </div>
       ))}
