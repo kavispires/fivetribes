@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Bitter:400,700");
-@import "./variables.scss";
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,700');
+@import './variables.scss';
 
 // BROWSER RESET AND DEFAULT
 
@@ -12,79 +12,95 @@ body {
 
 * {
   box-sizing: border-box;
-  font-family: "Bitter", serif;
+  font-family: 'Bitter', serif;
 }
 
-// BUTTONS
-
-@import "./buttons.scss";
-
-// SCREENS
-
-.screen {
+.container {
   width: 100vw;
   height: 100vh;
   max-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.screen-header {
-  height: 8vh;
+  background: $black;
   overflow: hidden;
-  background: $primary;
-
-  img {
-    max-height: 100%;
-  }
 }
 
-.screen-footer {
-  width: 100%;
-  height: $halfUnit;
-  background: $primary;
-}
+// @import 'animations';
 
-.screen-container {
-  flex: 1;
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
+@import 'icons';
 
-.screen-main {
-  flex: 1;
-  overflow: scroll;
-  background: linear-gradient($white, $lightGrey);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
+// @import 'buttons';
 
-.screen-controls {
-  height: 8vh;
-  border-top: 1px solid $darkGrey;
-  background: $grey;
-  // box-shadow: 0 4px 20px $darkGrey;
-  display: flex;
-  justify-content: space-evenly;
-  z-index: 30;
-}
+// SCREENS
 
-.screen-controls-justify {
-  justify-content: space-between;
-}
+@import 'screen-splash';
 
-.screen-controls-subgroup {
-  display: flex;
-  justify-content: space-between;
-}
+// // OLD STUFF
 
-// SECTIONS
+// .screen {
+//   width: 100vw;
+//   height: 100vh;
+//   max-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+// }
 
-@import "./sections.scss";
+// .screen-header {
+//   height: 8vh;
+//   overflow: hidden;
+//   background: $primary;
 
-@import "./hint.scss";
+//   img {
+//     max-height: 100%;
+//   }
+// }
 
-@import "./scorer.scss";
+// .screen-footer {
+//   width: 100%;
+//   height: $halfUnit;
+//   background: $primary;
+// }
+
+// .screen-container {
+//   flex: 1;
+//   overflow: scroll;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-evenly;
+// }
+
+// .screen-main {
+//   flex: 1;
+//   overflow: scroll;
+//   background: linear-gradient($white, $lightGrey);
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-evenly;
+// }
+
+// .screen-controls {
+//   height: 8vh;
+//   border-top: 1px solid $darkGrey;
+//   background: $grey;
+//   // box-shadow: 0 4px 20px $darkGrey;
+//   display: flex;
+//   justify-content: space-evenly;
+//   z-index: 30;
+// }
+
+// .screen-controls-justify {
+//   justify-content: space-between;
+// }
+
+// .screen-controls-subgroup {
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+// // SECTIONS
+
+// @import "./sections.scss";
+
+// @import "./hint.scss";
+
+// @import "./scorer.scss";

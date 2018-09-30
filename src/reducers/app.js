@@ -1,48 +1,30 @@
+import {
+  deleteLocalStorage,
+  loadLocalStorage,
+  saveLocalStorage,
+} from '../utils';
+
 /* ------------------   ACTIONS   ------------------ */
 
-const SET_MODE = "SET_MODE";
-const SET_NEW_SESSION = "SET_NEW_SESSION";
-const TOGGLE_SCORER = "TOGGLE_SCORER";
-const TOGGLE_SOLITAIRE = "TOGGLE_SOLITAIRE";
+const SET_SCREEN = 'SET_SCREEN';
 
 /* --------------   ACTION CREATORS   -------------- */
 
-export const setMode = payload => dispatch =>
-  dispatch({ type: SET_MODE, payload });
-export const setNewSession = payload => dispatch =>
-  dispatch({ type: SET_NEW_SESSION, payload });
-export const toggleScorer = payload => dispatch =>
-  dispatch({ type: TOGGLE_SCORER, payload });
-export const toggleSolitaire = payload => dispatch =>
-  dispatch({ type: TOGGLE_SOLITAIRE, payload });
+export const setScreen = payload => dispatch =>
+  dispatch({ type: SET_SCREEN, payload });
 
 /* -----------------   REDUCERS   ------------------ */
 
 const initialState = {
-  mode: "",
-  newSession: true,
-  scorerSession: false,
-  solitaireSession: false
+  screen: '',
 };
 
 export default function reducer(prevState = initialState, action) {
   const newState = Object.assign({}, prevState);
 
   switch (action.type) {
-    case SET_MODE:
-      newState.mode = action.payload;
-      break;
-
-    case SET_NEW_SESSION:
-      newState.newSession = action.payload;
-      break;
-
-    case TOGGLE_SCORER:
-      newState.scorerSession = action.payload;
-      break;
-
-    case TOGGLE_SOLITAIRE:
-      newState.solitaireSession = action.payload;
+    case SET_SCREEN:
+      newState.screen = action.payload;
       break;
 
     default:
@@ -54,19 +36,34 @@ export default function reducer(prevState = initialState, action) {
 
 /* ---------------   DISPATCHERS   ----------------- */
 
-export const selectMode = event => dispatch => {
-  const [action, mode] = event.target.name.split("-");
-  dispatch(setMode(mode));
+export const initialize = () => dispatch => {
+  console.log('Initializing...');
+  // Load localstorage
+  const data = loadLocalStorage();
 
-  if (mode === "scorer") {
-    dispatch(toggleScorer(true));
-  } else if (mode === "solitaire") {
-    dispatch(toggleSolitaire(true));
-  }
+  let nextScreen = 'home';
 
-  if (action === "new") {
-    dispatch(setNewSession(true));
+  // If it has date, load it to app
+  if (data) {
+    console.log('Data retrived!', data);
+    const age = Date.now() - data.timestamp;
+
+    // If timestamp is older than 90 minutes, delete localstorage
+    if (age > 5400000) {
+      console.log('Data is expired!');
+      deleteLocalStorage();
+    } else {
+      console.log('Data is fine');
+      // upload data to states
+      // reassign nextScreen
+    }
   } else {
-    dispatch(setNewSession(false));
+    console.log('No data found.');
+    saveLocalStorage({ timestamp: Date.now(), bola: 'bola' });
   }
+
+  setTimeout(() => {
+    console.log('Switching screens to', nextScreen);
+    dispatch(setScreen(nextScreen));
+  }, 3000);
 };

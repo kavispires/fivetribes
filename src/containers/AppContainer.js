@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import App from "../components/App";
+import App from '../components/App';
 
-import { selectMode } from "../reducers/app";
+import { initialize } from '../reducers/app';
 
 import {
   controller,
@@ -10,19 +10,21 @@ import {
   setNumPlayers,
   updateCell,
   updateRadioDjinn,
-  updateScreen
-} from "../reducers/scorer";
+  updateScreen,
+} from '../reducers/scorer';
 
 const mapStateToProps = state => ({ app: state.app, scorer: state.scorer });
 
 const mapDispatchToProps = {
+  initialize,
+
   controller,
-  selectMode,
+  // selectMode,
   setExpansions,
   setNumPlayers,
   updateCell,
   updateRadioDjinn,
-  updateScreen
+  updateScreen,
 };
 
 export default connect(
