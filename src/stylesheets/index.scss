@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   background: $white;
-  font-size: $doubleUnit;
+  font-size: $unit;
 }
 
 * {
@@ -25,15 +25,20 @@ body {
   overflow: hidden;
 }
 
-// @import 'animations';
+@import 'animations';
 
 @import 'icons';
 
-// @import 'buttons';
+@import 'buttons';
 
 // SCREENS
 
 @import 'screen-splash';
+@import 'screen-home';
+
+h1 {
+  color: white;
+}
 
 // // OLD STUFF
 

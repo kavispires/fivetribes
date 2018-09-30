@@ -6,10 +6,13 @@ import {
 
 /* ------------------   ACTIONS   ------------------ */
 
+const SET_HISTORY = 'SET_HISTORY';
 const SET_SCREEN = 'SET_SCREEN';
 
 /* --------------   ACTION CREATORS   -------------- */
 
+export const setHistory = payload => dispatch =>
+  dispatch({ type: SET_HISTORY, payload });
 export const setScreen = payload => dispatch =>
   dispatch({ type: SET_SCREEN, payload });
 
@@ -17,12 +20,17 @@ export const setScreen = payload => dispatch =>
 
 const initialState = {
   screen: '',
+  history: [''],
 };
 
 export default function reducer(prevState = initialState, action) {
   const newState = Object.assign({}, prevState);
 
   switch (action.type) {
+    case SET_HISTORY:
+      newState.history = action.payload;
+      break;
+
     case SET_SCREEN:
       newState.screen = action.payload;
       break;
@@ -65,5 +73,13 @@ export const initialize = () => dispatch => {
   setTimeout(() => {
     console.log('Switching screens to', nextScreen);
     dispatch(setScreen(nextScreen));
-  }, 3000);
+  }, 3000); // Change to 3000
+};
+
+export const handleHomeButton = screen => (dispatch, getState) => {
+  const history = [...getState().app.history];
+
+  history.push(screen);
+  dispatch(setHistory(history));
+  dispatch(setScreen(screen));
 };

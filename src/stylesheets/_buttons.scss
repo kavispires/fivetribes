@@ -1,3 +1,30 @@
+.btn-hollow {
+  color: $primary;
+  background-color: rgba(0, 0, 0, 0);
+  border-width: 2px;
+  border-color: $primary;
+  border-radius: 4px;
+  font-size: 1em;
+  padding: $halfUnit $quarterUnit;
+  transition-duration: 0.5s;
+
+  &:hover {
+    background-color: $primaryMedium;
+    transition: all 0.5s;
+  }
+
+  &:disabled {
+    border-color: $primaryDark;
+    color: $primaryDark;
+    background-color: $primaryDarkest;
+    cursor: not-allowed;
+  }
+}
+
+.btn-25 {
+  width: 25%;
+}
+
 // @import "./variables.scss";
 
 // .btn {

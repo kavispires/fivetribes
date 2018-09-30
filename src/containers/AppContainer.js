@@ -2,29 +2,13 @@ import { connect } from 'react-redux';
 
 import App from '../components/App';
 
-import { initialize } from '../reducers/app';
-
-import {
-  controller,
-  setExpansions,
-  setNumPlayers,
-  updateCell,
-  updateRadioDjinn,
-  updateScreen,
-} from '../reducers/scorer';
+import { handleHomeButton, initialize } from '../reducers/app';
 
 const mapStateToProps = state => ({ app: state.app, scorer: state.scorer });
 
 const mapDispatchToProps = {
+  handleHomeButton,
   initialize,
-
-  controller,
-  // selectMode,
-  setExpansions,
-  setNumPlayers,
-  updateCell,
-  updateRadioDjinn,
-  updateScreen,
 };
 
 export default connect(

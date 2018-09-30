@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Home from './Home';
 import SplashScreen from './SplashScreen';
 
 class App extends Component {
@@ -10,11 +11,11 @@ class App extends Component {
 
   render() {
     const { props } = this;
-
+    console.log(props);
     // Home
-    // if (props.app.screen === 'home') {
-    //   return <Home props={props} />;
-    // }
+    if (props.app.screen === 'home') {
+      return <Home props={props} />;
+    }
 
     // // Options
     // if (props.app.screen === 'options') {
