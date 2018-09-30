@@ -13,6 +13,7 @@ body {
 * {
   box-sizing: border-box;
   font-family: 'Bitter', serif;
+  z-index: 1;
 }
 
 .container {
@@ -23,6 +24,13 @@ body {
   flex-direction: column;
   background: $black;
   overflow: hidden;
+  background-image: linear-gradient($black, $primaryDarkest);
+}
+
+.logo-top {
+  width: 45%;
+  max-width: 170px;
+  margin: $unit auto;
 }
 
 @import 'animations';
@@ -35,6 +43,7 @@ body {
 
 @import 'screen-splash';
 @import 'screen-home';
+@import 'screen-setup';
 
 h1 {
   color: white;

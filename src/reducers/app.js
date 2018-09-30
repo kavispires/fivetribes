@@ -1,8 +1,11 @@
+import { deleteLocalStorage, loadLocalStorage } from '../utils';
+
 import {
-  deleteLocalStorage,
-  loadLocalStorage,
-  saveLocalStorage,
-} from '../utils';
+  setColors,
+  setExpasions,
+  setNumPlayers,
+  setIsSetupReady,
+} from './scorer';
 
 /* ------------------   ACTIONS   ------------------ */
 
@@ -62,18 +65,20 @@ export const initialize = () => dispatch => {
       deleteLocalStorage();
     } else {
       console.log('Data is fine');
-      // upload data to states
-      // reassign nextScreen
+      // Assign current Screen
+      nextScreen = data.screen;
+      // Handle setup
+      dispatch(setColors(data.colors));
+      dispatch(setExpasions(data.expansions));
+      dispatch(setNumPlayers(data.numPlayers));
+      dispatch(setIsSetupReady(true));
     }
-  } else {
-    console.log('No data found.');
-    saveLocalStorage({ timestamp: Date.now(), bola: 'bola' });
   }
 
   setTimeout(() => {
     console.log('Switching screens to', nextScreen);
     dispatch(setScreen(nextScreen));
-  }, 3000); // Change to 3000
+  }, 3000); // TO-DO Change to 3000
 };
 
 export const handleHomeButton = screen => (dispatch, getState) => {

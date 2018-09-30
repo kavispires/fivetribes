@@ -1,7 +1,3 @@
-.container-splash {
-  background-image: linear-gradient($black, $primaryDarkest);
-}
-
 .border {
   position: absolute;
   height: 100vh;
@@ -10,10 +6,12 @@
 
 .border-left {
   left: 0;
+  z-index: 0;
 }
 
 .border-right {
   right: 0;
+  z-index: 0;
 }
 
 .splash-elements {

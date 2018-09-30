@@ -1,12 +1,15 @@
 import React from 'react';
 
-import borderLeft from '../images/fancy-border-left.png';
-import borderRight from '../images/fancy-border-right.png';
+import Image from './Image';
 
 const Borders = () => (
   <div>
-    <img src={borderLeft} alt="Border Left" className="border border-left" />
-    <img src={borderRight} alt="Border Right" className="border border-right" />
+    <Image src="border-left" className="border border-left" alt="Border Left" />
+    <Image
+      src="border-right"
+      className="border border-right"
+      alt="Border Right"
+    />
   </div>
 );
 

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Borders from './Borders';
-import logo from '../images/logo.png';
+import Image from './Image';
 
 const Home = ({ props }) => (
   <main className="container container-home">
     <Borders />
     <div className="home-content">
-      <img src={logo} alt="logo" className="logo-image" />
+      <Image src="logo" className="logo-top" alt="logo" />
       <div className="menu">
         <button
           type="button"
