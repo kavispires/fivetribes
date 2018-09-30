@@ -13,7 +13,7 @@ const Home = ({ props }) => (
         <button
           type="button"
           className="btn-hollow btn-25"
-          onClick={() => props.handleHomeButton('setup')}
+          onClick={() => props.setScreen('setup')}
         >
           Scorer
         </button>
@@ -30,11 +30,11 @@ const Home = ({ props }) => (
 
 Home.propTypes = {
   props: PropTypes.object.isRequired,
-  handleHomeButton: PropTypes.func,
+  setScreen: PropTypes.func,
 };
 
 Home.defaultProps = {
-  handleHomeButton: () => {},
+  setScreen: () => {},
 };
 
 export default Home;

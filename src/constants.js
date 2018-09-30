@@ -4,6 +4,11 @@ export const COLORS = ['CYAN', 'PINK', 'BLACK', 'ORANGE', 'BROWN'];
 
 export const EXPANSIONS = ['ARTISANS', 'THIEVES', 'WHIMS'];
 
+export const HISTORY_CHAIN = {
+  setup: 'home',
+  scorer: 'setup',
+};
+
 // OLD STUFF
 
 export const CATEGORIES = [

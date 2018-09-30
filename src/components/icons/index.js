@@ -6,6 +6,16 @@
 
 import React from 'react';
 
+const iconBack = (
+  <g className="icon-back">
+    <path
+      className="primary"
+      d="M50.3,20.2V0c-9,20.9-37.1,30.1-37.1,30.1c18.6,4.5,37.1,30.1,37.1,30.1V37.4c9.7,2.3,45,14.4,12,62.6
+	C62.3,100,124.7,21.8,50.3,20.2z"
+    />
+  </g>
+);
+
 const iconSpinner = (
   <g className="icon-spinner">
     <path
@@ -32,6 +42,7 @@ const iconSplashCamel = (
 );
 
 const icons = {
+  back: iconBack,
   spinner: iconSpinner,
   splashCamel: iconSplashCamel,
 };

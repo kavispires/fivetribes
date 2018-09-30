@@ -91,6 +91,13 @@
   margin: 0 auto;
 }
 
+.btn-back {
+  position: absolute;
+  top: 3em;
+  left: $unit;
+  width: 40px;
+}
+
 // @import "./variables.scss";
 
 // .btn {

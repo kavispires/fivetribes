@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import App from '../components/App';
 
-import { handleHomeButton, initialize } from '../reducers/app';
+import { handleBackButton, initialize, setScreen } from '../reducers/app';
 
 import {
   handleColors,
@@ -15,11 +15,12 @@ const mapStateToProps = state => ({ app: state.app, scorer: state.scorer });
 
 const mapDispatchToProps = {
   handleColors,
+  handleBackButton,
   handleExpansions,
-  handleHomeButton,
   handleNumPlayers,
   initialize,
   initializeScorer,
+  setScreen,
 };
 
 export default connect(

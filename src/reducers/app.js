@@ -7,15 +7,14 @@ import {
   setIsSetupReady,
 } from './scorer';
 
+import { HISTORY_CHAIN } from '../constants';
+
 /* ------------------   ACTIONS   ------------------ */
 
-const SET_HISTORY = 'SET_HISTORY';
 const SET_SCREEN = 'SET_SCREEN';
 
 /* --------------   ACTION CREATORS   -------------- */
 
-export const setHistory = payload => dispatch =>
-  dispatch({ type: SET_HISTORY, payload });
 export const setScreen = payload => dispatch =>
   dispatch({ type: SET_SCREEN, payload });
 
@@ -30,10 +29,6 @@ export default function reducer(prevState = initialState, action) {
   const newState = Object.assign({}, prevState);
 
   switch (action.type) {
-    case SET_HISTORY:
-      newState.history = action.payload;
-      break;
-
     case SET_SCREEN:
       newState.screen = action.payload;
       break;
@@ -81,10 +76,13 @@ export const initialize = () => dispatch => {
   }, 3000); // TO-DO Change to 3000
 };
 
-export const handleHomeButton = screen => (dispatch, getState) => {
-  const history = [...getState().app.history];
+export const handleBackButton = () => (dispatch, getState) => {
+  const { screen } = getState().app;
 
-  history.push(screen);
-  dispatch(setHistory(history));
-  dispatch(setScreen(screen));
+  const destination = HISTORY_CHAIN[screen];
+
+  if (destination === undefined)
+    throw Error('Add this screen name to the HISTORY_CHAIN in constants');
+
+  dispatch(setScreen(destination));
 };

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { COLORS } from '../constants';
 import { saveLocalStorage } from '../utils';
 

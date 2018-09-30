@@ -7,6 +7,10 @@ const Icon = ({ type, styles = 'small' }) => {
   let icon;
 
   switch (type) {
+    case 'back':
+      icon = icons.back;
+      break;
+
     case 'spinner':
       icon = icons.spinner;
       break;

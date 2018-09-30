@@ -7,10 +7,12 @@ import Image from './Image';
 import { COLORS, EXPANSIONS, NUM_PLAYERS } from '../constants';
 
 import { capitalize } from '../utils';
+import BackButton from './BackButton';
 
 const SetUp = ({ props }) => (
   <main className="container container-setup">
     <Borders />
+    <BackButton handleBackButton={props.handleBackButton} />
     <Image src="logo" className="logo-top" alt="logo" extension="png" />
 
     <div className="setup-flex-group">
@@ -108,6 +110,7 @@ SetUp.propTypes = {
   props: PropTypes.object.isRequired,
   scorer: PropTypes.object,
   handleColors: PropTypes.func,
+  handleBackButton: PropTypes.func,
   handleExpansions: PropTypes.func,
   handleNumPlayers: PropTypes.func,
   initializeScorer: PropTypes.func,
@@ -116,6 +119,7 @@ SetUp.propTypes = {
 SetUp.defaultProps = {
   scorer: {},
   handleColors: () => {},
+  handleBackButton: () => {},
   handleExpansions: () => {},
   handleNumPlayers: () => {},
   initializeScorer: () => {},
