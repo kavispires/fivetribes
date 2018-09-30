@@ -1,14 +1,12 @@
 import React from 'react';
 
-import borderLeft from '../images/fancy-border-left.png';
-import borderRight from '../images/fancy-border-right.png';
+import Borders from './Borders';
 
 import Icon from './Icon';
 
 const SplashScreen = () => (
   <main className="container container-splash">
-    <img src={borderLeft} alt="Border Left" className="border border-left" />
-    <img src={borderRight} alt="Border Right" className="border border-right" />
+    <Borders />
     <div className="splash-elements">
       <Icon type="splash-camel" styles="splash-camel" />
     </div>

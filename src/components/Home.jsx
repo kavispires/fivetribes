@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import borderLeft from '../images/fancy-border-left.png';
-import borderRight from '../images/fancy-border-right.png';
+import Borders from './Borders';
 import logo from '../images/logo.png';
 
 const Home = ({ props }) => (
   <main className="container container-home">
-    <img src={borderLeft} alt="Border Left" className="border border-left" />
-    <img src={borderRight} alt="Border Right" className="border border-right" />
+    <Borders />
     <div className="home-content">
       <img src={logo} alt="logo" className="logo-image" />
       <div className="menu">
         <button
           type="button"
           className="btn-hollow btn-25"
-          onClick={() => props.handleHomeButton('scorer')}
+          onClick={() => props.handleHomeButton('setup')}
         >
           Scorer
         </button>
