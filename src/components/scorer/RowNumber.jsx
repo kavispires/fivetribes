@@ -30,6 +30,8 @@ const RowNumber = ({
             onChange={e => action(name, i, e.target.value)}
             onFocus={() => toggleHint(hint)}
             onBlur={() => toggleHint()}
+            min="0"
+            max="9"
           />
         </div>
       ))}

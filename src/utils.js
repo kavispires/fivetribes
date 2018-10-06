@@ -59,8 +59,22 @@ export const buildCategories = expansions => {
   const hasArtisansDjinns = expansions.ARTISANS ? CATEGORY_ARTISANS_DIJNNS : {};
   const djinns = Object.assign({}, CATEGORY_BASE_DJINNS, hasArtisansDjinns);
 
+  // Build Merch
+  const merch = {};
+  for (let i = 1; i <= 6; i++) {
+    merch[i] = {
+      name: `merch-set-${i}`,
+      order: i,
+      icon: `merch-set-${i}`,
+      type: 'number',
+      hint:
+        'Input the total number of cards on each set (the game allows a maxinum of 6 sets)',
+    };
+  }
+
   return {
     main: Object.values(main),
     djinns: Object.values(djinns),
+    merch: Object.values(merch),
   };
 };

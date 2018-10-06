@@ -181,21 +181,18 @@ export const prepareScorer = () => (dispatch, getState) => {
   // Build categories
   const categories = buildCategories(getState().scorer.expansions);
   dispatch(setCategories(categories));
-  // console.log(getState().scorer.expansions);
-  // console.log(categories);
+
   // Build Scores state
   const { numPlayers } = getState().scorer;
   const arrayPlaceholder = new Array(numPlayers).fill(0);
 
   const scores = {};
 
-  categories.main.forEach(category => {
-    scores[category.name] = [...arrayPlaceholder];
-  });
-
-  categories.djinns.forEach(category => {
-    scores[category.name] = [...arrayPlaceholder];
-  });
+  Object.keys(categories).forEach(category =>
+    categories[category].forEach(subCategory => {
+      scores[subCategory.name] = [...arrayPlaceholder];
+    })
+  );
 
   dispatch(setScores(scores));
 };
@@ -248,13 +245,42 @@ export const clearCategory = category => (dispatch, getState) => {
 
 export const handleOk = category => (dispatch, getState) => {
   const scores = { ...getState().scorer.scores };
-  // // Calculate Totals
-  // if (category === 'djins') {
-  //   scores.djinns = [...scores.djinnsTotal];
-  // }
+  // Calculate Merch Points
+  if (category === 'merch') {
+    scores.merch = calculateMerchPoints(getState().scorer.scores);
+  }
 
   dispatch(setScores(scores));
   dispatch(setSubscreen(''));
+};
+
+const calculateMerchPoints = scores => {
+  const points = new Array(scores.merch.length).fill(0);
+
+  const pointRef = {
+    0: 0,
+    1: 1,
+    2: 3,
+    3: 7,
+    4: 13,
+    5: 21,
+    6: 30,
+    7: 40,
+    8: 50,
+    9: 60,
+  };
+
+  for (let i = 1; i <= 6; i++) {
+    const currentCategory = `merch-set-${i}`;
+    scores[currentCategory].forEach((value, index) => {
+      if (pointRef[value] !== undefined) {
+        points[index] += pointRef[value];
+      } else {
+        throw Error('Merchandising sets allow a maxium of 9 cards per set');
+      }
+    });
+  }
+  return points;
 };
 
 // OLD_STUFF

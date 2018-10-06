@@ -15,6 +15,12 @@ import categoryDjinnTotal from '../images/category-djinn-total.svg';
 import categoryDjinns from '../images/category-djinns.svg';
 import categoryElders from '../images/category-elders.svg';
 import categoryMerch from '../images/category-merch.svg';
+import categoryMerchSet1 from '../images/category-merch-set-1.svg';
+import categoryMerchSet2 from '../images/category-merch-set-2.svg';
+import categoryMerchSet3 from '../images/category-merch-set-3.svg';
+import categoryMerchSet4 from '../images/category-merch-set-4.svg';
+import categoryMerchSet5 from '../images/category-merch-set-5.svg';
+import categoryMerchSet6 from '../images/category-merch-set-6.svg';
 import categoryOasis from '../images/category-oasis.svg';
 import categoryOasisLake from '../images/category-oasis-lake.svg';
 import categoryPreciousItems from '../images/category-precious-items.svg';
@@ -96,6 +102,30 @@ const Image = ({ src, className, alt }) => {
 
     case 'category-merch':
       source = categoryMerch;
+      break;
+
+    case 'category-merch-set-1':
+      source = categoryMerchSet1;
+      break;
+
+    case 'category-merch-set-2':
+      source = categoryMerchSet2;
+      break;
+
+    case 'category-merch-set-3':
+      source = categoryMerchSet3;
+      break;
+
+    case 'category-merch-set-4':
+      source = categoryMerchSet4;
+      break;
+
+    case 'category-merch-set-5':
+      source = categoryMerchSet5;
+      break;
+
+    case 'category-merch-set-6':
+      source = categoryMerchSet6;
       break;
 
     case 'category-oasis':

@@ -51,8 +51,6 @@ const Djinns = ({ props }) => (
               />
             );
           })}
-
-        {/* <RowTotal colors={scorer.colors} /> */}
       </ul>
     ) : (
       <p className="p-error">Something is wrong</p>

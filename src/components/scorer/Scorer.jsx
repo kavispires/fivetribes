@@ -3,46 +3,46 @@ import PropTypes from 'prop-types';
 
 import Djinns from './Djinns';
 import Main from './Main';
+import Merch from './Merch';
 
 const Scorer = ({ props }) => {
-  console.log('Subscreen', props.scorer.subscreen);
   // Djinss
   if (props.scorer.subscreen === 'scorer-djinns') {
     return <Djinns props={props} />;
   }
 
-  // // Merch
-  // if (props.scorer.subscreen === 'merch') {
-  //   return <Merch props={props} />;
-  // }
+  // Merch
+  if (props.scorer.subscreen === 'scorer-merch') {
+    return <Merch props={props} />;
+  }
 
   // // Oasis
-  // if (props.scorer.subscreen === 'oasis') {
+  // if (props.scorer.subscreen === 'scorer-oasis') {
   //   return <Oasis props={props} />;
   // }
 
   // // Villages
-  // if (props.scorer.subscreen === 'villages') {
+  // if (props.scorer.subscreen === 'scorer-villages') {
   //   return <Villages props={props} />;
   // }
 
   // // PreciousItems
-  // if (props.scorer.subscreen === 'precious-items') {
+  // if (props.scorer.subscreen === 'scorer-precious-items') {
   //   return <PreciousItems props={props} />;
   // }
 
   // // Tiles
-  // if (props.scorer.subscreen === 'tiles') {
+  // if (props.scorer.subscreen === 'scorer-tiles') {
   //   return <Tiles props={props} />;
   // }
 
   // // TilesSelect
-  // if (props.scorer.subscreen === 'tiles-select') {
+  // if (props.scorer.subscreen === 'scorer-tiles-select') {
   //   return <TilesSelect props={props} />;
   // }
 
   // // Result
-  // if (props.scorer.subscreen === 'result') {
+  // if (props.scorer.subscreen === 'scorer-result') {
   //   return <Result props={props} />;
   // }
 
