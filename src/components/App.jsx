@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Home from './Home';
 import SetUp from './SetUp';
 import SplashScreen from './SplashScreen';
+import Scorer from './scorer/Scorer';
 
 class App extends Component {
   componentDidMount() {
@@ -23,15 +24,10 @@ class App extends Component {
       return <SetUp props={props} />;
     }
 
-    // // Scorer
-    // if (props.app.screen === 'scorer') {
-    //   return <Results props={props} />
-    // }
-
-    // // Results
-    // if (props.app.screen === 'results') {
-    //   return <Results props={props} />
-    // }
+    // Scorer
+    if (props.app.screen === 'scorer') {
+      return <Scorer props={props} />;
+    }
 
     // Splash Screen
     return <SplashScreen props={props} />;

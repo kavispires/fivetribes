@@ -8,7 +8,11 @@ import {
   handleColors,
   handleExpansions,
   handleNumPlayers,
-  initializeScorer,
+  prepareScorer,
+  saveData,
+  toggleHint,
+  updateButtonCell,
+  updateNumberCell,
 } from '../reducers/scorer';
 
 const mapStateToProps = state => ({ app: state.app, scorer: state.scorer });
@@ -19,8 +23,12 @@ const mapDispatchToProps = {
   handleExpansions,
   handleNumPlayers,
   initialize,
-  initializeScorer,
+  prepareScorer,
+  saveData,
   setScreen,
+  toggleHint,
+  updateButtonCell,
+  updateNumberCell,
 };
 
 export default connect(

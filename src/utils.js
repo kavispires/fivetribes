@@ -1,3 +1,10 @@
+import {
+  CATEGORY_BASE,
+  CATEGORY_ARTISANS,
+  CATEGORY_THIEVES,
+  CATEGORY_WHIMS,
+} from './constants';
+
 export const capitalize = string =>
   string
     .toLowerCase()
@@ -32,3 +39,19 @@ export const saveLocalStorage = state => {
 
 export const snakeToCamelCase = string =>
   string.replace(/(-\w)/g, m => m[1].toUpperCase());
+
+export const buildCategories = expansions => {
+  const hasArtisans = expansions.artisans ? CATEGORY_ARTISANS : {};
+  const hasThieves = expansions.thieves ? CATEGORY_THIEVES : {};
+  const hasWhims = expansions.whims ? CATEGORY_WHIMS : {};
+
+  const categories = Object.assign(
+    {},
+    CATEGORY_BASE,
+    hasArtisans,
+    hasThieves,
+    hasWhims
+  );
+
+  return Object.values(categories);
+};

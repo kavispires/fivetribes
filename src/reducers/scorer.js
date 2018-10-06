@@ -1,40 +1,64 @@
-import _ from 'lodash';
-
 import { COLORS } from '../constants';
-import { saveLocalStorage } from '../utils';
+import { saveLocalStorage, buildCategories } from '../utils';
 
 /* ------------------   ACTION TYPES  ------------------ */
 
+const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_COLORS = 'SET_COLORS';
 const SET_EXPANSIONS = 'SET_EXPANSIONS';
+const SET_HINT = 'SET_HINT';
 const SET_IS_SETUP_READY = 'SET_IS_SETUP_READY';
 const SET_NUM_PLAYERS = 'SET_NUM_PLAYERS';
+const SET_SCORES = 'SET_SCORES';
+const SET_SUBSCREEN = 'SET_SUBSCREEN';
 const SET_VIOLATION = 'SET_VIOLATION';
 
 /* --------------   ACTION CREATORS   -------------- */
 
+export const setCategories = payload => dispatch =>
+  dispatch({ type: SET_CATEGORIES, payload });
 export const setColors = payload => dispatch =>
   dispatch({ type: SET_COLORS, payload });
 export const setExpasions = payload => dispatch =>
   dispatch({ type: SET_EXPANSIONS, payload });
+export const setHint = payload => dispatch =>
+  dispatch({ type: SET_HINT, payload });
 export const setIsSetupReady = payload => dispatch =>
   dispatch({ type: SET_IS_SETUP_READY, payload });
 export const setNumPlayers = payload => dispatch =>
   dispatch({ type: SET_NUM_PLAYERS, payload });
+export const setScores = payload => dispatch =>
+  dispatch({ type: SET_SCORES, payload });
+export const setSubscreen = payload => dispatch =>
+  dispatch({ type: SET_SUBSCREEN, payload });
 export const setViolation = payload => dispatch =>
   dispatch({ type: SET_VIOLATION, payload });
 
 /* -----------------   REDUCER   ------------------ */
 
 export const initialState = {
+  categories: [],
   colors: [],
   expansions: {
     ARTISANS: false,
     THIEVES: false,
     WHIMS: false,
   },
+  hint: '',
   isSetupReady: false,
   numPlayers: 0,
+  scores: {
+    coins: [],
+    viziers: [],
+    elders: [],
+    djinns: [],
+    tiles: [],
+    oasis: [],
+    villages: [],
+    merch: [],
+    total: [],
+  },
+  subscreen: '',
   violation: '',
 };
 
@@ -42,6 +66,10 @@ export default function reducer(prevState = initialState, action) {
   const newState = Object.assign({}, prevState);
 
   switch (action.type) {
+    case SET_CATEGORIES:
+      newState.categories = action.payload;
+      break;
+
     case SET_COLORS:
       newState.colors = action.payload;
       break;
@@ -50,12 +78,20 @@ export default function reducer(prevState = initialState, action) {
       newState.expansions = action.payload;
       break;
 
+    case SET_HINT:
+      newState.hint = action.payload;
+      break;
+
     case SET_IS_SETUP_READY:
       newState.isSetupReady = action.payload;
       break;
 
     case SET_NUM_PLAYERS:
       newState.numPlayers = action.payload;
+      break;
+
+    case SET_SCORES:
+      newState.scores = action.payload;
       break;
 
     case SET_VIOLATION:
@@ -131,12 +167,60 @@ export const verifySetup = () => (dispatch, getState) => {
   dispatch(setIsSetupReady(isValid));
 };
 
-export const initializeScorer = () => (dispatch, getState) => {
-  console.log('initializeScorer');
-  // TO-DO Change screens
-
+export const saveData = () => (dispatch, getState) => {
   const state = getState();
   saveLocalStorage(state);
+};
+
+export const prepareScorer = () => (dispatch, getState) => {
+  // Build categories
+  const categories = buildCategories(getState().scorer.expansions);
+  dispatch(setCategories(categories));
+
+  // Build State
+  const { numPlayers } = getState().scorer;
+  const arrayPlaceholder = new Array(numPlayers).fill(0);
+
+  const scores = {};
+
+  categories.forEach(category => {
+    scores[category.name] = [...arrayPlaceholder];
+  });
+
+  dispatch(setScores(scores));
+};
+
+export const buildScoresState = categories => (dispatch, getState) => {
+  const { numPlayers } = getState().scorer;
+  const arrayPlaceholder = new Array(numPlayers).fill(0);
+
+  const scores = {};
+
+  categories.forEach(category => {
+    scores[category.name] = [...arrayPlaceholder];
+  });
+
+  dispatch(setScores(scores));
+};
+
+export const updateNumberCell = (category, index, value) => (
+  dispatch,
+  getState
+) => {
+  console.log(category, index, value);
+
+  const scores = { ...getState().scorer.scores };
+  scores[category][index] = +value;
+
+  dispatch(setScores(scores));
+};
+
+export const updateButtonCell = s => (dispatch, getState) => {
+  console.log(s);
+};
+
+export const toggleHint = (hint = '') => dispatch => {
+  dispatch(setHint(hint));
 };
 
 // OLD_STUFF

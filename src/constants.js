@@ -9,6 +9,137 @@ export const HISTORY_CHAIN = {
   scorer: 'setup',
 };
 
+export const CATEGORY_BASE = {
+  1: {
+    name: 'coins',
+    order: 1,
+    icon: 'coins',
+    type: 'input',
+    hint: "Input the total value of each player's coins",
+  },
+  2: {
+    name: 'viziers',
+    order: 2,
+    icon: 'viziers',
+    type: 'input',
+    hint: 'Input the number of yellow meeples (Viziers)',
+  },
+  4: {
+    name: 'elders',
+    order: 4,
+    icon: 'elders',
+    type: 'input',
+    hint: 'Input the number of white meeples (Elders)',
+  },
+  5: {
+    name: 'djinns',
+    order: 5,
+    icon: 'djinns',
+    type: 'button',
+    link: 'scorer-djinns',
+    hint: 'Total djinns cards points (excluding bonuses)',
+  },
+  7: {
+    name: 'tiles',
+    order: 7,
+    icon: 'tiles',
+    type: 'button',
+    link: 'scorer-tiles',
+    hint: 'Total of tiles points',
+  },
+  9: {
+    name: 'oasis',
+    order: 9,
+    icon: 'oasis',
+    type: 'input',
+    hint: 'Input the number of palm trees each player owns',
+  },
+  10: {
+    name: 'villages',
+    order: 10,
+    icon: 'villages',
+    type: 'input',
+    hint: 'Input the number of palaces each player owns',
+  },
+  12: {
+    name: 'merch',
+    order: 12,
+    icon: 'merch',
+    type: 'button',
+    link: 'scorer-merch',
+    hint: 'Total merchandising points',
+  },
+  13: {
+    name: 'bonus',
+    order: 13,
+    icon: 'bonus',
+    type: 'button',
+    link: 'scorer-bonus',
+    hint: 'Total bonus points awarded by djinns',
+  },
+};
+
+export const CATEGORY_ARTISANS = {
+  3: {
+    name: 'artisans',
+    order: 3,
+    icon: 'artisans',
+    type: 'input',
+    hint: 'Input the number of purple meeples (Artisans)',
+  },
+  8: {
+    name: 'tent',
+    order: 8,
+    icon: 'tent',
+    type: 'input',
+    hint:
+      'Input number of red tiles surrounding your tent, including its own tile',
+  },
+  11: {
+    name: 'precious-items',
+    order: 11,
+    icon: 'precious-items',
+    type: 'input',
+    hint: 'Input the number of palm trees each player owns',
+  },
+};
+
+export const CATEGORY_THIEVES = {
+  6: {
+    name: 'thieves',
+    order: 6,
+    icon: 'thieves',
+    type: 'input',
+    hint: 'Input the total number of thieves points',
+  },
+};
+
+export const CATEGORY_WHIMS = {
+  7: {
+    name: 'tiles',
+    order: 7,
+    icon: 'tiles-cities',
+    type: 'button',
+    hint: 'Total of tiles points including Fabulous Cities',
+  },
+  9: {
+    name: 'oasis',
+    order: 9,
+    icon: 'oasis-lake',
+    type: 'button',
+    link: 'scorer-oasis',
+    hint: 'Input the number of palm trees each player owns',
+  },
+  10: {
+    name: 'villages',
+    order: 10,
+    icon: 'villages-lake',
+    type: 'button',
+    link: 'scorer-villages',
+    hint: 'Input the number of palaces each player owns',
+  },
+};
+
 // OLD STUFF
 
 export const CATEGORIES = [

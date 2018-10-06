@@ -4,6 +4,18 @@ import PropTypes from 'prop-types';
 // All image imports
 import borderLeft from '../images/border-left.png';
 import borderRight from '../images/border-right.png';
+import categoryArtisans from '../images/category-artisans.svg';
+import categoryCoins from '../images/category-coins.svg';
+import categoryDjinns from '../images/category-djinns.svg';
+import categoryElders from '../images/category-elders.svg';
+import categoryMerch from '../images/category-merch.svg';
+import categoryOasis from '../images/category-oasis.svg';
+import categoryPreciousItems from '../images/category-precious-items.svg';
+import categoryThieves from '../images/category-thieves.svg';
+import categoryTiles from '../images/category-tiles.svg';
+import categoryTotal from '../images/category-total.svg';
+import categoryVillages from '../images/category-villages.svg';
+import categoryViziers from '../images/category-viziers.svg';
 import colorBlack from '../images/color-black.svg';
 import colorBrown from '../images/color-brown.svg';
 import colorCyan from '../images/color-cyan.svg';
@@ -13,6 +25,7 @@ import expansionArtisans from '../images/expansion-artisans.svg';
 import expansionThieves from '../images/expansion-thieves.svg';
 import expansionWhims from '../images/expansion-whims.svg';
 import logo from '../images/logo.png';
+import pawn from '../images/pawn.svg';
 import players1 from '../images/players-1.svg';
 import players2 from '../images/players-2.svg';
 import players3 from '../images/players-3.svg';
@@ -29,6 +42,54 @@ const Image = ({ src, className, alt }) => {
 
     case 'border-right':
       source = borderRight;
+      break;
+
+    case 'category-artisans':
+      source = categoryArtisans;
+      break;
+
+    case 'category-coins':
+      source = categoryCoins;
+      break;
+
+    case 'category-djinns':
+      source = categoryDjinns;
+      break;
+
+    case 'category-elders':
+      source = categoryElders;
+      break;
+
+    case 'category-merch':
+      source = categoryMerch;
+      break;
+
+    case 'category-oasis':
+      source = categoryOasis;
+      break;
+
+    case 'category-precious-items':
+      source = categoryPreciousItems;
+      break;
+
+    case 'category-thieves':
+      source = categoryThieves;
+      break;
+
+    case 'category-tiles':
+      source = categoryTiles;
+      break;
+
+    case 'category-total':
+      source = categoryTotal;
+      break;
+
+    case 'category-villages':
+      source = categoryVillages;
+      break;
+
+    case 'category-viziers':
+      source = categoryViziers;
       break;
 
     case 'color-black':
@@ -65,6 +126,10 @@ const Image = ({ src, className, alt }) => {
 
     case 'logo':
       source = logo;
+      break;
+
+    case 'pawn':
+      source = pawn;
       break;
 
     case 'players-1':

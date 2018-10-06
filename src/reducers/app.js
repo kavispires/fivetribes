@@ -61,7 +61,8 @@ export const initialize = () => dispatch => {
     } else {
       console.log('Data is fine');
       // Assign current Screen
-      nextScreen = data.screen;
+      // nextScreen = data.screen; TO-DO Uncomment
+      nextScreen = 'scorer';
       // Handle setup
       dispatch(setColors(data.colors));
       dispatch(setExpasions(data.expansions));
@@ -73,7 +74,7 @@ export const initialize = () => dispatch => {
   setTimeout(() => {
     console.log('Switching screens to', nextScreen);
     dispatch(setScreen(nextScreen));
-  }, 3000); // TO-DO Change to 3000
+  }, 500); // TO-DO Change to 3000
 };
 
 export const handleBackButton = () => (dispatch, getState) => {

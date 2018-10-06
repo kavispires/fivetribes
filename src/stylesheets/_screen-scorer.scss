@@ -1,0 +1,364 @@
+.hint {
+  background: rgba(212, 175, 55, 0.3);
+  border: 1px solid $gold;
+  padding: 4px;
+  margin: $unit $doubleUnit;
+  text-align: center;
+  font-size: 0.75em;
+  color: $gold;
+  border-radius: $quarterUnit;
+}
+
+.hint-placeholder {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 4px;
+  margin: $unit $doubleUnit;
+  text-align: center;
+  font-size: 0.75em;
+  color: $gold;
+  border-radius: $quarterUnit;
+}
+
+.scorer-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 $halfUnit;
+  margin: 0;
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: $doubleUnit;
+    margin: 0 auto;
+  }
+
+  // & > * {
+  //   outline: 1px solid orangered;
+  // }
+
+  .row {
+    display: flex;
+    width: 100%;
+  }
+
+  .cell-group-players {
+    display: flex;
+    width: 100%;
+  }
+
+  .cell-category {
+    width: 15%;
+    min-width: 15%;
+    max-width: 15%;
+  }
+
+  .cell {
+    input {
+      display: block;
+      width: calc(100% - 0.5em);
+      height: calc(100% - 0.5em);
+      border: 0;
+      margin: $quarterUnit;
+      border-radius: $quarterUnit;
+      text-align: center;
+      font-size: 0.85em;
+      color: $black;
+
+      &::placeholder {
+        color: $black;
+      }
+    }
+
+    span {
+      display: block;
+      border-radius: $quarterUnit;
+    }
+
+    input[type='radio'] {
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.5) !important;
+      margin: 0;
+      border: 1px solid $grey;
+      outline: none;
+    }
+
+    input[type='radio']:hover {
+      box-shadow: 0 0 5px 0px $gold inset;
+    }
+
+    input[type='radio']:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      border-radius: $halfUnit;
+    }
+    input[type='radio']:checked:before {
+      background: url('/images/scorer/lamp.png') no-repeat center/50%;
+    }
+
+    .cell-header-span {
+      border-radius: 0.25em;
+      margin: 0.25em 0.25em;
+      padding: 0.25em;
+    }
+  }
+
+  .header .cell-group-players .cell:first-child {
+    border-top-left-radius: $quarterUnit;
+  }
+
+  .header .cell-group-players .cell:last-child {
+    border-top-right-radius: $quarterUnit;
+  }
+
+  .total .cell-group-players .cell:first-child {
+    border-bottom-left-radius: $quarterUnit;
+  }
+
+  .total .cell-group-players .cell:last-child {
+    border-bottom-right-radius: $quarterUnit;
+  }
+
+  // SIZES
+
+  .cell-1 {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cell-2 {
+    width: 50%;
+    max-width: 50%;
+  }
+
+  .cell-3 {
+    width: 33%;
+    max-width: 33%;
+  }
+
+  .cell-4 {
+    width: 25%;
+    max-width: 25%;
+  }
+
+  .cell-5 {
+    width: 20%;
+    max-width: 20%;
+  }
+
+  // COLORS
+
+  .cell-CYAN {
+    background: $sCyanLight;
+
+    span {
+      background: $sCyan;
+    }
+  }
+
+  .cell-PINK {
+    background: $sPinkLight;
+
+    span {
+      background: $sPink;
+    }
+  }
+
+  .cell-BLACK {
+    background: $sBlackLight;
+
+    span {
+      background: $sBlack;
+    }
+  }
+
+  .cell-ORANGE {
+    background: $sOrangeLight;
+
+    span {
+      background: $sOrange;
+    }
+  }
+
+  .cell-BROWN {
+    background: $sBrownLight;
+
+    span {
+      background: $sBrown;
+    }
+  }
+}
+
+// .scorer-table {
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+
+//   img {
+//     display: block;
+//     max-width: 100%;
+//     height: 2em;
+//     margin: 0 auto;
+//   }
+// }
+
+// .row {
+//   display: flex;
+//   width: 100%;
+// }
+
+// .cell {
+//   padding: $halfUnit;
+
+//   input {
+//     display: block;
+//     width: 100%;
+//     height: 100%;
+//     border: 0;
+//     border-radius: $halfUnit;
+//     text-align: center;
+
+//     &::placeholder {
+//       color: $primary;
+//     }
+//   }
+
+//   span {
+//     display: block;
+//     border-radius: $halfUnit;
+//   }
+
+//   input[type='radio'] {
+//     -webkit-appearance: none;
+//     background: rgba(255, 255, 255, 0.5) !important;
+//     margin: 0;
+//     border: 1px solid $grey;
+//     outline: none;
+//   }
+
+//   input[type='radio']:hover {
+//     box-shadow: 0 0 5px 0px $gold inset;
+//   }
+
+//   input[type='radio']:before {
+//     content: '';
+//     display: block;
+//     width: 100%;
+//     height: 100%;
+//     margin: auto;
+//     border-radius: $halfUnit;
+//   }
+//   input[type='radio']:checked:before {
+//     background: url('/images/scorer/lamp.png') no-repeat center/50%;
+//   }
+
+//   // Colors
+//   &:nth-child(2) {
+//     background: $sCyanLight;
+
+//     input {
+//       background: $sCyanMedium;
+
+//       .total & {
+//         background: $sCyan;
+//       }
+//     }
+
+//     span {
+//       .header & {
+//         background: $sCyan;
+//       }
+//     }
+//   }
+//   &:nth-child(3) {
+//     background: $sPinkLight;
+
+//     input {
+//       background: $sPinkMedium;
+
+//       .total & {
+//         background: $sPink;
+//       }
+//     }
+
+//     span {
+//       .header & {
+//         background: $sPink;
+//       }
+//     }
+//   }
+//   &:nth-child(4) {
+//     background: $sBlackLight;
+
+//     input {
+//       background: $sBlackMedium;
+
+//       .total & {
+//         background: $sBlack;
+//       }
+//     }
+
+//     span {
+//       .header & {
+//         background: $sBlack;
+//       }
+//     }
+//   }
+//   &:nth-child(5) {
+//     background: $sOrangeLight;
+
+//     input {
+//       background: $sOrangeMedium;
+
+//       .total & {
+//         background: $sOrange;
+//       }
+//     }
+
+//     span {
+//       .header & {
+//         background: $sOrange;
+//       }
+//     }
+//   }
+//   &:nth-child(6) {
+//     background: $sBrownLight;
+
+//     input {
+//       background: $sBrownMedium;
+
+//       .total & {
+//         background: $sBrown;
+//       }
+//     }
+
+//     span {
+//       .header & {
+//         background: $sBrown;
+//       }
+//     }
+//   }
+// }
+
+// .cell-cat {
+//   min-width: 16.66%;
+//   width: 16.66%;
+//   padding: $halfUnit;
+// }
+
+// @for $i from 1 through 5 {
+//   $width: calc(83.33% / #{$i});
+
+//   .cell-#{$i} {
+//     width: $width;
+//   }
+// }
