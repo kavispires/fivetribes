@@ -176,21 +176,9 @@ export const prepareScorer = () => (dispatch, getState) => {
   // Build categories
   const categories = buildCategories(getState().scorer.expansions);
   dispatch(setCategories(categories));
-
-  // Build State
-  const { numPlayers } = getState().scorer;
-  const arrayPlaceholder = new Array(numPlayers).fill(0);
-
-  const scores = {};
-
-  categories.forEach(category => {
-    scores[category.name] = [...arrayPlaceholder];
-  });
-
-  dispatch(setScores(scores));
-};
-
-export const buildScoresState = categories => (dispatch, getState) => {
+  console.log(getState().scorer.expansions);
+  console.log(categories);
+  // Build Scores state
   const { numPlayers } = getState().scorer;
   const arrayPlaceholder = new Array(numPlayers).fill(0);
 
@@ -207,8 +195,6 @@ export const updateNumberCell = (category, index, value) => (
   dispatch,
   getState
 ) => {
-  console.log(category, index, value);
-
   const scores = { ...getState().scorer.scores };
   scores[category][index] = +value;
 
@@ -216,7 +202,7 @@ export const updateNumberCell = (category, index, value) => (
 };
 
 export const updateButtonCell = subscreen => dispatch => {
-  console.log('updateButtonCell');
+  console.log('updateButtonCell', subscreen);
   dispatch(setSubscreen(subscreen));
 };
 

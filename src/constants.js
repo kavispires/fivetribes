@@ -69,14 +69,6 @@ export const CATEGORY_BASE = {
     link: 'scorer-merch',
     hint: 'Total merchandising points',
   },
-  13: {
-    name: 'bonus',
-    order: 13,
-    icon: 'bonus',
-    type: 'button',
-    link: 'scorer-bonus',
-    hint: 'Total bonus points awarded by djinns',
-  },
 };
 
 export const CATEGORY_ARTISANS = {
@@ -99,8 +91,8 @@ export const CATEGORY_ARTISANS = {
     name: 'precious-items',
     order: 11,
     icon: 'precious-items',
-    type: 'input',
-    hint: 'Input the number of palm trees each player owns',
+    type: 'button',
+    hint: 'Total precious items points',
   },
 };
 
@@ -137,6 +129,17 @@ export const CATEGORY_WHIMS = {
     type: 'button',
     link: 'scorer-villages',
     hint: 'Input the number of palaces each player owns',
+  },
+};
+
+export const CATEGORY_BONUS = {
+  13: {
+    name: 'bonus',
+    order: 13,
+    icon: 'bonus',
+    type: 'button',
+    link: 'scorer-bonus',
+    hint: 'Total bonus points awarded by djinns',
   },
 };
 

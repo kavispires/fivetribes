@@ -41,10 +41,9 @@ export const snakeToCamelCase = string =>
   string.replace(/(-\w)/g, m => m[1].toUpperCase());
 
 export const buildCategories = expansions => {
-  const hasArtisans = expansions.artisans ? CATEGORY_ARTISANS : {};
-  const hasThieves = expansions.thieves ? CATEGORY_THIEVES : {};
-  const hasWhims = expansions.whims ? CATEGORY_WHIMS : {};
-
+  const hasArtisans = expansions.ARTISANS ? CATEGORY_ARTISANS : {};
+  const hasThieves = expansions.THIEVES ? CATEGORY_THIEVES : {};
+  const hasWhims = expansions.WHIMS ? CATEGORY_WHIMS : {};
   const categories = Object.assign(
     {},
     CATEGORY_BASE,
