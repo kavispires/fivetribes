@@ -1,8 +1,6 @@
 import { COLORS } from '../constants';
 import { saveLocalStorage, buildCategories } from '../utils';
 
-let currentCategories = {};
-
 /* ------------------   ACTION TYPES  ------------------ */
 
 const SET_CATEGORIES = 'SET_CATEGORIES';
