@@ -10,11 +10,15 @@ import categoryDjinns from '../images/category-djinns.svg';
 import categoryElders from '../images/category-elders.svg';
 import categoryMerch from '../images/category-merch.svg';
 import categoryOasis from '../images/category-oasis.svg';
+import categoryOasisLake from '../images/category-oasis-lake.svg';
 import categoryPreciousItems from '../images/category-precious-items.svg';
+import categoryTent from '../images/category-tent.svg';
 import categoryThieves from '../images/category-thieves.svg';
 import categoryTiles from '../images/category-tiles.svg';
+import categoryTilesCities from '../images/category-tiles-cities.svg';
 import categoryTotal from '../images/category-total.svg';
 import categoryVillages from '../images/category-villages.svg';
+import categoryVillagesLake from '../images/category-villages-lake.svg';
 import categoryViziers from '../images/category-viziers.svg';
 import colorBlack from '../images/color-black.svg';
 import colorBrown from '../images/color-brown.svg';
@@ -68,8 +72,16 @@ const Image = ({ src, className, alt }) => {
       source = categoryOasis;
       break;
 
+    case 'category-oasis-lake':
+      source = categoryOasisLake;
+      break;
+
     case 'category-precious-items':
       source = categoryPreciousItems;
+      break;
+
+    case 'category-tent':
+      source = categoryTent;
       break;
 
     case 'category-thieves':
@@ -80,12 +92,20 @@ const Image = ({ src, className, alt }) => {
       source = categoryTiles;
       break;
 
+    case 'category-tiles-cities':
+      source = categoryTilesCities;
+      break;
+
     case 'category-total':
       source = categoryTotal;
       break;
 
     case 'category-villages':
       source = categoryVillages;
+      break;
+
+    case 'category-villages-lake':
+      source = categoryVillagesLake;
       break;
 
     case 'category-viziers':
