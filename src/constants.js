@@ -210,6 +210,23 @@ export const CATEGORY_WHIMS_OASIS = {
   },
 };
 
+export const CATEGORY_WHIMS_VILLAGES = {
+  1: {
+    name: 'villages-total',
+    order: 1,
+    icon: 'villages-total',
+    type: 'input',
+    hint: 'Input the number of palaces each player owns',
+  },
+  2: {
+    name: 'villages-lake-total',
+    order: 2,
+    icon: 'villages-lake-total',
+    type: 'input',
+    hint: 'Input how many of those palaces are next to the Great Lake',
+  },
+};
+
 // OLD STUFF
 
 // export const CATEGORIES = [

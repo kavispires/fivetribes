@@ -250,6 +250,10 @@ export const handleOk = category => (dispatch, getState) => {
   else if (category === 'oasis') {
     scores.oasis = calculateOasis(scores, expansions);
   }
+  // Calculate Merch Points
+  else if (category === 'villages') {
+    scores.villages = calculateVillages(scores, expansions);
+  }
 
   dispatch(setScores(scores));
   dispatch(setSubscreen(''));
@@ -293,6 +297,21 @@ const calculateOasis = (scores, expansions) => {
     points.forEach((v, index) => {
       points[index] += scores['oasis-total'][index] * POINST_PER_TREE;
       points[index] += scores['oasis-lake-total'][index] * POINST_PER_TREE;
+    });
+  }
+
+  return points;
+};
+
+const calculateVillages = (scores, expansions) => {
+  const points = new Array(scores.villages.length).fill(0);
+
+  const POINST_PER_PALACE = 5;
+
+  if (expansions.WHIMS) {
+    points.forEach((v, index) => {
+      points[index] += scores['villages-total'][index] * POINST_PER_PALACE;
+      points[index] += scores['villages-lake-total'][index] * POINST_PER_PALACE;
     });
   }
 

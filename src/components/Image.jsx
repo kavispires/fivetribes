@@ -32,7 +32,9 @@ import categoryTiles from '../images/category-tiles.svg';
 import categoryTilesCities from '../images/category-tiles-cities.svg';
 import categoryTotal from '../images/category-total.svg';
 import categoryVillages from '../images/category-villages.svg';
+import categoryVillagesTotal from '../images/category-villages-total.svg';
 import categoryVillagesLake from '../images/category-villages-lake.svg';
+import categoryVillagesLakeTotal from '../images/category-villages-lake-total.svg';
 import categoryViziers from '../images/category-viziers.svg';
 import colorBlack from '../images/color-black.svg';
 import colorBrown from '../images/color-brown.svg';
@@ -174,8 +176,16 @@ const Image = ({ src, className, alt }) => {
       source = categoryVillages;
       break;
 
+    case 'category-villages-total':
+      source = categoryVillagesTotal;
+      break;
+
     case 'category-villages-lake':
       source = categoryVillagesLake;
+      break;
+
+    case 'category-villages-lake-total':
+      source = categoryVillagesLakeTotal;
       break;
 
     case 'category-viziers':

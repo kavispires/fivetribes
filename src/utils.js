@@ -6,6 +6,7 @@ import {
   CATEGORY_THIEVES,
   CATEGORY_WHIMS,
   CATEGORY_WHIMS_OASIS,
+  CATEGORY_WHIMS_VILLAGES,
 } from './constants';
 
 export const capitalize = string =>
@@ -76,10 +77,14 @@ export const buildCategories = expansions => {
   // Build Oasis
   const oasis = Object.assign({}, CATEGORY_WHIMS_OASIS);
 
+  // Build Oasis
+  const villages = Object.assign({}, CATEGORY_WHIMS_VILLAGES);
+
   return {
     main: Object.values(main),
     djinns: Object.values(djinns),
     merch: Object.values(merch),
     oasis: Object.values(oasis),
+    villages: Object.values(villages),
   };
 };
