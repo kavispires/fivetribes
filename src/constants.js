@@ -37,7 +37,7 @@ export const CATEGORY_BASE = {
     icon: 'djinns',
     type: 'button',
     link: 'scorer-djinns',
-    hint: 'Total djinns cards points (excluding bonuses)',
+    hint: 'Total points from djinns cards (excluding bonuses)',
   },
   7: {
     name: 'tiles',
@@ -92,6 +92,7 @@ export const CATEGORY_ARTISANS = {
     order: 11,
     icon: 'precious-items',
     type: 'button',
+    link: 'scorer-precious-items',
     hint: 'Total precious items points',
   },
 };
@@ -112,6 +113,7 @@ export const CATEGORY_WHIMS = {
     order: 7,
     icon: 'tiles-cities',
     type: 'button',
+    link: 'scorer-tiles',
     hint: 'Total of tiles points including Fabulous Cities',
   },
   9: {
@@ -140,6 +142,54 @@ export const CATEGORY_BONUS = {
     type: 'button',
     link: 'scorer-bonus',
     hint: 'Total bonus points awarded by djinns',
+  },
+};
+
+export const CATEGORY_BASE_DJINNS = {
+  2: {
+    name: 'djinn-haurvatat',
+    order: 2,
+    icon: 'djinn-haurvatat',
+    type: 'radio',
+    hint: 'Select the player who owns Haurvatat',
+  },
+  3: {
+    name: 'djinn-jaafar',
+    order: 3,
+    icon: 'djinn-jaafar',
+    type: 'radio',
+    hint: 'Select the player who owns Jaafar',
+  },
+  5: {
+    name: 'djinn-shamhat',
+    order: 5,
+    icon: 'djinn-shamhat',
+    type: 'radio',
+    hint: 'Select the player who owns Shamhat',
+  },
+  6: {
+    name: 'djinns',
+    order: 6,
+    icon: 'djinn-total',
+    type: 'input',
+    hint: 'Total points from djinns cards (excluding bonuses)',
+  },
+};
+
+export const CATEGORY_ARTISANS_DIJNNS = {
+  1: {
+    name: 'djinn-geb',
+    order: 1,
+    icon: 'djinn-geb',
+    type: 'radio',
+    hint: 'Select the player who owns Geb',
+  },
+  4: {
+    name: 'djinn-ptah',
+    order: 4,
+    icon: 'djinn-ptah',
+    type: 'radio',
+    hint: 'Select the player who owns Ptah',
   },
 };
 

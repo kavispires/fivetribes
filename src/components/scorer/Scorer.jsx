@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ScorerMain from './ScoreMain';
+import Djinns from './Djinns';
+import Main from './Main';
 
 const Scorer = ({ props }) => {
-  // // Djinss
-  // if (props.scorer.subscreen === 'djinns') {
-  //   return <Djinns props={props} />;
-  // }
+  console.log('Subscreen', props.scorer.subscreen);
+  // Djinss
+  if (props.scorer.subscreen === 'scorer-djinns') {
+    return <Djinns props={props} />;
+  }
 
   // // Merch
   // if (props.scorer.subscreen === 'merch') {
@@ -45,11 +47,16 @@ const Scorer = ({ props }) => {
   // }
 
   // Main Screen
-  return <ScorerMain props={props} />;
+  return <Main props={props} />;
 };
 
 Scorer.propTypes = {
   props: PropTypes.object.isRequired,
+  scorer: PropTypes.object,
+};
+
+Scorer.defaultProps = {
+  scorer: {},
 };
 
 export default Scorer;

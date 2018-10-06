@@ -56,12 +56,12 @@ export const initialize = () => dispatch => {
 
     // If timestamp is older than 90 minutes, delete localstorage
     if (age > 5400000) {
-      console.log('Data is expired!');
+      console.log('Data is expired.');
       deleteLocalStorage();
     } else {
       console.log('Data is fine');
       // Assign current Screen
-      // nextScreen = data.screen; TO-DO Uncomment
+      nextScreen = data.screen;
       nextScreen = 'scorer';
       // Handle setup
       dispatch(setColors(data.colors));
@@ -72,7 +72,7 @@ export const initialize = () => dispatch => {
   }
 
   setTimeout(() => {
-    console.log('Switching screens to', nextScreen);
+    console.log('Switching screens to:', nextScreen);
     dispatch(setScreen(nextScreen));
   }, 500); // TO-DO Change to 3000
 };

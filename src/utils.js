@@ -1,6 +1,8 @@
 import {
-  CATEGORY_BASE,
   CATEGORY_ARTISANS,
+  CATEGORY_ARTISANS_DIJNNS,
+  CATEGORY_BASE,
+  CATEGORY_BASE_DJINNS,
   CATEGORY_THIEVES,
   CATEGORY_WHIMS,
 } from './constants';
@@ -41,10 +43,11 @@ export const snakeToCamelCase = string =>
   string.replace(/(-\w)/g, m => m[1].toUpperCase());
 
 export const buildCategories = expansions => {
+  // Build Main
   const hasArtisans = expansions.ARTISANS ? CATEGORY_ARTISANS : {};
   const hasThieves = expansions.THIEVES ? CATEGORY_THIEVES : {};
   const hasWhims = expansions.WHIMS ? CATEGORY_WHIMS : {};
-  const categories = Object.assign(
+  const main = Object.assign(
     {},
     CATEGORY_BASE,
     hasArtisans,
@@ -52,5 +55,12 @@ export const buildCategories = expansions => {
     hasWhims
   );
 
-  return Object.values(categories);
+  // Build Djinns
+  const hasArtisansDjinns = expansions.ARTISANS ? CATEGORY_ARTISANS_DIJNNS : {};
+  const djinns = Object.assign({}, CATEGORY_BASE_DJINNS, hasArtisansDjinns);
+
+  return {
+    main: Object.values(main),
+    djinns: Object.values(djinns),
+  };
 };

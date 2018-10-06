@@ -1,31 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { COLORS } from '../../constants';
+import Image from '../Image';
 
-const RowRadio = ({ type, screen, cells, action }) => {
-  return (
-    <li className="row">
-      <div className="cell-cat">
-        <img
-          src={`${process.env.PUBLIC_URL}/images/scorer/${type}.svg`}
-          alt={type}
-        />
-      </div>
-      {cells.map((value, i) => (
+const RowRadio = ({ action, colors, hint, icon, name, toggleHint, values }) => (
+  <li className="row">
+    <div className="cell-category">
+      <Image src={`category-${icon}`} className="category" alt={name} />
+    </div>
+    <div className="cell-group-players">
+      {colors.map((color, i) => (
         <div
-          key={`${type}-${COLORS[i]}`}
-          className={`cell cell-${cells.length}`}
+          key={`${name}-${color}`}
+          className={`cell cell-${color} cell-${colors.length}`}
         >
           <input
             type="radio"
-            name={`${screen}-${type}`}
-            id={`${type}-${i}`}
-            onChange={action}
+            name={`${name}-${i}`}
+            checked={values[i]}
+            onChange={() => action(name, i)}
+            onFocus={() => toggleHint(hint)}
+            onBlur={() => toggleHint()}
           />
         </div>
       ))}
-    </li>
-  );
+    </div>
+  </li>
+);
+
+RowRadio.propTypes = {
+  action: PropTypes.func.isRequired,
+  colors: PropTypes.array.isRequired,
+  hint: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  toggleHint: PropTypes.func.isRequired,
+  values: PropTypes.array.isRequired,
 };
 
 export default RowRadio;

@@ -26,6 +26,7 @@ const RowNumber = ({
             type="number"
             name={`${name}-${i}`}
             placeholder={values[i]}
+            value={values[i] > 0 ? values[i] : ''}
             onChange={e => action(name, i, e.target.value)}
             onFocus={() => toggleHint(hint)}
             onBlur={() => toggleHint()}

@@ -22,6 +22,11 @@
   }
 }
 
+.btn-secondary {
+  background-color: $primaryLight;
+  border-color: $primaryLight;
+}
+
 .btn-hollow {
   color: $primary;
   background-color: rgba(0, 0, 0, 0);

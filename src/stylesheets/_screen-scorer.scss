@@ -1,3 +1,17 @@
+.container-scorer {
+  .controls {
+    width: 100%;
+    padding-bottom: 2em;
+    padding-top: 1em;
+    text-align: center;
+
+    .btn {
+      margin-left: $quarterUnit;
+      margin-right: $quarterUnit;
+    }
+  }
+}
+
 .hint {
   background: rgba(212, 175, 55, 0.3);
   border: 1px solid $gold;
@@ -83,8 +97,8 @@
 
     input[type='radio'] {
       -webkit-appearance: none;
-      background: rgba(255, 255, 255, 0.5) !important;
-      margin: 0;
+      background: rgba(255, 255, 255, 0.7) !important;
+      margin: $quarterUnit;
       border: 1px solid $grey;
       outline: none;
     }
@@ -102,7 +116,7 @@
       border-radius: $halfUnit;
     }
     input[type='radio']:checked:before {
-      background: url('/images/scorer/lamp.png') no-repeat center/50%;
+      background: url('../images/lamp.png') no-repeat center/20%;
     }
 
     .cell-header-span {
@@ -196,6 +210,11 @@
       background: $sBrown;
     }
   }
+}
+
+.p-error {
+  color: red;
+  text-align: center;
 }
 
 // .scorer-table {

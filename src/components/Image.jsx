@@ -6,6 +6,12 @@ import borderLeft from '../images/border-left.png';
 import borderRight from '../images/border-right.png';
 import categoryArtisans from '../images/category-artisans.svg';
 import categoryCoins from '../images/category-coins.svg';
+import categoryDjinnGeb from '../images/category-djinn-geb.svg';
+import categoryDjinnHaurvatat from '../images/category-djinn-haurvatat.svg';
+import categoryDjinnJaafar from '../images/category-djinn-jaafar.svg';
+import categoryDjinnPtah from '../images/category-djinn-ptah.svg';
+import categoryDjinnShamhat from '../images/category-djinn-shamhat.svg';
+import categoryDjinnTotal from '../images/category-djinn-total.svg';
 import categoryDjinns from '../images/category-djinns.svg';
 import categoryElders from '../images/category-elders.svg';
 import categoryMerch from '../images/category-merch.svg';
@@ -54,6 +60,30 @@ const Image = ({ src, className, alt }) => {
 
     case 'category-coins':
       source = categoryCoins;
+      break;
+
+    case 'category-djinn-geb':
+      source = categoryDjinnGeb;
+      break;
+
+    case 'category-djinn-haurvatat':
+      source = categoryDjinnHaurvatat;
+      break;
+
+    case 'category-djinn-jaafar':
+      source = categoryDjinnJaafar;
+      break;
+
+    case 'category-djinn-ptah':
+      source = categoryDjinnPtah;
+      break;
+
+    case 'category-djinn-shamhat':
+      source = categoryDjinnShamhat;
+      break;
+
+    case 'category-djinn-total':
+      source = categoryDjinnTotal;
       break;
 
     case 'category-djinns':

@@ -1,6 +1,8 @@
 import { COLORS } from '../constants';
 import { saveLocalStorage, buildCategories } from '../utils';
 
+let currentCategories = {};
+
 /* ------------------   ACTION TYPES  ------------------ */
 
 const SET_CATEGORIES = 'SET_CATEGORIES';
@@ -37,7 +39,7 @@ export const setViolation = payload => dispatch =>
 /* -----------------   REDUCER   ------------------ */
 
 export const initialState = {
-  categories: [],
+  categories: {},
   colors: [],
   expansions: {
     ARTISANS: false,
@@ -92,6 +94,10 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_SCORES:
       newState.scores = action.payload;
+      break;
+
+    case SET_SUBSCREEN:
+      newState.subscreen = action.payload;
       break;
 
     case SET_VIOLATION:
@@ -173,22 +179,32 @@ export const saveData = () => (dispatch, getState) => {
 };
 
 export const prepareScorer = () => (dispatch, getState) => {
+  console.warn('Scorer is being prepared...');
   // Build categories
   const categories = buildCategories(getState().scorer.expansions);
   dispatch(setCategories(categories));
-  console.log(getState().scorer.expansions);
-  console.log(categories);
+  // console.log(getState().scorer.expansions);
+  // console.log(categories);
   // Build Scores state
   const { numPlayers } = getState().scorer;
   const arrayPlaceholder = new Array(numPlayers).fill(0);
 
   const scores = {};
 
-  categories.forEach(category => {
+  categories.main.forEach(category => {
+    scores[category.name] = [...arrayPlaceholder];
+  });
+
+  categories.djinns.forEach(category => {
     scores[category.name] = [...arrayPlaceholder];
   });
 
   dispatch(setScores(scores));
+};
+
+export const updateButtonCell = subscreen => dispatch => {
+  console.log('updateButtonCell', subscreen);
+  dispatch(setSubscreen(subscreen));
 };
 
 export const updateNumberCell = (category, index, value) => (
@@ -201,13 +217,46 @@ export const updateNumberCell = (category, index, value) => (
   dispatch(setScores(scores));
 };
 
-export const updateButtonCell = subscreen => dispatch => {
-  console.log('updateButtonCell', subscreen);
-  dispatch(setSubscreen(subscreen));
+export const updateRadioCell = (category, index) => (dispatch, getState) => {
+  console.log('ITS DOING THIS');
+  const scores = { ...getState().scorer.scores };
+  const { numPlayers } = getState().scorer;
+
+  const wasChecked = scores[category][index];
+  scores[category] = new Array(numPlayers).fill(false);
+  if (!wasChecked) {
+    scores[category][index] = true;
+  }
+
+  dispatch(setScores(scores));
 };
 
 export const toggleHint = (hint = '') => dispatch => {
   dispatch(setHint(hint));
+};
+
+export const clearCategory = category => (dispatch, getState) => {
+  console.log(category);
+  const { numPlayers, categories } = getState().scorer;
+  const arrayPlaceholder = new Array(numPlayers).fill(0);
+  const scores = { ...getState().scorer.scores };
+  categories[category].forEach(cat => {
+    scores[cat.name] = [...arrayPlaceholder];
+  });
+  console.log(categories[category]);
+  console.log(scores);
+  dispatch(setScores(scores));
+};
+
+export const handleOk = category => (dispatch, getState) => {
+  const scores = { ...getState().scorer.scores };
+  // // Calculate Totals
+  // if (category === 'djins') {
+  //   scores.djinns = [...scores.djinnsTotal];
+  // }
+
+  dispatch(setScores(scores));
+  dispatch(setSubscreen(''));
 };
 
 // OLD_STUFF

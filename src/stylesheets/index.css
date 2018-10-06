@@ -80,6 +80,10 @@ body {
     background-color: #251002;
     cursor: not-allowed; }
 
+.btn-secondary {
+  background-color: #f0cc6d;
+  border-color: #f0cc6d; }
+
 .btn-hollow {
   color: #daa04a;
   background-color: rgba(0, 0, 0, 0);
@@ -249,6 +253,15 @@ body {
     font-size: 0.75em;
     color: none; }
 
+.container-scorer .controls {
+  width: 100%;
+  padding-bottom: 2em;
+  padding-top: 1em;
+  text-align: center; }
+  .container-scorer .controls .btn {
+    margin-left: 0.25em;
+    margin-right: 0.25em; }
+
 .hint {
   background: rgba(212, 175, 55, 0.3);
   border: 1px solid #d4af37;
@@ -310,8 +323,8 @@ body {
     background: #fff; }
   .scorer-table .cell input[type='radio'] {
     -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.5) !important;
-    margin: 0;
+    background: rgba(255, 255, 255, 0.7) !important;
+    margin: 0.25em;
     border: 1px solid #c7c8ca;
     outline: none; }
   .scorer-table .cell input[type='radio']:hover {
@@ -324,7 +337,7 @@ body {
     margin: auto;
     border-radius: 0.5em; }
   .scorer-table .cell input[type='radio']:checked:before {
-    background: url("/images/scorer/lamp.png") no-repeat center/50%; }
+    background: url("../images/lamp.png") no-repeat center/20%; }
   .scorer-table .cell .cell-header-span {
     border-radius: 0.25em;
     margin: 0.25em 0.25em;
@@ -372,6 +385,10 @@ body {
     background: #dbc8b9; }
     .scorer-table .cell-BROWN span {
       background: #89664a; }
+
+.p-error {
+  color: red;
+  text-align: center; }
 
 h1 {
   color: white; }
