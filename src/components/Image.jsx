@@ -22,7 +22,9 @@ import categoryMerchSet4 from '../images/category-merch-set-4.svg';
 import categoryMerchSet5 from '../images/category-merch-set-5.svg';
 import categoryMerchSet6 from '../images/category-merch-set-6.svg';
 import categoryOasis from '../images/category-oasis.svg';
+import categoryOasisTotal from '../images/category-oasis-total.svg';
 import categoryOasisLake from '../images/category-oasis-lake.svg';
+import categoryOasisLakeTotal from '../images/category-oasis-lake-total.svg';
 import categoryPreciousItems from '../images/category-precious-items.svg';
 import categoryTent from '../images/category-tent.svg';
 import categoryThieves from '../images/category-thieves.svg';
@@ -132,8 +134,16 @@ const Image = ({ src, className, alt }) => {
       source = categoryOasis;
       break;
 
+    case 'category-oasis-total':
+      source = categoryOasisTotal;
+      break;
+
     case 'category-oasis-lake':
       source = categoryOasisLake;
+      break;
+
+    case 'category-oasis-lake-total':
+      source = categoryOasisLakeTotal;
       break;
 
     case 'category-precious-items':

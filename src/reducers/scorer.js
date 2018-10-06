@@ -213,7 +213,6 @@ export const updateNumberCell = (category, index, value) => (
 };
 
 export const updateRadioCell = (category, index) => (dispatch, getState) => {
-  console.log('ITS DOING THIS');
   const scores = { ...getState().scorer.scores };
   const { numPlayers } = getState().scorer;
 
@@ -231,23 +230,25 @@ export const toggleHint = (hint = '') => dispatch => {
 };
 
 export const clearCategory = category => (dispatch, getState) => {
-  console.log(category);
   const { numPlayers, categories } = getState().scorer;
   const arrayPlaceholder = new Array(numPlayers).fill(0);
   const scores = { ...getState().scorer.scores };
   categories[category].forEach(cat => {
     scores[cat.name] = [...arrayPlaceholder];
   });
-  console.log(categories[category]);
-  console.log(scores);
   dispatch(setScores(scores));
 };
 
 export const handleOk = category => (dispatch, getState) => {
   const scores = { ...getState().scorer.scores };
+  const { expansions } = getState().scorer;
   // Calculate Merch Points
   if (category === 'merch') {
-    scores.merch = calculateMerchPoints(getState().scorer.scores);
+    scores.merch = calculateMerchPoints(scores);
+  }
+  // Calculate Merch Points
+  else if (category === 'oasis') {
+    scores.oasis = calculateOasis(scores, expansions);
   }
 
   dispatch(setScores(scores));
@@ -280,6 +281,21 @@ const calculateMerchPoints = scores => {
       }
     });
   }
+  return points;
+};
+
+const calculateOasis = (scores, expansions) => {
+  const points = new Array(scores.oasis.length).fill(0);
+
+  const POINST_PER_TREE = 3;
+
+  if (expansions.WHIMS) {
+    points.forEach((v, index) => {
+      points[index] += scores['oasis-total'][index] * POINST_PER_TREE;
+      points[index] += scores['oasis-lake-total'][index] * POINST_PER_TREE;
+    });
+  }
+
   return points;
 };
 

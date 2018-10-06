@@ -390,5 +390,11 @@ body {
   color: red;
   text-align: center; }
 
+.p-scorer-table {
+  color: white;
+  font-size: 0.75em;
+  margin-left: 16%;
+  margin-right: 0.25em; }
+
 h1 {
   color: white; }

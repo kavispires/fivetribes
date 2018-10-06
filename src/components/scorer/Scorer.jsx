@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Djinns from './Djinns';
 import Main from './Main';
 import Merch from './Merch';
+import Oasis from './Oasis';
 
 const Scorer = ({ props }) => {
   // Djinss
@@ -16,10 +17,10 @@ const Scorer = ({ props }) => {
     return <Merch props={props} />;
   }
 
-  // // Oasis
-  // if (props.scorer.subscreen === 'scorer-oasis') {
-  //   return <Oasis props={props} />;
-  // }
+  // Oasis
+  if (props.scorer.subscreen === 'scorer-oasis') {
+    return <Oasis props={props} />;
+  }
 
   // // Villages
   // if (props.scorer.subscreen === 'scorer-villages') {

@@ -193,6 +193,23 @@ export const CATEGORY_ARTISANS_DIJNNS = {
   },
 };
 
+export const CATEGORY_WHIMS_OASIS = {
+  1: {
+    name: 'oasis-total',
+    order: 1,
+    icon: 'oasis-total',
+    type: 'input',
+    hint: 'Input the number of palm trees each player owns',
+  },
+  2: {
+    name: 'oasis-lake-total',
+    order: 2,
+    icon: 'oasis-lake-total',
+    type: 'input',
+    hint: 'Input how many of those palm trees are next to the Great Lake',
+  },
+};
+
 // OLD STUFF
 
 // export const CATEGORIES = [
