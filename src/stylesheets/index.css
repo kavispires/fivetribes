@@ -306,6 +306,8 @@ body {
   .scorer-table .cell span {
     display: block;
     border-radius: 0.25em; }
+  .scorer-table .cell input[type='button'] {
+    background: #fff; }
   .scorer-table .cell input[type='radio'] {
     -webkit-appearance: none;
     background: rgba(255, 255, 255, 0.5) !important;

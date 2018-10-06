@@ -77,6 +77,10 @@
       border-radius: $quarterUnit;
     }
 
+    input[type='button'] {
+      background: $white;
+    }
+
     input[type='radio'] {
       -webkit-appearance: none;
       background: rgba(255, 255, 255, 0.5) !important;

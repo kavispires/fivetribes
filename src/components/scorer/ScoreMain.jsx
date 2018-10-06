@@ -19,8 +19,6 @@ class ScoreMain extends Component {
   render() {
     const { props } = this.props;
     const { scorer } = props;
-    console.log(props.scorer.categories);
-    console.log(props.scorer.scores);
     return (
       <main className="container container-scorer">
         <Borders />
@@ -68,51 +66,6 @@ class ScoreMain extends Component {
             })}
 
           {/* <RowTotal colors={scorer.colors} /> */}
-
-          {/* {CATEGORIES.map(category => {
-            if (
-              ['djinnsTotal', 'merch'].indexOf(category) !== -1 ||
-              (scorer.artisansExpansion && category === 'preciousItems') ||
-              (scorer.whimsExpansion &&
-                (category === 'oasisTotal' || category === 'villagesTotal')) ||
-              (category === 'tilesTotal' &&
-                (scorer.whimsExpansion || scorer.artisansExpansion))
-            ) {
-              return (
-                <RowButton
-                  key={category}
-                  type={category}
-                  scorer={scorer}
-                  cells={scorer.playerPoints[category]}
-                  action={props.updateScreen}
-                />
-              );
-            }
-            if (
-              (scorer.artisansExpansion && category === 'artisans') ||
-              [
-                'coins',
-                'viziers',
-                'elders',
-                'tilesTotal',
-                'oasisTotal',
-                'villagesTotal',
-              ].indexOf(category) !== -1
-            ) {
-              return (
-                <RowNumber
-                  key={category}
-                  type={category}
-                  screen={scorer.screen}
-                  cells={scorer.playerPoints[category]}
-                  action={props.updateCell}
-                />
-              );
-            }
-
-            return '';
-          })}
-          <RowTotal total={scorer.total} /> */}
         </ul>
       </main>
     );

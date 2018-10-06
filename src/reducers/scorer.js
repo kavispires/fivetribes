@@ -215,8 +215,9 @@ export const updateNumberCell = (category, index, value) => (
   dispatch(setScores(scores));
 };
 
-export const updateButtonCell = s => (dispatch, getState) => {
-  console.log(s);
+export const updateButtonCell = subscreen => dispatch => {
+  console.log('updateButtonCell');
+  dispatch(setSubscreen(subscreen));
 };
 
 export const toggleHint = (hint = '') => dispatch => {
