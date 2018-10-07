@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import borderLeft from '../images/border-left.png';
 import borderRight from '../images/border-right.png';
 import categoryArtisans from '../images/category-artisans.svg';
+import categoryCities from '../images/category-cities.svg';
 import categoryCoins from '../images/category-coins.svg';
 import categoryDjinnGeb from '../images/category-djinn-geb.svg';
 import categoryDjinnHaurvatat from '../images/category-djinn-haurvatat.svg';
@@ -33,6 +34,7 @@ import categoryTent from '../images/category-tent.svg';
 import categoryThieves from '../images/category-thieves.svg';
 import categoryTiles from '../images/category-tiles.svg';
 import categoryTilesCities from '../images/category-tiles-cities.svg';
+import categoryTilesTotal from '../images/category-tiles-total.svg';
 import categoryTotal from '../images/category-total.svg';
 import categoryVillages from '../images/category-villages.svg';
 import categoryVillagesTotal from '../images/category-villages-total.svg';
@@ -69,6 +71,10 @@ const Image = ({ src, className, alt }) => {
 
     case 'category-artisans':
       source = categoryArtisans;
+      break;
+
+    case 'category-cities':
+      source = categoryCities;
       break;
 
     case 'category-coins':
@@ -181,6 +187,10 @@ const Image = ({ src, className, alt }) => {
 
     case 'category-tiles-cities':
       source = categoryTilesCities;
+      break;
+
+    case 'category-tiles-total':
+      source = categoryTilesTotal;
       break;
 
     case 'category-total':

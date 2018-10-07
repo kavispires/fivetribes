@@ -5,8 +5,10 @@ import {
   CATEGORY_BASE_DJINNS,
   CATEGORY_PRECIOUS_ITEMS,
   CATEGORY_THIEVES,
+  CATEGORY_TILES,
   CATEGORY_WHIMS,
   CATEGORY_WHIMS_OASIS,
+  CATEGORY_WHIMS_TILES,
   CATEGORY_WHIMS_VILLAGES,
 } from './constants';
 
@@ -84,12 +86,17 @@ export const buildCategories = expansions => {
   // Build Precious Items
   const items = Object.assign({}, CATEGORY_PRECIOUS_ITEMS);
 
+  // Build Tiles
+  const hasWhimsTiles = expansions.WHIMS ? CATEGORY_WHIMS_TILES : {};
+  const tiles = Object.assign({}, CATEGORY_TILES, hasWhimsTiles);
+
   return {
     main: Object.values(main),
     djinns: Object.values(djinns),
     items: Object.values(items),
     merch: Object.values(merch),
     oasis: Object.values(oasis),
+    tiles: Object.values(tiles),
     villages: Object.values(villages),
   };
 };

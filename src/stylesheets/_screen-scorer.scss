@@ -224,6 +224,16 @@
   margin-right: $quarterUnit;
 }
 
+.p-scorer-instructions {
+  color: white;
+  font-size: 0.75em;
+  margin: $quarterUnit $unit $unit $unit;
+  text-align: center;
+  background: $primaryDark;
+  padding: $quarterUnit;
+  border-radius: $quarterUnit;
+}
+
 // .scorer-table {
 //   width: 100%;
 //   height: 100%;

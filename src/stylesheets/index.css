@@ -396,5 +396,14 @@ body {
   margin-left: 16%;
   margin-right: 0.25em; }
 
+.p-scorer-instructions {
+  color: white;
+  font-size: 0.75em;
+  margin: 0.25em 1em 1em 1em;
+  text-align: center;
+  background: #622f11;
+  padding: 0.25em;
+  border-radius: 0.25em; }
+
 h1 {
   color: white; }

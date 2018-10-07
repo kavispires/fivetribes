@@ -176,6 +176,26 @@ export const CATEGORY_BASE_DJINNS = {
   },
 };
 
+export const CATEGORY_TILES = {
+  1: {
+    name: 'tiles-total',
+    order: 1,
+    icon: 'tiles-total',
+    type: 'input',
+    hint: 'Input the total points from tiles for each player',
+  },
+};
+
+export const CATEGORY_WHIMS_TILES = {
+  2: {
+    name: 'cities',
+    order: 2,
+    icon: 'cities',
+    type: 'input',
+    hint: 'Input the number of Fabulous Cities tiles each player controls',
+  },
+};
+
 export const CATEGORY_ARTISANS_DIJNNS = {
   1: {
     name: 'djinn-geb',
@@ -250,6 +270,26 @@ export const CATEGORY_PRECIOUS_ITEMS = {
     hint: 'Input the number of crown tokens each player owns',
   },
 };
+
+export const TILES_BASE_LIST = [
+  ...new Array(4).fill(4), // Big Markets
+  ...new Array(5).fill(5), // Villages
+  ...new Array(8).fill(6), // Small Markets
+  ...new Array(4).fill(6), // Sacred places
+  ...new Array(6).fill(8), // Oasis
+  ...new Array(1).fill(10), // Sacred place
+  ...new Array(1).fill(12), // Sacred place
+  ...new Array(1).fill(15), // Sacred place
+];
+
+export const TILES_ARTISANS_LIST = [
+  ...new Array(3).fill(5), // Workshops
+  ...new Array(2).fill(10), // Specialized Markets
+];
+
+export const TILES_WHIMS_LIST = [
+  ...new Array(5).fill('5+'), // Fabulous Cities
+];
 
 // OLD STUFF
 

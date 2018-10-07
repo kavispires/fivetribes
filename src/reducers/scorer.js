@@ -258,6 +258,10 @@ export const handleOk = category => (dispatch, getState) => {
   else if (category === 'items') {
     scores.items = calculateItems(scores);
   }
+  // Calculate Tiles Points
+  else if (category === 'tiles') {
+    scores.items = calculateTiles(scores, expansions);
+  }
 
   dispatch(setScores(scores));
   dispatch(setSubscreen(''));
@@ -333,6 +337,28 @@ const calculateItems = scores => {
     points[index] += scores['item-crown'][index] * POINST_PER_CROWN;
     points[index] += scores['item-jewelry'][index] * POINST_PER_JEWELRY;
     points[index] += scores['item-treasure'][index] * POINST_PER_TREASURE;
+  });
+
+  return points;
+};
+
+const calculateTiles = (scores, expansions) => {
+  const points = new Array(scores.items.length).fill(0);
+
+  const CITIES_POINTS = {
+    0: 0,
+    1: 5,
+    2: 20,
+    3: 45,
+    4: 80,
+    5: 125,
+  };
+
+  points.forEach((v, index) => {
+    points[index] += scores['tiles-total'][index];
+    if (expansions.WHIMS) {
+      points[index] += CITIES_POINTS[scores.cities[index]];
+    }
   });
 
   return points;
