@@ -64,6 +64,7 @@ const Result = ({ props }) => {
           ))}
         </ul>
       </section>
+
       <section className="controls">
         <button
           type="button"

@@ -466,7 +466,7 @@ const calculateTotalPoints = (scores, expansions, categories) => dispatch => {
       dispatch(setActiveCategory(''));
       dispatch(setSubscreen('scorer-result'));
     }
-  }, 500);
+  }, 300);
   return scores;
 };
 

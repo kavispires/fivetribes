@@ -102,36 +102,3 @@
   left: $unit;
   width: 40px;
 }
-
-// @import "./variables.scss";
-
-// .btn {
-//   min-width: calc(20% - 16px);
-//   border: 0;
-//   border-radius: 3px;
-//   margin: 8px;
-//   font-size: 1em;
-//   font-weight: bold;
-//   cursor: pointer;
-//   background: $lightGold;
-// }
-
-// .btn-primary {
-//   background: $gold;
-// }
-
-// .btn-secondary {
-//   background: $lightGold;
-// }
-
-// @for $i from 2 through 5 {
-//   $width: calc((100% / #{$i}) - #{$doubleUnit});
-
-//   .btn-#{$i} {
-//     width: $width;
-//   }
-// }
-
-// .btn-1 {
-//   width: calc(50% - #{$doubleUnit});
-// }

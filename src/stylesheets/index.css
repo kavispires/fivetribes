@@ -8,7 +8,8 @@ body {
 * {
   box-sizing: border-box;
   font-family: 'Bitter', serif;
-  z-index: 1; }
+  z-index: 1;
+  color: white; }
 
 .container {
   width: 100vw;
@@ -63,7 +64,7 @@ body {
       opacity: 0.7; }
 
 .icon-badge .primary {
-  fill: #c7c8ca; }
+  fill: #d4af37; }
 
 .btn {
   color: #000;
@@ -660,6 +661,3 @@ body {
 
 .ranking-item__badge--merch .primary {
   fill: #90d371; }
-
-h1 {
-  color: white; }

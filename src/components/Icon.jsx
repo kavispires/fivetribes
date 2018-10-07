@@ -11,8 +11,8 @@ const Icon = ({ type, styles = 'small' }) => {
       icon = icons.back;
       break;
 
-    case 'flag':
-      icon = icons.flag;
+    case 'badge':
+      icon = icons.badge;
       break;
 
     case 'spinner':
