@@ -137,14 +137,13 @@ export const buildTiles = expansions => {
 };
 
 export const calculateResults = scorer => {
-  console.log('calculateResults', scorer);
-
   // Define Player class
   class Player {
     constructor(color, total) {
       this.color = color;
       this.total = total;
-      this.archievements = [];
+      this.achievements = [];
+      this.achievementsCount = 0;
     }
   }
   const players = {};
@@ -158,19 +157,15 @@ export const calculateResults = scorer => {
     const { name } = category;
     const array = scorer.scores[name];
     const max = Math.max(...array);
-
-    // console.log(name);
-    // console.log(scorer.scores[name]);
+    if (max > 0) {
+      array.forEach((value, index) => {
+        if (value === max) {
+          players[index].achievements.push(name);
+          players[index].achievementsCount += 1;
+        }
+      });
+    }
   });
 
-  return _.orderBy(players, ['total'], ['desc']);
-};
-
-const findIndexes = (arr, val) => {
-  const indexes = [];
-  let i = -1;
-  while ((i = arr.indexOf(val, i + 1)) != -1) {
-    indexes.push(i);
-  }
-  return indexes;
+  return _.orderBy(players, ['total', 'achievementsCount'], ['desc', 'desc']);
 };

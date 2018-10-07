@@ -43,7 +43,7 @@ export default function reducer(prevState = initialState, action) {
 /* ---------------   DISPATCHERS   ----------------- */
 
 export const initialize = () => dispatch => {
-  console.log('Initializing...');
+  console.warn('Initializing...');
   // Load localstorage
   const data = loadLocalStorage();
 
@@ -51,7 +51,6 @@ export const initialize = () => dispatch => {
 
   // If it has date, load it to app
   if (data) {
-    console.log('Data retrived!', data);
     const age = Date.now() - data.timestamp;
 
     // If timestamp is older than 90 minutes, delete localstorage
@@ -59,7 +58,7 @@ export const initialize = () => dispatch => {
       console.log('Data is expired.');
       deleteLocalStorage();
     } else {
-      console.log('Data is fine');
+      console.log('Data retrieved');
       // Assign current Screen
       nextScreen = data.screen;
       nextScreen = 'scorer';
@@ -72,9 +71,8 @@ export const initialize = () => dispatch => {
   }
 
   setTimeout(() => {
-    console.log('Switching screens to:', nextScreen);
     dispatch(setScreen(nextScreen));
-  }, 500); // TO-DO Change to 3000
+  }, 3000);
 };
 
 export const handleBackButton = () => (dispatch, getState) => {

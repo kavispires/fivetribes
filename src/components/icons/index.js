@@ -16,6 +16,15 @@ const iconBack = (
   </g>
 );
 
+const iconBadge = (
+  <g className="icon-badge">
+    <polygon
+      className="primary"
+      points="90.8,68.6 50,100 9.2,68.6 9.2,0 90.8,0 	"
+    />
+  </g>
+);
+
 const iconSpinner = (
   <g className="icon-spinner">
     <path
@@ -43,6 +52,7 @@ const iconSplashCamel = (
 
 const icons = {
   back: iconBack,
+  badge: iconBadge,
   spinner: iconSpinner,
   splashCamel: iconSplashCamel,
 };

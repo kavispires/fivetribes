@@ -62,6 +62,9 @@ body {
     .back-button .primary:hover {
       opacity: 0.7; }
 
+.icon-badge .primary {
+  fill: #c7c8ca; }
+
 .btn {
   color: #000;
   background-color: #daa04a;
@@ -566,25 +569,97 @@ body {
       font-size: 75%; }
     .result-raking .ranking-item__achievements {
       border-radius: 0.25em;
-      margin-top: 0.25em; }
+      margin-top: 0.25em;
+      display: flex; }
     .result-raking .ranking-item__achievements-list {
       padding-left: 0;
       list-style: none; }
-    .result-raking .ranking-item__flag {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      border-width: 9px;
-      border-style: solid;
-      border-color: #d4af37;
-      border-bottom-color: transparent;
-      border-radius: 2px 2px 0 0;
-      margin-right: 0.25em; }
+    .result-raking .ranking-item__badge {
+      width: 1em; }
     .result-raking .ranking-item:first-child .ranking-item__pawn {
       width: 5em;
       height: 5em; }
     .result-raking .ranking-item:first-child .ranking-item__position {
       font-size: 2em; }
+    .result-raking .ranking-item:first-child .ranking-item__points-number {
+      font-size: 200%; }
+
+.active .cell-BLACK input {
+  background: #888989 !important; }
+
+.active .cell-BROWN input {
+  background: #c9b19d !important; }
+
+.active .cell-CYAN input {
+  background: #90d4d1 !important; }
+
+.active .cell-ORANGE input {
+  background: #f0bb92 !important; }
+
+.active .cell-PINK input {
+  background: #f7b2d3 !important; }
+
+.badge-legend {
+  margin: 0.5em 1em;
+  border: 1px solid #fff;
+  border-radius: 0.25em;
+  padding: 0.5em; }
+  .badge-legend__title {
+    color: #fff;
+    margin: 0.5em 1em;
+    font-size: 1em;
+    padding: 0;
+    text-align: center; }
+  .badge-legend__list {
+    display: flex;
+    list-style: none;
+    color: #fff;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 1em; }
+  .badge-legend__item {
+    display: flex;
+    margin-bottom: 0.5em;
+    width: 25%; }
+  .badge-legend__icon {
+    width: 1em;
+    margin-right: 0.25em; }
+  .badge-legend__name {
+    font-size: 75%;
+    margin-right: 1em; }
+
+.ranking-item__badge--coins .primary {
+  fill: #d8a235; }
+
+.ranking-item__badge--viziers .primary {
+  fill: #edcf1c; }
+
+.ranking-item__badge--artisans .primary {
+  fill: #7b44aa; }
+
+.ranking-item__badge--elders .primary {
+  fill: #b2b2b2; }
+
+.ranking-item__badge--djinns .primary {
+  fill: #1f519b; }
+
+.ranking-item__badge--tiles .primary {
+  fill: #d6cb60; }
+
+.ranking-item__badge--tent .primary {
+  fill: #ba1717; }
+
+.ranking-item__badge--oasis .primary {
+  fill: #1f9349; }
+
+.ranking-item__badge--villages .primary {
+  fill: #678989; }
+
+.ranking-item__badge--items .primary {
+  fill: #882e51; }
+
+.ranking-item__badge--merch .primary {
+  fill: #90d371; }
 
 h1 {
   color: white; }

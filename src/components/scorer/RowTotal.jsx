@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Image from '../Image';
 
 const RowTotal = ({ colors, values }) => (
-  <li className="row">
+  <li className="row total">
     <div className="cell-category">
       <Image src="category-total" className="category-total" alt="total" />
     </div>

@@ -48,6 +48,7 @@ class Main extends Component {
                       colors={scorer.colors}
                       values={scorer.scores[category.name]}
                       action={props.updateNumberCell}
+                      active={scorer.activeCategory}
                       hint={category.hint}
                       toggleHint={props.toggleHint}
                     />
@@ -68,6 +69,7 @@ class Main extends Component {
                     colors={scorer.colors}
                     values={scorer.scores[category.name]}
                     action={props.updateButtonCell}
+                    active={scorer.activeCategory}
                     props={props}
                   />
                 );
@@ -83,6 +85,7 @@ class Main extends Component {
                 colors={scorer.colors}
                 values={scorer.scores[category.name]}
                 action={props.updateNumberCell}
+                active={scorer.activeCategory}
                 hint={category.hint}
                 toggleHint={props.toggleHint}
                 disabled="true"

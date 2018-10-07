@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Borders from '../Borders';
 import Image from '../Image';
 import { calculateResults } from '../../utils';
+import Icon from '../Icon';
 
 const Result = ({ props }) => {
   const ranking = calculateResults(props.scorer);
@@ -12,7 +13,6 @@ const Result = ({ props }) => {
     <main className="container container-scorer container-scorer-result">
       <Borders />
       <Image src="logo" className="logo-top" alt="logo" extension="png" />
-
       <ul className="result-raking">
         {ranking.map((player, index) => {
           const key = `${player}-${index}`;
@@ -36,11 +36,13 @@ const Result = ({ props }) => {
                   <span className="ranking-item__points-word">points</span>
                 </div>
                 <div className="ranking-item__achievements">
-                  <ul className="ranking-item__achievements-list">
-                    <li className="ranking-item__flag" />
-                    <li className="ranking-item__flag" />
-                    <li className="ranking-item__flag" />
-                  </ul>
+                  {player.achievements.map(item => (
+                    <Icon
+                      key={`${player.color}-${item}`}
+                      type="badge"
+                      styles={`ranking-item__badge ranking-item__badge--${item}`}
+                    />
+                  ))}
                 </div>
               </div>
             </li>
@@ -48,6 +50,20 @@ const Result = ({ props }) => {
         })}
       </ul>
 
+      <section className="badge-legend">
+        <h3 className="badge-legend__title">Achievements Legend:</h3>
+        <ul className="badge-legend__list">
+          {props.scorer.categories.main.map(item => (
+            <li className="badge-legend__item" key={item.name}>
+              <Icon
+                type="badge"
+                styles={`badge-legend__icon ranking-item__badge--${item.name}`}
+              />
+              <span className="badge-legend__name">{item.name}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
       <section className="controls">
         <button
           type="button"

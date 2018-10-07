@@ -5,6 +5,7 @@ import Image from '../Image';
 
 const RowNumber = ({
   action,
+  active,
   colors,
   disabled,
   hint,
@@ -17,7 +18,7 @@ const RowNumber = ({
     <div className="cell-category">
       <Image src={`category-${icon}`} className="category" alt={name} />
     </div>
-    <div className="cell-group-players">
+    <div className={`cell-group-players ${active === name ? 'active' : ''}`}>
       {colors.map((color, i) => (
         <div
           key={`${name}-${color}`}
@@ -43,6 +44,7 @@ const RowNumber = ({
 
 RowNumber.propTypes = {
   action: PropTypes.func.isRequired,
+  active: PropTypes.string,
   colors: PropTypes.array.isRequired,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   hint: PropTypes.string.isRequired,
@@ -54,6 +56,7 @@ RowNumber.propTypes = {
 
 RowNumber.defaultProps = {
   disabled: false,
+  active: '',
 };
 
 export default RowNumber;

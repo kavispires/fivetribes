@@ -64,6 +64,13 @@
   .cell-group-players {
     display: flex;
     width: 100%;
+
+    // &.active input {
+    //   background: green !important;
+    //   .cell-CYAN & {
+    //     background-color: $sCyan !important;
+    //   }
+    // }
   }
 
   .cell-category {
@@ -467,6 +474,7 @@
     &__achievements {
       border-radius: $quarterUnit;
       margin-top: $quarterUnit;
+      display: flex;
     }
 
     &__achievements-list {
@@ -474,16 +482,8 @@
       list-style: none;
     }
 
-    &__flag {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      border-width: 9px;
-      border-style: solid;
-      border-color: $gold;
-      border-bottom-color: transparent;
-      border-radius: 2px 2px 0 0;
-      margin-right: $quarterUnit;
+    &__badge {
+      width: $unit;
     }
 
     &:first-child {
@@ -495,6 +495,130 @@
       .ranking-item__position {
         font-size: 2em;
       }
+
+      .ranking-item__points-number {
+        font-size: 200%;
+      }
     }
+  }
+}
+
+// Active
+
+.cell-BLACK {
+  .active & {
+    input {
+      background: $sBlackMedium !important;
+    }
+  }
+}
+
+.cell-BROWN {
+  .active & {
+    input {
+      background: $sBrownMedium !important;
+    }
+  }
+}
+
+.cell-CYAN {
+  .active & {
+    input {
+      background: $sCyanMedium !important;
+    }
+  }
+}
+
+.cell-ORANGE {
+  .active & {
+    input {
+      background: $sOrangeMedium !important;
+    }
+  }
+}
+
+.cell-PINK {
+  .active & {
+    input {
+      background: $sPinkMedium !important;
+    }
+  }
+}
+
+// Achievement Badges
+
+.badge-legend {
+  margin: $halfUnit $unit;
+  border: 1px solid $white;
+  border-radius: $quarterUnit;
+  padding: $halfUnit;
+
+  &__title {
+    color: $white;
+    margin: $halfUnit $unit;
+    font-size: 1em;
+    padding: 0;
+    text-align: center;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    color: $white;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: $unit;
+  }
+
+  &__item {
+    display: flex;
+    margin-bottom: $halfUnit;
+    width: 25%;
+  }
+
+  &__icon {
+    width: $unit;
+    margin-right: $quarterUnit;
+  }
+
+  &__name {
+    font-size: 75%;
+    margin-right: $unit;
+  }
+}
+
+.ranking-item__badge {
+  &--coins .primary {
+    fill: #d8a235;
+  }
+  &--viziers .primary {
+    fill: #edcf1c;
+  }
+  &--artisans .primary {
+    fill: #7b44aa;
+  }
+  &--elders .primary {
+    fill: #b2b2b2;
+  }
+  &--djinns .primary {
+    fill: #1f519b;
+  }
+  &--tiles .primary {
+    fill: #d6cb60;
+  }
+  &--tent .primary {
+    fill: #ba1717;
+  }
+  &--oasis .primary {
+    fill: #1f9349;
+  }
+  &--villages .primary {
+    fill: #678989;
+  }
+  &--items .primary {
+    fill: #882e51;
+  }
+  &--merch .primary {
+    fill: #90d371;
   }
 }

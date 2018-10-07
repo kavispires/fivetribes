@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import Image from '../Image';
 
-const RowButton = ({ action, colors, icon, link, name, values }) => (
+const RowButton = ({ action, active, colors, icon, link, name, values }) => (
   <li className="row">
     <div className="cell-category">
       <Image src={`category-${icon}`} className="category" alt={name} />
     </div>
-    <div className="cell-group-players">
+    <div className={`cell-group-players ${active === name ? 'active' : ''}`}>
       {colors.map((color, i) => (
         <div
           key={`${name}-${color}`}
@@ -28,6 +28,7 @@ const RowButton = ({ action, colors, icon, link, name, values }) => (
 
 RowButton.propTypes = {
   action: PropTypes.func.isRequired,
+  active: PropTypes.string.isRequired,
   colors: PropTypes.array.isRequired,
   icon: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,

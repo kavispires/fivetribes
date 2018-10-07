@@ -3,6 +3,7 @@ import { saveLocalStorage, buildCategories, buildTiles } from '../utils';
 
 /* ------------------   ACTION TYPES  ------------------ */
 
+const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
 const SET_ACTIVE_PLAYER = 'SET_ACTIVE_PLAYER';
 const SET_ACTIVE_TILE_SUBSCREEN = 'SET_ACTIVE_TILE_SUBSCREEN';
 const SET_CATEGORIES = 'SET_CATEGORIES';
@@ -18,6 +19,8 @@ const SET_VIOLATION = 'SET_VIOLATION';
 
 /* --------------   ACTION CREATORS   -------------- */
 
+export const setActiveCategory = payload => dispatch =>
+  dispatch({ type: SET_ACTIVE_CATEGORY, payload });
 export const setActivePlayer = payload => dispatch =>
   dispatch({ type: SET_ACTIVE_PLAYER, payload });
 export const setActiveTileSubscreen = payload => dispatch =>
@@ -46,6 +49,7 @@ export const setViolation = payload => dispatch =>
 /* -----------------   REDUCER   ------------------ */
 
 export const initialState = {
+  activeCategory: '',
   activePlayer: '',
   activeTileSubscreen: 'scorer-tiles',
   categories: {},
@@ -78,6 +82,10 @@ export default function reducer(prevState = initialState, action) {
   const newState = Object.assign({}, prevState);
 
   switch (action.type) {
+    case SET_ACTIVE_CATEGORY:
+      newState.activeCategory = action.payload;
+      break;
+
     case SET_ACTIVE_PLAYER:
       newState.activePlayer = action.payload;
       break;
@@ -436,6 +444,12 @@ const calculateTotalPoints = (scores, expansions, categories) => dispatch => {
   // Reset total
   scores.total = new Array(scores.merch.length).fill(0);
 
+  // Calculate Artisans and Elders points
+  scores.eldersTotal = [...scores.elders];
+  if (expansions.ARTISANS) {
+    scores.artisansTotal = [...scores.artisans];
+  }
+
   if (totalCategories.length === 0) {
     totalCategories = [...categories.main, ...categories.bonus];
   }
@@ -443,11 +457,13 @@ const calculateTotalPoints = (scores, expansions, categories) => dispatch => {
     scores.total = scores.total.map(
       (prev, index) => prev + scores[totalCategories[count].name][index]
     );
+    dispatch(setActiveCategory(totalCategories[count].name));
     dispatch(setScores(scores));
     count++;
     if (count >= totalCategories.length) {
       clearInterval(totalInterval);
       count = 0;
+      dispatch(setActiveCategory(''));
       dispatch(setSubscreen('scorer-result'));
     }
   }, 500);
