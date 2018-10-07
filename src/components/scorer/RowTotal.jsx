@@ -1,23 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { COLORS } from '../../constants';
+import Image from '../Image';
 
-const RowButton = ({ total }) => {
-  return (
-    <li className="row total">
-      <div className="cell-cat">
-        <img
-          src={`${process.env.PUBLIC_URL}/images/scorer/total.svg`}
-          alt="Total"
-        />
-      </div>
-      {total.map((item, i) => (
-        <div key={`total-${COLORS[i]}`} className={`cell cell-${total.length}`}>
-          <input type="number" name={`total-${i}`} value={item} readOnly />
+const RowTotal = ({ colors, values }) => (
+  <li className="row">
+    <div className="cell-category">
+      <Image src="category-total" className="category-total" alt="total" />
+    </div>
+    <div className="cell-group-players">
+      {colors.map((color, i) => (
+        <div
+          key={`total-${color}`}
+          className={`cell cell-total cell-${color} cell-${colors.length}`}
+        >
+          <input type="number" name={`total-${i}`} value={values[i]} disabled />
         </div>
       ))}
-    </li>
-  );
+    </div>
+  </li>
+);
+
+RowTotal.propTypes = {
+  colors: PropTypes.array.isRequired,
+
+  values: PropTypes.array.isRequired,
 };
 
-export default RowButton;
+export default RowTotal;

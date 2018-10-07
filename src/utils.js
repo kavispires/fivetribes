@@ -13,6 +13,9 @@ import {
   TILES_ARTISANS_LIST,
   TILES_BASE_LIST,
   TILES_WHIMS_LIST,
+  CATEGORY_BONUS_ARTISANS,
+  CATEGORY_BONUS_BASE,
+  CATEGORY_TOTAL,
 } from './constants';
 
 export const capitalize = string =>
@@ -53,19 +56,15 @@ export const snakeToCamelCase = string =>
 export const buildCategories = expansions => {
   // Build Main
   const hasArtisans = expansions.ARTISANS ? CATEGORY_ARTISANS : {};
-  const hasThieves = expansions.THIEVES ? CATEGORY_THIEVES : {};
   const hasWhims = expansions.WHIMS ? CATEGORY_WHIMS : {};
-  const main = Object.assign(
-    {},
-    CATEGORY_BASE,
-    hasArtisans,
-    hasThieves,
-    hasWhims
-  );
+  const main = Object.assign({}, CATEGORY_BASE, hasArtisans, hasWhims);
 
   // Build Djinns
   const hasArtisansDjinns = expansions.ARTISANS ? CATEGORY_ARTISANS_DIJNNS : {};
   const djinns = Object.assign({}, CATEGORY_BASE_DJINNS, hasArtisansDjinns);
+
+  // Build Thieves
+  const thieves = expansions.THIEVES ? CATEGORY_THIEVES : {};
 
   // Build Merch
   const merch = {};
@@ -93,14 +92,24 @@ export const buildCategories = expansions => {
   const hasWhimsTiles = expansions.WHIMS ? CATEGORY_WHIMS_TILES : {};
   const tiles = Object.assign({}, CATEGORY_TILES, hasWhimsTiles);
 
+  // Build Bonus
+  const hasArtisansBonus = expansions.ARTISANS ? CATEGORY_BONUS_ARTISANS : {};
+  const bonus = Object.assign({}, CATEGORY_BONUS_BASE, hasArtisansBonus);
+
+  // Build Total
+  const total = Object.assign({}, CATEGORY_TOTAL);
+
   return {
     main: Object.values(main),
     djinns: Object.values(djinns),
     items: Object.values(items),
     merch: Object.values(merch),
     oasis: Object.values(oasis),
+    thieves: Object.values(thieves),
     tiles: Object.values(tiles),
     villages: Object.values(villages),
+    bonus: Object.values(bonus),
+    total: Object.values(total),
   };
 };
 

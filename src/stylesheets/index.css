@@ -288,12 +288,17 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0 0.5em;
-  margin: 0; }
+  margin: 0;
+  list-style: none; }
   .scorer-table img {
     display: block;
     max-width: 100%;
     height: 2em;
     margin: 0 auto; }
+  .scorer-table .paragraph {
+    color: #fff;
+    font-size: 75%;
+    margin: 0.25em auto; }
   .scorer-table .row {
     display: flex;
     width: 100%; }
@@ -385,6 +390,21 @@ body {
     background: #dbc8b9; }
     .scorer-table .cell-BROWN span {
       background: #89664a; }
+  .scorer-table .cell-total.cell-BLACK input {
+    background: #4d4d4d;
+    color: #fff; }
+  .scorer-table .cell-total.cell-BROWN input {
+    background: #89664a;
+    color: #fff; }
+  .scorer-table .cell-total.cell-CYAN input {
+    background: #06918d;
+    color: #fff; }
+  .scorer-table .cell-total.cell-ORANGE input {
+    background: #db8b56;
+    color: #fff; }
+  .scorer-table .cell-total.cell-PINK input {
+    background: #f159ba;
+    color: #fff; }
 
 .p-error {
   color: red;
@@ -460,7 +480,7 @@ body {
   justify-content: center;
   padding-left: 0;
   list-style: none;
-  background: orange;
+  border: orange 1px solid;
   flex-wrap: wrap;
   height: 140%; }
   .scorer-tiles .tile {

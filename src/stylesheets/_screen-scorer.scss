@@ -41,6 +41,7 @@
   flex-direction: column;
   padding: 0 $halfUnit;
   margin: 0;
+  list-style: none;
 
   img {
     display: block;
@@ -49,9 +50,11 @@
     margin: 0 auto;
   }
 
-  // & > * {
-  //   outline: 1px solid orangered;
-  // }
+  .paragraph {
+    color: $white;
+    font-size: 75%;
+    margin: $quarterUnit auto;
+  }
 
   .row {
     display: flex;
@@ -210,6 +213,29 @@
       background: $sBrown;
     }
   }
+
+  .cell-total {
+    &.cell-BLACK input {
+      background: $sBlack;
+      color: $white;
+    }
+    &.cell-BROWN input {
+      background: $sBrown;
+      color: $white;
+    }
+    &.cell-CYAN input {
+      background: $sCyan;
+      color: $white;
+    }
+    &.cell-ORANGE input {
+      background: $sOrange;
+      color: $white;
+    }
+    &.cell-PINK input {
+      background: $sPink;
+      color: $white;
+    }
+  }
 }
 
 .p-error {
@@ -311,7 +337,7 @@
   justify-content: center;
   padding-left: 0;
   list-style: none;
-  background: orange;
+  border: orange 1px solid;
   flex-wrap: wrap;
   height: 140%;
 

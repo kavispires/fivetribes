@@ -51,6 +51,23 @@ const Djinns = ({ props }) => (
               />
             );
           })}
+        <p className="p-scorer-table">
+          If any player still have Thieves cards, score them here:
+        </p>
+        {props.scorer.expansions.WHIMS ? (
+          <RowNumber
+            key={props.scorer.categories.thieves[0].name}
+            name={props.scorer.categories.thieves[0].name}
+            icon={props.scorer.categories.thieves[0].icon}
+            colors={props.scorer.colors}
+            values={
+              props.scorer.scores[props.scorer.categories.thieves[0].name]
+            }
+            action={props.updateNumberCell}
+            hint={props.scorer.categories.thieves[0].hint}
+            toggleHint={props.toggleHint}
+          />
+        ) : null}
       </ul>
     ) : (
       <p className="p-error">Something is wrong</p>

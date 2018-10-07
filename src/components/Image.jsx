@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import borderLeft from '../images/border-left.png';
 import borderRight from '../images/border-right.png';
 import categoryArtisans from '../images/category-artisans.svg';
+import categoryBonusArtisans from '../images/category-bonus-artisans.svg';
+import categoryBonusElders from '../images/category-bonus-elders.svg';
+import categoryBonusItems from '../images/category-bonus-items.svg';
+import categoryBonusOasis from '../images/category-bonus-oasis.svg';
+import categoryBonusViziers from '../images/category-bonus-viziers.svg';
 import categoryCities from '../images/category-cities.svg';
 import categoryCoins from '../images/category-coins.svg';
 import categoryDjinnGeb from '../images/category-djinn-geb.svg';
@@ -71,6 +76,26 @@ const Image = ({ src, className, alt }) => {
 
     case 'category-artisans':
       source = categoryArtisans;
+      break;
+
+    case 'category-bonus-artisans':
+      source = categoryBonusArtisans;
+      break;
+
+    case 'category-bonus-elders':
+      source = categoryBonusElders;
+      break;
+
+    case 'category-bonus-items':
+      source = categoryBonusItems;
+      break;
+
+    case 'category-bonus-oasis':
+      source = categoryBonusOasis;
+      break;
+
+    case 'category-bonus-viziers':
+      source = categoryBonusViziers;
       break;
 
     case 'category-cities':

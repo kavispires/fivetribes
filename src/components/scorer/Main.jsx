@@ -72,11 +72,45 @@ class ScoreMain extends Component {
                 );
               })}
 
-            {/* <RowTotal colors={scorer.colors} /> */}
+            <li className="paragraph">Bonus Points</li>
+
+            {scorer.categories.bonus.map(category => (
+              <RowNumber
+                key={category.name}
+                name={category.name}
+                icon={category.icon}
+                colors={scorer.colors}
+                values={scorer.scores[category.name]}
+                action={props.updateNumberCell}
+                hint={category.hint}
+                toggleHint={props.toggleHint}
+                disabled="true"
+              />
+            ))}
+
+            <li className="paragraph">Total</li>
+
+            <RowTotal colors={scorer.colors} values={scorer.scores.total} />
           </ul>
         ) : (
           <p className="p-error">Something is wrong</p>
         )}
+        <section className="controls">
+          <button
+            type="button"
+            className="btn btn-lg btn-secondary"
+            onClick={() => props.clearCategory('all')}
+          >
+            CLEAR
+          </button>
+          <button
+            type="button"
+            className="btn btn-lg"
+            onClick={() => props.handleOk('scorer')}
+          >
+            SCORE
+          </button>
+        </section>
       </main>
     );
   }

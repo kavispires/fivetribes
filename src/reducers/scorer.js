@@ -307,25 +307,38 @@ export const handleSelectedTile = (tileId, activePlayer) => (
 };
 
 export const clearCategory = category => (dispatch, getState) => {
-  const { numPlayers, categories } = getState().scorer;
-  const arrayPlaceholder = new Array(numPlayers).fill(0);
-  const scores = { ...getState().scorer.scores };
-  categories[category].forEach(cat => {
-    scores[cat.name] = [...arrayPlaceholder];
-  });
-  dispatch(setScores(scores));
-
-  if (category === 'tiles') {
-    const tiles = buildTiles(getState().scorer.expansions);
-    dispatch(setTiles(tiles));
+  if (category === 'all') {
+    dispatch(prepareScorer());
+  } else {
+    const { numPlayers, categories } = getState().scorer;
+    const arrayPlaceholder = new Array(numPlayers).fill(0);
+    const scores = { ...getState().scorer.scores };
+    categories[category].forEach(cat => {
+      scores[cat.name] = [...arrayPlaceholder];
+    });
+    dispatch(setScores(scores));
+    if (category === 'tiles') {
+      const tiles = buildTiles(getState().scorer.expansions);
+      dispatch(setTiles(tiles));
+    }
   }
 };
 
 export const handleOk = category => (dispatch, getState) => {
-  const scores = { ...getState().scorer.scores };
-  const { expansions } = getState().scorer;
+  let scores = { ...getState().scorer.scores };
+  const { expansions, categories } = getState().scorer;
+
+  // Calculate Total
+  if (category === 'scorer') {
+    scores = calculateBonusPoints(scores, expansions);
+    dispatch(calculateTotalPoints(scores, expansions, categories));
+  }
+  // Calculate Djinns Points
+  else if (category === 'djinns') {
+    scores.djinns = calculateDjinnsPoints(scores, expansions);
+  }
   // Calculate Merch Points
-  if (category === 'merch') {
+  else if (category === 'merch') {
     scores.merch = calculateMerchPoints(scores);
   }
   // Calculate Oasis Points
@@ -347,6 +360,103 @@ export const handleOk = category => (dispatch, getState) => {
 
   dispatch(setScores(scores));
   dispatch(setSubscreen(''));
+};
+
+const calculateBonusPoints = (scores, expansions) => {
+  // Reset everything
+  const placeholder = new Array(scores.coins.length).fill(0);
+  scores['bonus-viziers'] = [...placeholder];
+  scores['bonus-elders'] = [...placeholder];
+  scores['bonus-oasis'] = [...placeholder];
+
+  console.log(scores);
+  // Award Viziers: 10 pts per player with less viziers
+  scores.viziers.forEach((player, index) => {
+    scores.viziers.forEach(opponent => {
+      if (player > opponent) {
+        scores['bonus-viziers'][index] += 10;
+      }
+    });
+  });
+
+  // Award Jaafar: 1pt per vizier
+  const jaafarIndex = scores['djinn-jaafar'].indexOf(true);
+  if (jaafarIndex > -1) {
+    scores['bonus-viziers'][jaafarIndex] += scores.viziers[jaafarIndex];
+  }
+
+  // Award Shamhat: 2pt per elder
+  const shamhatIndex = scores['djinn-shamhat'].indexOf(true);
+  if (shamhatIndex > -1) {
+    scores['bonus-elders'][shamhatIndex] += scores.artisans[shamhatIndex] * 2;
+  }
+
+  // Award Haurvatat: 2pt per palm tree
+  const haurvatatIndex = scores['djinn-haurvatat'].indexOf(true);
+  if (haurvatatIndex > -1) {
+    scores['bonus-oasis'][haurvatatIndex] +=
+      scores.artisans[haurvatatIndex] * 2;
+  }
+
+  if (expansions.ARTISANS) {
+    // Reset expansion
+    scores['bonus-artisans'] = [...placeholder];
+    scores['bonus-items'] = [...placeholder];
+
+    // Award Artisans: 1pt pts if most artisans
+    const maxArtisans = Math.max(...scores.artisans);
+    scores.artisans.forEach((player, index) => {
+      if (player === maxArtisans) {
+        scores['bonus-artisans'][index] += scores.artisans[index];
+      }
+    });
+
+    // Award Ptah: 2pt per artisan
+    const ptahIndex = scores['djinn-ptah'].indexOf(true);
+    if (ptahIndex > -1) {
+      scores['bonus-artisans'][ptahIndex] += scores.artisans[ptahIndex] * 2;
+    }
+
+    // Award Geb: 3pt per item
+    const gebIndex = scores['djinn-geb'].indexOf(true);
+    if (gebIndex > -1) {
+      scores['bonus-items'][gebIndex] += scores['item-crown'][gebIndex] * 3;
+      scores['bonus-items'][gebIndex] += scores['item-treasure'][gebIndex] * 3;
+      scores['bonus-items'][gebIndex] += scores['item-jewelry'][gebIndex] * 3;
+    }
+  }
+
+  return scores;
+};
+
+let totalInterval = null;
+let count = 0;
+let totalCategories = [];
+
+const calculateTotalPoints = (scores, expansions, categories) => dispatch => {
+  if (totalCategories.length === 0) {
+    totalCategories = [...categories.main, ...categories.bonus];
+  }
+  totalInterval = setInterval(() => {
+    scores.total = scores.total.map(
+      (prev, index) => prev + scores[totalCategories[count].name][index]
+    );
+    dispatch(setScores(scores));
+    count++;
+    if (count >= totalCategories.length) {
+      clearInterval(totalInterval);
+      count = 0;
+    }
+  }, 1000);
+  return scores;
+};
+
+const calculateDjinnsPoints = (scores, expansions) => {
+  let points = [...scores['djinns-total']];
+  if (expansions.WHIMS) {
+    points = points.map((item, index) => item + scores.thieves[index]);
+  }
+  return points;
 };
 
 const calculateMerchPoints = scores => {

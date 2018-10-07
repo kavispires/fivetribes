@@ -134,17 +134,6 @@ export const CATEGORY_WHIMS = {
   },
 };
 
-export const CATEGORY_BONUS = {
-  13: {
-    name: 'bonus',
-    order: 13,
-    icon: 'bonus',
-    type: 'button',
-    link: 'scorer-bonus',
-    hint: 'Total bonus points awarded by djinns',
-  },
-};
-
 export const CATEGORY_BASE_DJINNS = {
   2: {
     name: 'djinn-haurvatat',
@@ -168,7 +157,7 @@ export const CATEGORY_BASE_DJINNS = {
     hint: 'Select the player who owns Shamhat',
   },
   6: {
-    name: 'djinns',
+    name: 'djinns-total',
     order: 6,
     icon: 'djinn-total',
     type: 'input',
@@ -271,6 +260,56 @@ export const CATEGORY_PRECIOUS_ITEMS = {
   },
 };
 
+export const CATEGORY_BONUS_BASE = {
+  1: {
+    name: 'bonus-viziers',
+    order: 1,
+    icon: 'bonus-viziers',
+    type: 'input',
+    hint: 'Total bonus points granted by viziers and Jaafar',
+  },
+  3: {
+    name: 'bonus-elders',
+    order: 3,
+    icon: 'bonus-elders',
+    type: 'input',
+    hint: 'Total bonus points granted by Shamhat',
+  },
+  4: {
+    name: 'bonus-oasis',
+    order: 4,
+    icon: 'bonus-oasis',
+    type: 'input',
+    hint: 'Total bonus points granted by Haurvatat',
+  },
+};
+
+export const CATEGORY_BONUS_ARTISANS = {
+  2: {
+    name: 'bonus-artisans',
+    order: 2,
+    icon: 'bonus-artisans',
+    type: 'input',
+    hint: 'Total bonus points granted by artisans and Ptah',
+  },
+  5: {
+    name: 'bonus-items',
+    order: 5,
+    icon: 'bonus-items',
+    type: 'input',
+    hint: 'Total bonus points granted by Geb',
+  },
+};
+
+export const CATEGORY_TOTAL = {
+  1: {
+    name: 'total',
+    order: 1,
+    icon: 'total',
+    type: 'input',
+  },
+};
+
 export const TILES_BASE_LIST = [
   ...new Array(4).fill(4), // Big Markets
   ...new Array(5).fill(5), // Villages
@@ -290,68 +329,3 @@ export const TILES_ARTISANS_LIST = [
 export const TILES_WHIMS_LIST = [
   ...new Array(5).fill('5+'), // Fabulous Cities
 ];
-
-// OLD STUFF
-
-// export const CATEGORIES = [
-//   'coins',
-//   'viziers',
-//   'artisans',
-//   'elders',
-//   'djinnsTotal',
-//   'tilesTotal',
-//   'oasisTotal',
-//   'villagesTotal',
-//   'preciousItems',
-//   'merch',
-// ];
-
-// export const CATEGORIES_DJINNS = [
-//   'geb',
-//   'haurvatat',
-//   'jaafar',
-//   'ptah',
-//   'shamhat',
-// ];
-
-// export const CATEGORIES_DJINNS_AND_THIEVES = ['djinns', 'thieves'];
-
-// export const CATEGORIES_ITEMS = ['jewelry', 'treasure', 'crown'];
-
-// export const CATEGORIES_MERCH = [
-//   'fish',
-//   'wheat',
-//   'pottery',
-//   'spices',
-//   'papyrus',
-//   'fabric',
-//   'ivory',
-//   'gems',
-//   'gold',
-// ];
-
-// export const CATEGORIES_OSASIS = ['oasis', 'oasisLake'];
-
-// export const CATEGORIES_OASIS_AND_VILLAGES = [
-//   'oasis',
-//   'villages',
-//   'oasisLake',
-//   'villagesLake',
-// ];
-
-// export const CATEGORIES_TILES = ['tiles', 'tent', 'cities'];
-
-// export const CATEGORIES_VILLAGES = ['villages', 'villagesLake'];
-
-// export const HINTS = {
-//   coins: 'Input the total value of coins.',
-//   viziers: 'Input the number of Viziers (yellow meeples).',
-//   artisans: 'Input the number of Artisans (purple meeples).',
-//   elders: 'Input the number of Elders (white meeples).',
-//   djinnsTotal: 'Total Djinns (and Thieves) points.',
-//   tiles: 'Input the number points of tiles, tents and great cities.',
-//   oasisTotal: 'Input the number of palm trees.',
-//   villagesTotal: 'Input the number of palaces.',
-//   preciosItems: 'Total Precious Items points.',
-//   merch: 'Total Merchandising Points',
-// };
