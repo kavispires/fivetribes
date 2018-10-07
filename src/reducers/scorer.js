@@ -246,13 +246,17 @@ export const handleOk = category => (dispatch, getState) => {
   if (category === 'merch') {
     scores.merch = calculateMerchPoints(scores);
   }
-  // Calculate Merch Points
+  // Calculate Oasis Points
   else if (category === 'oasis') {
     scores.oasis = calculateOasis(scores, expansions);
   }
-  // Calculate Merch Points
+  // Calculate Villages Points
   else if (category === 'villages') {
     scores.villages = calculateVillages(scores, expansions);
+  }
+  // Calculate Precious Items Points
+  else if (category === 'items') {
+    scores.items = calculateItems(scores);
   }
 
   dispatch(setScores(scores));
@@ -314,6 +318,22 @@ const calculateVillages = (scores, expansions) => {
       points[index] += scores['villages-lake-total'][index] * POINST_PER_PALACE;
     });
   }
+
+  return points;
+};
+
+const calculateItems = scores => {
+  const points = new Array(scores.items.length).fill(0);
+
+  const POINST_PER_CROWN = 9;
+  const POINST_PER_JEWELRY = 5;
+  const POINST_PER_TREASURE = 7;
+
+  points.forEach((v, index) => {
+    points[index] += scores['item-crown'][index] * POINST_PER_CROWN;
+    points[index] += scores['item-jewelry'][index] * POINST_PER_JEWELRY;
+    points[index] += scores['item-treasure'][index] * POINST_PER_TREASURE;
+  });
 
   return points;
 };

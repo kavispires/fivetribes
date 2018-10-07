@@ -3,6 +3,7 @@ import {
   CATEGORY_ARTISANS_DIJNNS,
   CATEGORY_BASE,
   CATEGORY_BASE_DJINNS,
+  CATEGORY_PRECIOUS_ITEMS,
   CATEGORY_THIEVES,
   CATEGORY_WHIMS,
   CATEGORY_WHIMS_OASIS,
@@ -77,12 +78,16 @@ export const buildCategories = expansions => {
   // Build Oasis
   const oasis = Object.assign({}, CATEGORY_WHIMS_OASIS);
 
-  // Build Oasis
+  // Build Villages
   const villages = Object.assign({}, CATEGORY_WHIMS_VILLAGES);
+
+  // Build Precious Items
+  const items = Object.assign({}, CATEGORY_PRECIOUS_ITEMS);
 
   return {
     main: Object.values(main),
     djinns: Object.values(djinns),
+    items: Object.values(items),
     merch: Object.values(merch),
     oasis: Object.values(oasis),
     villages: Object.values(villages),

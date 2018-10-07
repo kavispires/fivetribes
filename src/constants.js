@@ -88,7 +88,7 @@ export const CATEGORY_ARTISANS = {
       'Input number of red tiles surrounding your tent, including its own tile',
   },
   11: {
-    name: 'precious-items',
+    name: 'items',
     order: 11,
     icon: 'precious-items',
     type: 'button',
@@ -224,6 +224,30 @@ export const CATEGORY_WHIMS_VILLAGES = {
     icon: 'villages-lake-total',
     type: 'input',
     hint: 'Input how many of those palaces are next to the Great Lake',
+  },
+};
+
+export const CATEGORY_PRECIOUS_ITEMS = {
+  1: {
+    name: 'item-jewelry',
+    order: 1,
+    icon: 'item-jewelry',
+    type: 'input',
+    hint: 'Input the number of jewelry tokens each player owns',
+  },
+  2: {
+    name: 'item-treasure',
+    order: 2,
+    icon: 'item-treasure',
+    type: 'input',
+    hint: 'Input the number of treasure tokens each player owns',
+  },
+  3: {
+    name: 'item-crown',
+    order: 3,
+    icon: 'item-crown',
+    type: 'input',
+    hint: 'Input the number of crown tokens each player owns',
   },
 };
 

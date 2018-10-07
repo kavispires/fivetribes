@@ -14,6 +14,9 @@ import categoryDjinnShamhat from '../images/category-djinn-shamhat.svg';
 import categoryDjinnTotal from '../images/category-djinn-total.svg';
 import categoryDjinns from '../images/category-djinns.svg';
 import categoryElders from '../images/category-elders.svg';
+import categoryItemCrown from '../images/category-item-crown.svg';
+import categoryItemJewelry from '../images/category-item-jewelry.svg';
+import categoryItemTreasure from '../images/category-item-treasure.svg';
 import categoryMerch from '../images/category-merch.svg';
 import categoryMerchSet1 from '../images/category-merch-set-1.svg';
 import categoryMerchSet2 from '../images/category-merch-set-2.svg';
@@ -102,6 +105,18 @@ const Image = ({ src, className, alt }) => {
 
     case 'category-elders':
       source = categoryElders;
+      break;
+
+    case 'category-item-crown':
+      source = categoryItemCrown;
+      break;
+
+    case 'category-item-jewelry':
+      source = categoryItemJewelry;
+      break;
+
+    case 'category-item-treasure':
+      source = categoryItemTreasure;
       break;
 
     case 'category-merch':

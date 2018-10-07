@@ -5,6 +5,7 @@ import Djinns from './Djinns';
 import Main from './Main';
 import Merch from './Merch';
 import Oasis from './Oasis';
+import PreciousItems from './PreciousItems';
 import Villages from './Villages';
 
 const Scorer = ({ props }) => {
@@ -28,10 +29,10 @@ const Scorer = ({ props }) => {
     return <Villages props={props} />;
   }
 
-  // // PreciousItems
-  // if (props.scorer.subscreen === 'scorer-precious-items') {
-  //   return <PreciousItems props={props} />;
-  // }
+  // PreciousItems
+  if (props.scorer.subscreen === 'scorer-precious-items') {
+    return <PreciousItems props={props} />;
+  }
 
   // // Tiles
   // if (props.scorer.subscreen === 'scorer-tiles') {
