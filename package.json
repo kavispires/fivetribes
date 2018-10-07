@@ -2,9 +2,10 @@
   "name": "fivetribes-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kavispires.github.io/fivetribes-react",
+  "homepage": "https://www.kavispires.com/fivetribes-react",
   "dependencies": {
-    "gh-pages": "^1.2.0",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
@@ -26,7 +27,17 @@
     "precommit": "pretty-quick --staged"
   },
   "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^2.7.0",
+    "eslint-plugin-react": "^7.11.1",
+    "gh-pages": "^1.2.0",
     "node-sass-chokidar": "0.0.3",
+    "prettier": "^1.14.3",
+    "pretty-quick": "^1.7.0",
     "redux-mock-store": "^1.2.3"
   }
 }

@@ -1,0 +1,624 @@
+.container-scorer {
+  .controls {
+    width: 100%;
+    padding-bottom: 2em;
+    padding-top: 1em;
+    text-align: center;
+
+    .btn {
+      margin-left: $quarterUnit;
+      margin-right: $quarterUnit;
+    }
+  }
+}
+
+.hint {
+  background: rgba(212, 175, 55, 0.3);
+  border: 1px solid $gold;
+  padding: 4px;
+  margin: $unit $doubleUnit;
+  text-align: center;
+  font-size: 0.75em;
+  color: $gold;
+  border-radius: $quarterUnit;
+}
+
+.hint-placeholder {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 4px;
+  margin: $unit $doubleUnit;
+  text-align: center;
+  font-size: 0.75em;
+  color: $gold;
+  border-radius: $quarterUnit;
+}
+
+.scorer-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 $halfUnit;
+  margin: 0;
+  list-style: none;
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: $doubleUnit;
+    margin: 0 auto;
+  }
+
+  .paragraph {
+    color: $white;
+    font-size: 75%;
+    margin: $quarterUnit auto;
+  }
+
+  .row {
+    display: flex;
+    width: 100%;
+  }
+
+  .cell-group-players {
+    display: flex;
+    width: 100%;
+
+    // &.active input {
+    //   background: green !important;
+    //   .cell-CYAN & {
+    //     background-color: $sCyan !important;
+    //   }
+    // }
+  }
+
+  .cell-category {
+    width: 15%;
+    min-width: 15%;
+    max-width: 15%;
+  }
+
+  .cell {
+    input {
+      display: block;
+      width: calc(100% - 0.5em);
+      height: calc(100% - 0.5em);
+      border: 0;
+      margin: $quarterUnit;
+      border-radius: $quarterUnit;
+      text-align: center;
+      font-size: 0.85em;
+      color: $black;
+
+      &::placeholder {
+        color: $black;
+      }
+    }
+
+    span {
+      display: block;
+      border-radius: $quarterUnit;
+    }
+
+    input[type='button'] {
+      background: $white;
+    }
+
+    input[type='radio'] {
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.7) !important;
+      margin: $quarterUnit;
+      border: 1px solid $grey;
+      outline: none;
+    }
+
+    input[type='radio']:hover {
+      box-shadow: 0 0 5px 0px $gold inset;
+    }
+
+    input[type='radio']:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      border-radius: $halfUnit;
+    }
+    input[type='radio']:checked:before {
+      background: url('../images/lamp.png') no-repeat center/25%;
+    }
+
+    .cell-header-span {
+      border-radius: 0.25em;
+      margin: 0.25em 0.25em;
+      padding: 0.25em;
+    }
+  }
+
+  .header .cell-group-players .cell:first-child {
+    border-top-left-radius: $quarterUnit;
+  }
+
+  .header .cell-group-players .cell:last-child {
+    border-top-right-radius: $quarterUnit;
+  }
+
+  .total .cell-group-players .cell:first-child {
+    border-bottom-left-radius: $quarterUnit;
+  }
+
+  .total .cell-group-players .cell:last-child {
+    border-bottom-right-radius: $quarterUnit;
+  }
+
+  // SIZES
+
+  .cell-1 {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cell-2 {
+    width: 50%;
+    max-width: 50%;
+  }
+
+  .cell-3 {
+    width: 33%;
+    max-width: 33%;
+  }
+
+  .cell-4 {
+    width: 25%;
+    max-width: 25%;
+  }
+
+  .cell-5 {
+    width: 20%;
+    max-width: 20%;
+  }
+
+  // COLORS
+
+  .cell-CYAN {
+    background: $sCyanLight;
+
+    span {
+      background: $sCyan;
+    }
+  }
+
+  .cell-PINK {
+    background: $sPinkLight;
+
+    span {
+      background: $sPink;
+    }
+  }
+
+  .cell-BLACK {
+    background: $sBlackLight;
+
+    span {
+      background: $sBlack;
+    }
+  }
+
+  .cell-ORANGE {
+    background: $sOrangeLight;
+
+    span {
+      background: $sOrange;
+    }
+  }
+
+  .cell-BROWN {
+    background: $sBrownLight;
+
+    span {
+      background: $sBrown;
+    }
+  }
+
+  .cell-total {
+    &.cell-BLACK input {
+      background: $sBlack;
+      color: $white;
+    }
+    &.cell-BROWN input {
+      background: $sBrown;
+      color: $white;
+    }
+    &.cell-CYAN input {
+      background: $sCyan;
+      color: $white;
+    }
+    &.cell-ORANGE input {
+      background: $sOrange;
+      color: $white;
+    }
+    &.cell-PINK input {
+      background: $sPink;
+      color: $white;
+    }
+  }
+}
+
+.p-error {
+  color: red;
+  text-align: center;
+}
+
+.p-scorer-table {
+  color: white;
+  font-size: 0.75em;
+  margin-left: 16%;
+  margin-right: $quarterUnit;
+}
+
+.p-scorer-instructions {
+  color: white;
+  font-size: 0.75em;
+  margin: $quarterUnit $unit $unit $unit;
+  text-align: center;
+  background: $primaryDark;
+  padding: $quarterUnit;
+  border-radius: $quarterUnit;
+}
+
+.p-scorer-instructions--no-background {
+  @extend .p-scorer-instructions;
+  background: transparent;
+}
+
+.tile-screen-type-switch {
+  text-align: center;
+  margin-bottom: $halfUnit;
+  font-size: 75%;
+}
+
+.scorer-pawn-selection {
+  margin: 0 auto $unit;
+  padding-left: 0;
+  list-style: none;
+
+  .scorer-pawn-item {
+    display: inline-block;
+    justify-content: center;
+  }
+
+  .btn-pawn {
+    width: 100%;
+    height: 100%;
+    border-radius: $quarterUnit;
+    border-width: 2px;
+    border-style: solid;
+    display: block;
+    margin: 0 $quarterUnit;
+    max-width: 4em;
+    height: 4em;
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: 3em;
+      margin: 0 auto;
+    }
+  }
+
+  .btn-pawn-BLACK {
+    background-color: $sBlack;
+    border-color: $sBlack;
+  }
+
+  .btn-pawn-BROWN {
+    background-color: $sBrown;
+    border-color: $sBrown;
+  }
+
+  .btn-pawn-CYAN {
+    background-color: $sCyan;
+    border-color: $sCyan;
+  }
+
+  .btn-pawn-ORANGE {
+    background-color: $sOrange;
+    border-color: $sOrange;
+  }
+
+  .btn-pawn-PINK {
+    background-color: $sPink;
+    border-color: $sPink;
+  }
+
+  .btn-pawn--active {
+    border-color: $white;
+  }
+}
+
+.scorer-tiles {
+  width: 100%;
+  margin: 0 auto 1em;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  list-style: none;
+  border: orange 1px solid;
+  flex-wrap: wrap;
+  height: 140%;
+
+  .tile {
+    width: 2.5em;
+    height: 2.5em;
+    margin: $quarterUnit;
+  }
+
+  .btn-tile {
+    background: $lightGold;
+    margin: $quarterUnit;
+    width: 100%;
+    height: 100%;
+    border-radius: $quarterUnit;
+    border-width: 2px;
+    border-style: solid;
+    font-weight: bold;
+  }
+
+  .btn-tile-null {
+    border-color: $gold;
+    color: $primaryDark;
+  }
+
+  .btn-tile-BLACK {
+    border-color: $sBlack;
+    background: $white;
+  }
+
+  .btn-tile-BROWN {
+    border-color: $sBrown;
+    background: $white;
+  }
+
+  .btn-tile-CYAN {
+    border-color: $sCyan;
+    background: $white;
+  }
+
+  .btn-tile-ORANGE {
+    border-color: $sOrange;
+    background: $white;
+  }
+
+  .btn-tile-PINK {
+    border-color: $sPink;
+    background: $white;
+  }
+}
+
+.result-raking {
+  color: $white;
+  width: 100%;
+  list-style: none;
+  padding: $unit $doubleUnit;
+
+  .ranking-item {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $unit;
+
+    // &:first-child * {
+    //   transform: scale(1.25);
+    // }
+
+    &--BLACK .ranking-item__pawn {
+      background: $sBlack;
+    }
+    &--BROWN .ranking-item__pawn {
+      background: $sBrown;
+    }
+    &--CYAN .ranking-item__pawn {
+      background: $sCyan;
+    }
+    &--ORANGE .ranking-item__pawn {
+      background: $sOrange;
+    }
+    &--PINK .ranking-item__pawn {
+      background: $sPink;
+    }
+
+    &__image {
+      width: 50%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &__pawn {
+      background: blue;
+      border-radius: 50%;
+      width: 3em;
+      height: 3em;
+      position: relative;
+      margin-right: $halfUnit;
+
+      .pawn-image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &__position {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      font-weight: bold;
+    }
+
+    &__info {
+      width: 50%;
+      width: 50%;
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+
+    &__points-number {
+      font-size: 120%;
+      margin-right: $quarterUnit;
+    }
+
+    &__points-word {
+      font-size: 75%;
+    }
+
+    &__achievements {
+      border-radius: $quarterUnit;
+      margin-top: $quarterUnit;
+      display: flex;
+    }
+
+    &__achievements-list {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    &__badge {
+      width: $unit;
+    }
+
+    &:first-child {
+      .ranking-item__pawn {
+        width: 5em;
+        height: 5em;
+      }
+
+      .ranking-item__position {
+        font-size: 2em;
+      }
+
+      .ranking-item__points-number {
+        font-size: 200%;
+      }
+    }
+  }
+}
+
+// Active
+
+.cell-BLACK {
+  .active & {
+    input {
+      background: $sBlackMedium !important;
+    }
+  }
+}
+
+.cell-BROWN {
+  .active & {
+    input {
+      background: $sBrownMedium !important;
+    }
+  }
+}
+
+.cell-CYAN {
+  .active & {
+    input {
+      background: $sCyanMedium !important;
+    }
+  }
+}
+
+.cell-ORANGE {
+  .active & {
+    input {
+      background: $sOrangeMedium !important;
+    }
+  }
+}
+
+.cell-PINK {
+  .active & {
+    input {
+      background: $sPinkMedium !important;
+    }
+  }
+}
+
+// Achievement Badges
+
+.badge-legend {
+  margin: $halfUnit $unit;
+  border: 1px solid $white;
+  border-radius: $quarterUnit;
+  padding: $halfUnit;
+
+  &__title {
+    color: $white;
+    margin: $halfUnit $unit;
+    font-size: 1em;
+    padding: 0;
+    text-align: center;
+  }
+
+  &__list {
+    display: flex;
+    list-style: none;
+    color: $white;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: $unit;
+  }
+
+  &__item {
+    display: flex;
+    margin-bottom: $halfUnit;
+    width: 25%;
+  }
+
+  &__icon {
+    width: $unit;
+    margin-right: $quarterUnit;
+  }
+
+  &__name {
+    font-size: 75%;
+    margin-right: $unit;
+  }
+}
+
+.ranking-item__badge {
+  &--coins .primary {
+    fill: #d8a235;
+  }
+  &--viziers .primary {
+    fill: #edcf1c;
+  }
+  &--artisans .primary {
+    fill: #7b44aa;
+  }
+  &--elders .primary {
+    fill: #b2b2b2;
+  }
+  &--djinns .primary {
+    fill: #1f519b;
+  }
+  &--tiles .primary {
+    fill: #d6cb60;
+  }
+  &--tent .primary {
+    fill: #ba1717;
+  }
+  &--oasis .primary {
+    fill: #1f9349;
+  }
+  &--villages .primary {
+    fill: #678989;
+  }
+  &--items .primary {
+    fill: #882e51;
+  }
+  &--merch .primary {
+    fill: #90d371;
+  }
+}

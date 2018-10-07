@@ -1,0 +1,51 @@
+.icon {
+  width: 100%;
+  display: block;
+
+  svg {
+    display: block;
+  }
+}
+
+.icon-spinner {
+  .primary {
+    fill: $white;
+  }
+}
+
+.icon-splash-camel {
+  .primary {
+    fill: $white;
+  }
+}
+
+.splash-camel {
+  width: 50vw;
+  margin-bottom: 50px; // to keep if offcentered, it looks better
+}
+
+.splash-spinner {
+  width: 50px;
+  animation: rotation 0.5s infinite linear;
+  position: absolute;
+  top: 75%;
+  left: calc(50% - 25px);
+}
+
+.back-button {
+  width: 100%;
+  .primary {
+    fill: $gold;
+    opacity: 0.4;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.icon-badge {
+  .primary {
+    fill: $gold;
+  }
+}

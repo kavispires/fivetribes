@@ -1,0 +1,25 @@
+.container-home {
+  display: flex;
+  justify-content: center;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+
+  .logo-image {
+    width: 90%;
+    margin: $doubleUnit auto;
+    margin-top: 40%;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .btn-hollow {
+      margin-bottom: $unit;
+    }
+  }
+}

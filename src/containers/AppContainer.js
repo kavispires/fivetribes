@@ -1,28 +1,44 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import App from "../components/App";
+import App from '../components/App';
 
-import { selectMode } from "../reducers/app";
+import { handleBackButton, initialize, setScreen } from '../reducers/app';
 
 import {
-  controller,
-  setExpansions,
-  setNumPlayers,
-  updateCell,
-  updateRadioDjinn,
-  updateScreen
-} from "../reducers/scorer";
+  clearCategory,
+  handleActivePlayer,
+  handleColors,
+  handleExpansions,
+  handleNumPlayers,
+  handleOk,
+  prepareScorer,
+  saveData,
+  toggleHint,
+  updateButtonCell,
+  updateNumberCell,
+  updateRadioCell,
+  handleSelectedTile,
+} from '../reducers/scorer';
 
 const mapStateToProps = state => ({ app: state.app, scorer: state.scorer });
 
 const mapDispatchToProps = {
-  controller,
-  selectMode,
-  setExpansions,
-  setNumPlayers,
-  updateCell,
-  updateRadioDjinn,
-  updateScreen
+  clearCategory,
+  handleActivePlayer,
+  handleColors,
+  handleBackButton,
+  handleExpansions,
+  handleNumPlayers,
+  handleOk,
+  initialize,
+  prepareScorer,
+  saveData,
+  setScreen,
+  toggleHint,
+  updateButtonCell,
+  updateNumberCell,
+  updateRadioCell,
+  handleSelectedTile,
 };
 
 export default connect(
