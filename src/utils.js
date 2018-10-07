@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   CATEGORY_ARTISANS,
   CATEGORY_ARTISANS_DIJNNS,
@@ -129,8 +131,46 @@ export const buildTiles = expansions => {
   }
   const result = {};
   tileValues.forEach((value, index) => {
-    const tile = new Tile(index, value);
-    result[index] = tile;
+    result[index] = new Tile(index, value);
   });
   return result;
+};
+
+export const calculateResults = scorer => {
+  console.log('calculateResults', scorer);
+
+  // Define Player class
+  class Player {
+    constructor(color, total) {
+      this.color = color;
+      this.total = total;
+      this.archievements = [];
+    }
+  }
+  const players = {};
+  // Create Players Objects
+  scorer.colors.forEach((color, index) => {
+    players[index] = new Player(color, scorer.scores.total[index]);
+  });
+
+  // Award achievements
+  scorer.categories.main.forEach(category => {
+    const { name } = category;
+    const array = scorer.scores[name];
+    const max = Math.max(...array);
+
+    // console.log(name);
+    // console.log(scorer.scores[name]);
+  });
+
+  return _.orderBy(players, ['total'], ['desc']);
+};
+
+const findIndexes = (arr, val) => {
+  const indexes = [];
+  let i = -1;
+  while ((i = arr.indexOf(val, i + 1)) != -1) {
+    indexes.push(i);
+  }
+  return indexes;
 };

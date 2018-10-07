@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Borders from '../Borders';
 import BackButton from '../BackButton';
@@ -8,7 +9,7 @@ import RowHeader from './RowHeader';
 import RowNumber from './RowNumber';
 import RowTotal from './RowTotal';
 
-class ScoreMain extends Component {
+class Main extends Component {
   componentDidMount() {
     const { props } = this.props;
     if (props.scorer.categories.main === undefined) {
@@ -116,4 +117,8 @@ class ScoreMain extends Component {
   }
 }
 
-export default ScoreMain;
+Main.propTypes = {
+  props: PropTypes.object.isRequired,
+};
+
+export default Main;

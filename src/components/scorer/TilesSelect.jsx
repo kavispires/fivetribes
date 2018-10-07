@@ -9,7 +9,7 @@ const TilesSelect = ({ props }) => {
   const activePlayer = props.scorer.activePlayer || props.scorer.colors[0];
 
   return (
-    <main className="container container-scorer container-scorer-djinns">
+    <main className="container container-scorer container-scorer-tiles">
       <Borders />
       <Image src="logo" className="logo-top" alt="logo" extension="png" />
 

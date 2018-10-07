@@ -7,7 +7,7 @@ import RowHeader from './RowHeader';
 import RowNumber from './RowNumber';
 
 const Tiles = ({ props }) => (
-  <main className="container container-scorer container-scorer-djinns">
+  <main className="container container-scorer container-scorer-tiles">
     <Borders />
     <Image src="logo" className="logo-top" alt="logo" extension="png" />
 

@@ -119,7 +119,7 @@
       border-radius: $halfUnit;
     }
     input[type='radio']:checked:before {
-      background: url('../images/lamp.png') no-repeat center/20%;
+      background: url('../images/lamp.png') no-repeat center/25%;
     }
 
     .cell-header-span {
@@ -389,171 +389,112 @@
   }
 }
 
-// .scorer-table {
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   list-style: none;
-//   margin: 0;
-//   padding: 0;
+.result-raking {
+  color: $white;
+  width: 100%;
+  list-style: none;
+  padding: $unit $doubleUnit;
 
-//   img {
-//     display: block;
-//     max-width: 100%;
-//     height: 2em;
-//     margin: 0 auto;
-//   }
-// }
+  .ranking-item {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $unit;
 
-// .row {
-//   display: flex;
-//   width: 100%;
-// }
+    // &:first-child * {
+    //   transform: scale(1.25);
+    // }
 
-// .cell {
-//   padding: $halfUnit;
+    &--BLACK .ranking-item__pawn {
+      background: $sBlack;
+    }
+    &--BROWN .ranking-item__pawn {
+      background: $sBrown;
+    }
+    &--CYAN .ranking-item__pawn {
+      background: $sCyan;
+    }
+    &--ORANGE .ranking-item__pawn {
+      background: $sOrange;
+    }
+    &--PINK .ranking-item__pawn {
+      background: $sPink;
+    }
 
-//   input {
-//     display: block;
-//     width: 100%;
-//     height: 100%;
-//     border: 0;
-//     border-radius: $halfUnit;
-//     text-align: center;
+    &__image {
+      width: 50%;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-//     &::placeholder {
-//       color: $primary;
-//     }
-//   }
+    &__pawn {
+      background: blue;
+      border-radius: 50%;
+      width: 3em;
+      height: 3em;
+      position: relative;
+      margin-right: $halfUnit;
 
-//   span {
-//     display: block;
-//     border-radius: $halfUnit;
-//   }
+      .pawn-image {
+        width: 100%;
+        height: 100%;
+      }
+    }
 
-//   input[type='radio'] {
-//     -webkit-appearance: none;
-//     background: rgba(255, 255, 255, 0.5) !important;
-//     margin: 0;
-//     border: 1px solid $grey;
-//     outline: none;
-//   }
+    &__position {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      font-weight: bold;
+    }
 
-//   input[type='radio']:hover {
-//     box-shadow: 0 0 5px 0px $gold inset;
-//   }
+    &__info {
+      width: 50%;
+      width: 50%;
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
 
-//   input[type='radio']:before {
-//     content: '';
-//     display: block;
-//     width: 100%;
-//     height: 100%;
-//     margin: auto;
-//     border-radius: $halfUnit;
-//   }
-//   input[type='radio']:checked:before {
-//     background: url('/images/scorer/lamp.png') no-repeat center/50%;
-//   }
+    &__points-number {
+      font-size: 120%;
+      margin-right: $quarterUnit;
+    }
 
-//   // Colors
-//   &:nth-child(2) {
-//     background: $sCyanLight;
+    &__points-word {
+      font-size: 75%;
+    }
 
-//     input {
-//       background: $sCyanMedium;
+    &__achievements {
+      border-radius: $quarterUnit;
+      margin-top: $quarterUnit;
+    }
 
-//       .total & {
-//         background: $sCyan;
-//       }
-//     }
+    &__achievements-list {
+      padding-left: 0;
+      list-style: none;
+    }
 
-//     span {
-//       .header & {
-//         background: $sCyan;
-//       }
-//     }
-//   }
-//   &:nth-child(3) {
-//     background: $sPinkLight;
+    &__flag {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-width: 9px;
+      border-style: solid;
+      border-color: $gold;
+      border-bottom-color: transparent;
+      border-radius: 2px 2px 0 0;
+      margin-right: $quarterUnit;
+    }
 
-//     input {
-//       background: $sPinkMedium;
+    &:first-child {
+      .ranking-item__pawn {
+        width: 5em;
+        height: 5em;
+      }
 
-//       .total & {
-//         background: $sPink;
-//       }
-//     }
-
-//     span {
-//       .header & {
-//         background: $sPink;
-//       }
-//     }
-//   }
-//   &:nth-child(4) {
-//     background: $sBlackLight;
-
-//     input {
-//       background: $sBlackMedium;
-
-//       .total & {
-//         background: $sBlack;
-//       }
-//     }
-
-//     span {
-//       .header & {
-//         background: $sBlack;
-//       }
-//     }
-//   }
-//   &:nth-child(5) {
-//     background: $sOrangeLight;
-
-//     input {
-//       background: $sOrangeMedium;
-
-//       .total & {
-//         background: $sOrange;
-//       }
-//     }
-
-//     span {
-//       .header & {
-//         background: $sOrange;
-//       }
-//     }
-//   }
-//   &:nth-child(6) {
-//     background: $sBrownLight;
-
-//     input {
-//       background: $sBrownMedium;
-
-//       .total & {
-//         background: $sBrown;
-//       }
-//     }
-
-//     span {
-//       .header & {
-//         background: $sBrown;
-//       }
-//     }
-//   }
-// }
-
-// .cell-cat {
-//   min-width: 16.66%;
-//   width: 16.66%;
-//   padding: $halfUnit;
-// }
-
-// @for $i from 1 through 5 {
-//   $width: calc(83.33% / #{$i});
-
-//   .cell-#{$i} {
-//     width: $width;
-//   }
-// }
+      .ranking-item__position {
+        font-size: 2em;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import Main from './Main';
 import Merch from './Merch';
 import Oasis from './Oasis';
 import PreciousItems from './PreciousItems';
+import Result from './Result';
 import Tiles from './Tiles';
 import TilesSelect from './TilesSelect';
 import Villages from './Villages';
@@ -46,10 +47,10 @@ const Scorer = ({ props }) => {
     return <TilesSelect props={props} />;
   }
 
-  // // Result
-  // if (props.scorer.subscreen === 'scorer-result') {
-  //   return <Result props={props} />;
-  // }
+  // Result
+  if (props.scorer.subscreen === 'scorer-result') {
+    return <Result props={props} />;
+  }
 
   // Main Screen
   return <Main props={props} />;
