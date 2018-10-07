@@ -234,6 +234,135 @@
   border-radius: $quarterUnit;
 }
 
+.p-scorer-instructions--no-background {
+  @extend .p-scorer-instructions;
+  background: transparent;
+}
+
+.tile-screen-type-switch {
+  text-align: center;
+  margin-bottom: $halfUnit;
+  font-size: 75%;
+}
+
+.scorer-pawn-selection {
+  margin: 0 auto $unit;
+  padding-left: 0;
+  list-style: none;
+
+  .scorer-pawn-item {
+    display: inline-block;
+    justify-content: center;
+  }
+
+  .btn-pawn {
+    width: 100%;
+    height: 100%;
+    border-radius: $quarterUnit;
+    border-width: 2px;
+    border-style: solid;
+    display: block;
+    margin: 0 $quarterUnit;
+    max-width: 4em;
+    height: 4em;
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: 3em;
+      margin: 0 auto;
+    }
+  }
+
+  .btn-pawn-BLACK {
+    background-color: $sBlack;
+    border-color: $sBlack;
+  }
+
+  .btn-pawn-BROWN {
+    background-color: $sBrown;
+    border-color: $sBrown;
+  }
+
+  .btn-pawn-CYAN {
+    background-color: $sCyan;
+    border-color: $sCyan;
+  }
+
+  .btn-pawn-ORANGE {
+    background-color: $sOrange;
+    border-color: $sOrange;
+  }
+
+  .btn-pawn-PINK {
+    background-color: $sPink;
+    border-color: $sPink;
+  }
+
+  .btn-pawn--active {
+    border-color: $white;
+  }
+}
+
+.scorer-tiles {
+  width: 100%;
+  margin: 0 auto 1em;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  list-style: none;
+  background: orange;
+  flex-wrap: wrap;
+  height: 140%;
+
+  .tile {
+    width: 2.5em;
+    height: 2.5em;
+    margin: $quarterUnit;
+  }
+
+  .btn-tile {
+    background: $lightGold;
+    margin: $quarterUnit;
+    width: 100%;
+    height: 100%;
+    border-radius: $quarterUnit;
+    border-width: 2px;
+    border-style: solid;
+    font-weight: bold;
+  }
+
+  .btn-tile-null {
+    border-color: $gold;
+    color: $primaryDark;
+  }
+
+  .btn-tile-BLACK {
+    border-color: $sBlack;
+    background: $white;
+  }
+
+  .btn-tile-BROWN {
+    border-color: $sBrown;
+    background: $white;
+  }
+
+  .btn-tile-CYAN {
+    border-color: $sCyan;
+    background: $white;
+  }
+
+  .btn-tile-ORANGE {
+    border-color: $sOrange;
+    background: $white;
+  }
+
+  .btn-tile-PINK {
+    border-color: $sPink;
+    background: $white;
+  }
+}
+
 // .scorer-table {
 //   width: 100%;
 //   height: 100%;

@@ -396,7 +396,7 @@ body {
   margin-left: 16%;
   margin-right: 0.25em; }
 
-.p-scorer-instructions {
+.p-scorer-instructions, .p-scorer-instructions--no-background {
   color: white;
   font-size: 0.75em;
   margin: 0.25em 1em 1em 1em;
@@ -404,6 +404,96 @@ body {
   background: #622f11;
   padding: 0.25em;
   border-radius: 0.25em; }
+
+.p-scorer-instructions--no-background {
+  background: transparent; }
+
+.tile-screen-type-switch {
+  text-align: center;
+  margin-bottom: 0.5em;
+  font-size: 75%; }
+
+.scorer-pawn-selection {
+  margin: 0 auto 1em;
+  padding-left: 0;
+  list-style: none; }
+  .scorer-pawn-selection .scorer-pawn-item {
+    display: inline-block;
+    justify-content: center; }
+  .scorer-pawn-selection .btn-pawn {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.25em;
+    border-width: 2px;
+    border-style: solid;
+    display: block;
+    margin: 0 0.25em;
+    max-width: 4em;
+    height: 4em; }
+    .scorer-pawn-selection .btn-pawn img {
+      display: block;
+      max-width: 100%;
+      height: 3em;
+      margin: 0 auto; }
+  .scorer-pawn-selection .btn-pawn-BLACK {
+    background-color: #4d4d4d;
+    border-color: #4d4d4d; }
+  .scorer-pawn-selection .btn-pawn-BROWN {
+    background-color: #89664a;
+    border-color: #89664a; }
+  .scorer-pawn-selection .btn-pawn-CYAN {
+    background-color: #06918d;
+    border-color: #06918d; }
+  .scorer-pawn-selection .btn-pawn-ORANGE {
+    background-color: #db8b56;
+    border-color: #db8b56; }
+  .scorer-pawn-selection .btn-pawn-PINK {
+    background-color: #f159ba;
+    border-color: #f159ba; }
+  .scorer-pawn-selection .btn-pawn--active {
+    border-color: #fff; }
+
+.scorer-tiles {
+  width: 100%;
+  margin: 0 auto 1em;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  list-style: none;
+  background: orange;
+  flex-wrap: wrap;
+  height: 140%; }
+  .scorer-tiles .tile {
+    width: 2.5em;
+    height: 2.5em;
+    margin: 0.25em; }
+  .scorer-tiles .btn-tile {
+    background: #d4bf7b;
+    margin: 0.25em;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.25em;
+    border-width: 2px;
+    border-style: solid;
+    font-weight: bold; }
+  .scorer-tiles .btn-tile-null {
+    border-color: #d4af37;
+    color: #622f11; }
+  .scorer-tiles .btn-tile-BLACK {
+    border-color: #4d4d4d;
+    background: #fff; }
+  .scorer-tiles .btn-tile-BROWN {
+    border-color: #89664a;
+    background: #fff; }
+  .scorer-tiles .btn-tile-CYAN {
+    border-color: #06918d;
+    background: #fff; }
+  .scorer-tiles .btn-tile-ORANGE {
+    border-color: #db8b56;
+    background: #fff; }
+  .scorer-tiles .btn-tile-PINK {
+    border-color: #f159ba;
+    background: #fff; }
 
 h1 {
   color: white; }

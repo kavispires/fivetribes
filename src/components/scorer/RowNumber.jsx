@@ -6,6 +6,7 @@ import Image from '../Image';
 const RowNumber = ({
   action,
   colors,
+  disabled,
   hint,
   icon,
   name,
@@ -32,6 +33,7 @@ const RowNumber = ({
             onBlur={() => toggleHint()}
             min="0"
             max="9"
+            disabled={disabled}
           />
         </div>
       ))}
@@ -42,11 +44,16 @@ const RowNumber = ({
 RowNumber.propTypes = {
   action: PropTypes.func.isRequired,
   colors: PropTypes.array.isRequired,
+  disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   hint: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   toggleHint: PropTypes.func.isRequired,
   values: PropTypes.array.isRequired,
+};
+
+RowNumber.defaultProps = {
+  disabled: false,
 };
 
 export default RowNumber;

@@ -1,8 +1,10 @@
 import { COLORS } from '../constants';
-import { saveLocalStorage, buildCategories } from '../utils';
+import { saveLocalStorage, buildCategories, buildTiles } from '../utils';
 
 /* ------------------   ACTION TYPES  ------------------ */
 
+const SET_ACTIVE_PLAYER = 'SET_ACTIVE_PLAYER';
+const SET_ACTIVE_TILE_SUBSCREEN = 'SET_ACTIVE_TILE_SUBSCREEN';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const SET_COLORS = 'SET_COLORS';
 const SET_EXPANSIONS = 'SET_EXPANSIONS';
@@ -11,10 +13,15 @@ const SET_IS_SETUP_READY = 'SET_IS_SETUP_READY';
 const SET_NUM_PLAYERS = 'SET_NUM_PLAYERS';
 const SET_SCORES = 'SET_SCORES';
 const SET_SUBSCREEN = 'SET_SUBSCREEN';
+const SET_TILES = 'SET_TILES';
 const SET_VIOLATION = 'SET_VIOLATION';
 
 /* --------------   ACTION CREATORS   -------------- */
 
+export const setActivePlayer = payload => dispatch =>
+  dispatch({ type: SET_ACTIVE_PLAYER, payload });
+export const setActiveTileSubscreen = payload => dispatch =>
+  dispatch({ type: SET_ACTIVE_TILE_SUBSCREEN, payload });
 export const setCategories = payload => dispatch =>
   dispatch({ type: SET_CATEGORIES, payload });
 export const setColors = payload => dispatch =>
@@ -31,12 +38,16 @@ export const setScores = payload => dispatch =>
   dispatch({ type: SET_SCORES, payload });
 export const setSubscreen = payload => dispatch =>
   dispatch({ type: SET_SUBSCREEN, payload });
+export const setTiles = payload => dispatch =>
+  dispatch({ type: SET_TILES, payload });
 export const setViolation = payload => dispatch =>
   dispatch({ type: SET_VIOLATION, payload });
 
 /* -----------------   REDUCER   ------------------ */
 
 export const initialState = {
+  activePlayer: '',
+  activeTileSubscreen: 'scorer-tiles',
   categories: {},
   colors: [],
   expansions: {
@@ -59,6 +70,7 @@ export const initialState = {
     total: [],
   },
   subscreen: '',
+  tiles: [],
   violation: '',
 };
 
@@ -66,6 +78,14 @@ export default function reducer(prevState = initialState, action) {
   const newState = Object.assign({}, prevState);
 
   switch (action.type) {
+    case SET_ACTIVE_PLAYER:
+      newState.activePlayer = action.payload;
+      break;
+
+    case SET_ACTIVE_TILE_SUBSCREEN:
+      newState.activeTileSubscreen = action.payload;
+      break;
+
     case SET_CATEGORIES:
       newState.categories = action.payload;
       break;
@@ -96,6 +116,10 @@ export default function reducer(prevState = initialState, action) {
 
     case SET_SUBSCREEN:
       newState.subscreen = action.payload;
+      break;
+
+    case SET_TILES:
+      newState.tiles = action.payload;
       break;
 
     case SET_VIOLATION:
@@ -178,12 +202,13 @@ export const saveData = () => (dispatch, getState) => {
 
 export const prepareScorer = () => (dispatch, getState) => {
   console.warn('Scorer is being prepared...');
+  const { expansions, numPlayers } = getState().scorer;
   // Build categories
-  const categories = buildCategories(getState().scorer.expansions);
+  const categories = buildCategories(expansions);
   dispatch(setCategories(categories));
 
   // Build Scores state
-  const { numPlayers } = getState().scorer;
+
   const arrayPlaceholder = new Array(numPlayers).fill(0);
 
   const scores = {};
@@ -195,11 +220,19 @@ export const prepareScorer = () => (dispatch, getState) => {
   );
 
   dispatch(setScores(scores));
+
+  // Build Tiles Select Object
+  const tiles = buildTiles(expansions);
+
+  dispatch(setTiles(tiles));
 };
 
 export const updateButtonCell = subscreen => dispatch => {
-  console.log('updateButtonCell', subscreen);
   dispatch(setSubscreen(subscreen));
+
+  if (subscreen === 'scorer-tiles' || subscreen === 'scorer-tiles-select') {
+    dispatch(setActiveTileSubscreen(subscreen));
+  }
 };
 
 export const updateNumberCell = (category, index, value) => (
@@ -229,6 +262,50 @@ export const toggleHint = (hint = '') => dispatch => {
   dispatch(setHint(hint));
 };
 
+export const handleActivePlayer = color => (dispatch, getState) => {
+  const { activePlayer } = getState().scorer;
+  if (activePlayer !== color) {
+    dispatch(setActivePlayer(color));
+  }
+};
+
+export const handleSelectedTile = (tileId, activePlayer) => (
+  dispatch,
+  getState
+) => {
+  const tiles = { ...getState().scorer.tiles };
+
+  let operation = '+';
+  if (tiles[tileId].owner === activePlayer) {
+    tiles[tileId].owner = null;
+    operation = '-';
+  } else {
+    tiles[tileId].owner = activePlayer;
+  }
+
+  dispatch(setTiles(tiles));
+
+  // Sum the results
+  const scores = { ...getState().scorer.scores };
+  const { colors } = getState().scorer;
+  const playerIndex = colors.indexOf(activePlayer);
+
+  const { value } = tiles[tileId];
+  if (operation === '+') {
+    if (typeof value === 'number') {
+      scores['tiles-total'][playerIndex] += value;
+    } else {
+      scores.cities[playerIndex] += 1;
+    }
+  } else if (typeof value === 'number') {
+    scores['tiles-total'][playerIndex] -= value;
+  } else {
+    scores.cities[playerIndex] -= 1;
+  }
+
+  dispatch(setScores(scores));
+};
+
 export const clearCategory = category => (dispatch, getState) => {
   const { numPlayers, categories } = getState().scorer;
   const arrayPlaceholder = new Array(numPlayers).fill(0);
@@ -237,6 +314,11 @@ export const clearCategory = category => (dispatch, getState) => {
     scores[cat.name] = [...arrayPlaceholder];
   });
   dispatch(setScores(scores));
+
+  if (category === 'tiles') {
+    const tiles = buildTiles(getState().scorer.expansions);
+    dispatch(setTiles(tiles));
+  }
 };
 
 export const handleOk = category => (dispatch, getState) => {
@@ -260,7 +342,7 @@ export const handleOk = category => (dispatch, getState) => {
   }
   // Calculate Tiles Points
   else if (category === 'tiles') {
-    scores.items = calculateTiles(scores, expansions);
+    scores.tiles = calculateTiles(scores, expansions);
   }
 
   dispatch(setScores(scores));

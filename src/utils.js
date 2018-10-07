@@ -10,6 +10,9 @@ import {
   CATEGORY_WHIMS_OASIS,
   CATEGORY_WHIMS_TILES,
   CATEGORY_WHIMS_VILLAGES,
+  TILES_ARTISANS_LIST,
+  TILES_BASE_LIST,
+  TILES_WHIMS_LIST,
 } from './constants';
 
 export const capitalize = string =>
@@ -99,4 +102,26 @@ export const buildCategories = expansions => {
     tiles: Object.values(tiles),
     villages: Object.values(villages),
   };
+};
+
+export const buildTiles = expansions => {
+  // Get tile values
+  const hasArtisans = expansions.ARTISANS ? [...TILES_ARTISANS_LIST] : [];
+  const hasWhims = expansions.WHIMS ? [...TILES_WHIMS_LIST] : [];
+  let tileValues = [...TILES_BASE_LIST, ...hasArtisans].sort((a, b) => a - b);
+  tileValues = [...tileValues, ...hasWhims];
+  // Define Tile class
+  class Tile {
+    constructor(id, value) {
+      this.id = id;
+      this.value = value;
+      this.owner = null;
+    }
+  }
+  const result = {};
+  tileValues.forEach((value, index) => {
+    const tile = new Tile(index, value);
+    result[index] = tile;
+  });
+  return result;
 };

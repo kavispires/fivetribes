@@ -7,6 +7,7 @@ import Merch from './Merch';
 import Oasis from './Oasis';
 import PreciousItems from './PreciousItems';
 import Tiles from './Tiles';
+import TilesSelect from './TilesSelect';
 import Villages from './Villages';
 
 const Scorer = ({ props }) => {
@@ -40,10 +41,10 @@ const Scorer = ({ props }) => {
     return <Tiles props={props} />;
   }
 
-  // // TilesSelect
-  // if (props.scorer.subscreen === 'scorer-tiles-select') {
-  //   return <TilesSelect props={props} />;
-  // }
+  // TilesSelect
+  if (props.scorer.subscreen === 'scorer-tiles-select') {
+    return <TilesSelect props={props} />;
+  }
 
   // // Result
   // if (props.scorer.subscreen === 'scorer-result') {

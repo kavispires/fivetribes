@@ -52,13 +52,18 @@ class ScoreMain extends Component {
                     />
                   );
                 }
+
+                const link =
+                  category.name === 'tiles'
+                    ? scorer.activeTileSubscreen
+                    : category.link;
+
                 return (
                   <RowButton
                     key={category.name}
                     name={category.name}
                     icon={category.icon}
-                    link={category.link}
-                    subscreen={scorer.subscreen}
+                    link={link}
                     colors={scorer.colors}
                     values={scorer.scores[category.name]}
                     action={props.updateButtonCell}
