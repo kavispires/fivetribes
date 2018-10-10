@@ -72,6 +72,7 @@
     bottom: 0;
     right: 0;
     transform: translateY(-65%);
+    color: $primary;
   }
 }
 
@@ -101,4 +102,6 @@
   top: 3em;
   left: $unit;
   width: 40px;
+  background: none;
+  border: 0;
 }

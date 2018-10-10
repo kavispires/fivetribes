@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Borders from '../Borders';
 import Image from '../Image';
 import RowHeader from './RowHeader';
 import RowNumber from './RowNumber';
 
 const Merch = ({ props }) => (
-  <main className="container container-scorer container-scorer-merch">
-    <Borders />
+  <main className="container-inner container-scorer container-scorer-merch">
     <Image src="logo" className="logo-top" alt="logo" extension="png" />
 
     {props.scorer.hint.length > 0 ? (

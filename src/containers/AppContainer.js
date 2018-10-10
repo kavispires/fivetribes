@@ -2,7 +2,12 @@ import { connect } from 'react-redux';
 
 import App from '../components/App';
 
-import { handleBackButton, initialize, setScreen } from '../reducers/app';
+import {
+  handleBackButton,
+  initialize,
+  overrideViewPort,
+  setScreen,
+} from '../reducers/app';
 
 import {
   clearCategory,
@@ -31,6 +36,7 @@ const mapDispatchToProps = {
   handleNumPlayers,
   handleOk,
   initialize,
+  overrideViewPort,
   prepareScorer,
   saveData,
   setScreen,
