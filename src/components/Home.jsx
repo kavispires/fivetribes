@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Borders from './Borders';
 import Image from './Image';
 
 const Home = ({ props }) => (
-  <main className="container container-home">
-    <Borders />
+  <main className="container-inner container-home">
     <div className="home-content">
       <Image src="logo" className="logo-top" alt="logo" />
       <div className="menu">

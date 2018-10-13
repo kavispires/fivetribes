@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Borders from '../Borders';
 import Image from '../Image';
 import { calculateResults } from '../../utils';
 import Icon from '../Icon';
@@ -10,8 +9,7 @@ const Result = ({ props }) => {
   const ranking = calculateResults(props.scorer);
 
   return (
-    <main className="container container-scorer container-scorer-result">
-      <Borders />
+    <main className="container-inner container-scorer container-scorer-result">
       <Image src="logo" className="logo-top" alt="logo" extension="png" />
       <ul className="result-raking">
         {ranking.map((player, index) => {

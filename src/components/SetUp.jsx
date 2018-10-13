@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Borders from './Borders';
 import Image from './Image';
 
 import { COLORS, EXPANSIONS, NUM_PLAYERS } from '../constants';
@@ -17,8 +16,7 @@ const SetUp = ({ props }) => {
   };
 
   return (
-    <main className="container container-setup">
-      <Borders />
+    <main className="container-inner container-setup">
       <BackButton handleBackButton={props.handleBackButton} />
       <Image src="logo" className="logo-top" alt="logo" extension="png" />
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Borders from '../Borders';
 import Image from '../Image';
 import RowNumber from './RowNumber';
 
@@ -9,8 +8,7 @@ const TilesSelect = ({ props }) => {
   const activePlayer = props.scorer.activePlayer || props.scorer.colors[0];
 
   return (
-    <main className="container container-scorer container-scorer-tiles">
-      <Borders />
+    <main className="container-inner container-scorer container-scorer-tiles">
       <Image src="logo" className="logo-top" alt="logo" extension="png" />
 
       {props.scorer.hint.length > 0 ? (

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Borders from '../Borders';
 import BackButton from '../BackButton';
 import Image from '../Image';
 import RowButton from './RowButton';
@@ -22,8 +21,7 @@ class Main extends Component {
     const { scorer } = props;
 
     return (
-      <main className="container container-scorer">
-        <Borders />
+      <main className="container-inner container-scorer">
         <BackButton handleBackButton={props.handleBackButton} />
         <Image src="logo" className="logo-top" alt="logo" extension="png" />
 

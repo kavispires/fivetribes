@@ -21,11 +21,15 @@ body {
   width: 100vw;
   height: 100vh;
   max-height: 100vh;
+}
+
+.container-inner {
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: $black;
-  overflow: hidden;
   background-image: linear-gradient($black, $primaryDarkest);
+  overflow: hidden;
 }
 
 .logo-top {
